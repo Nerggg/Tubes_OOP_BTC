@@ -11,6 +11,7 @@
 #include "Item.hpp"
 #include "Animal.hpp"
 #include "Plant.hpp"
+#include "Inventory.hpp"
 
 using namespace std;
 

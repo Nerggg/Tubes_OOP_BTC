@@ -1,5 +1,13 @@
 #include "headers/Item.hpp"
 
+// Static Attribute
+vector<Product*> Product::ProductData;
+vector<Building*> Building::BuildingData;
+
+// ========================================================
+// ======================= Item ===========================
+// ========================================================
+
 Item::Item() {
     this->id = 0;
     this->code = "";
@@ -25,6 +33,10 @@ Item::Item(
     this->itemType = itemType;
 }
 
+// ========================================================
+// ====================== Product =========================
+// ========================================================
+
 Product::Product() : Item() {
     this->origin = "";
     this->addedWeight = 0;
@@ -44,6 +56,22 @@ Product::Product(
     this->addedWeight = addedWeight;
 }
 
+ostream& operator<<(ostream& out, Product x) {
+    out << "ID: "           << x.id    << endl;
+    out << "Product Code: "  << x.code  << endl;
+    out << "Product Name: "  << x.name  << endl;
+    out << "Product Type: "  << x.type  << endl;
+    out << "Product Origin: "   << x.origin  << endl;
+    out << "Product Added Weight: "   << x.addedWeight  << endl;
+    out << "Product Price: " << x.price << endl;
+    out << endl;
+
+    return out;
+}
+// ========================================================
+// ===================== Building =========================
+// ========================================================
+
 Building::Building() : Item() {
 }
 
@@ -57,4 +85,19 @@ Building::Building(
     string itemType
 ) : Item(id, code, name, type, price, itemType) {
     this->recipe = recipe;
+}
+
+ostream& operator<<(ostream& out, Building x) {
+    out << "ID: "           << x.id    << endl;
+    out << "Product Code: "  << x.code  << endl;
+    out << "Product Name: "  << x.name  << endl;
+    out << "Product Price: " << x.price << endl << endl;
+
+    out << "[Product Ingredients]" << endl;
+    for (const auto& pair : x.recipe) {
+        cout << "- " << pair.first << ": " << pair.second << endl;
+    }
+    out << endl;
+
+    return out;
 }

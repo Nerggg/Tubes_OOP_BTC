@@ -17,10 +17,6 @@ class Animal : public Item {
     protected:
         static vector<Animal*> AnimalData;
 
-        // const string TYPE_HERBIVORE;
-        // const string TYPE_CARNIVORE;
-        // const string TYPE_OMNIVORE;
-
         int harvestWeight;
         int weight;
 

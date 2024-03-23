@@ -38,7 +38,7 @@ class Product : public Item {
     friend class FileManager;
 
     protected:
-        static vector<Product> ProductData;
+        static vector<Product*> ProductData;
 
         string origin;
         int addedWeight;
@@ -55,13 +55,19 @@ class Product : public Item {
             int price, 
             string itemType
         );
+
+        static vector<Product*> getProductData() {
+            return Product::ProductData;
+        }
+
+        friend ostream& operator<<(ostream&, Product);
 };
 
 class Building : public Item {
     friend class FileManager;
 
     protected:
-        static vector<Building> BuildingData;
+        static vector<Building*> BuildingData;
 
         map<string, int> recipe;
 
@@ -76,6 +82,12 @@ class Building : public Item {
             map<string, int> recipe, 
             string itemType
         );
+
+        static vector<Building*> getBuildingData() {
+            return Building::BuildingData;
+        }
+
+        friend ostream& operator<<(ostream&, Building);
 };
 
 #endif
