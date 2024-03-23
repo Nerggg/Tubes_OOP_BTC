@@ -25,17 +25,21 @@ Animal::Animal(
     this->weight = 0;
 }
 
-ostream& operator<<(ostream& out, Animal x) {
-    out << "ID: "           << x.id    << endl;
-    out << "Animal Code: "  << x.code  << endl;
-    out << "Animal Name: "  << x.name  << endl;
-    out << "Animal Type: "  << x.type  << endl;
-    out << "Animal Weight: "   << x.weight  << endl;
-    out << "Animal Harvest Weight: " << x.harvestWeight << endl;
-    out << "Animal Price: " << x.price << endl;
+ostream& Animal::printDetails(ostream& out) {
+    out << "ID: "           << this->id    << endl;
+    out << "Animal Code: "  << this->code  << endl;
+    out << "Animal Name: "  << this->name  << endl;
+    out << "Animal Type: "  << this->type  << endl;
+    out << "Animal Weight: "   << this->weight  << endl;
+    out << "Animal Harvest Weight: " << this->harvestWeight << endl;
+    out << "Animal Price: " << this->price << endl;
     out << endl;
 
     return out;
+}
+
+ostream& operator<<(ostream& out, Animal* x) {
+    return x->printDetails(out);
 }
 
 void Animal::feed(Item t) {

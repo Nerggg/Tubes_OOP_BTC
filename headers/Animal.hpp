@@ -48,7 +48,8 @@ class Animal : public Item {
         
         };
 
-        friend ostream& operator<<(ostream&, Animal);
+        ostream& printDetails(ostream&);
+        friend ostream& operator<<(ostream&, Animal*);
 
         virtual void feed(Item);
 };

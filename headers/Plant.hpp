@@ -38,7 +38,8 @@ class Plant : public Item {
             return Plant::PlantData;
         }
 
-        friend ostream& operator<<(ostream&, Plant);
+        ostream& printDetails(ostream&);
+        friend ostream& operator<<(ostream&, Plant*);
 };
 
 #endif

@@ -33,6 +33,21 @@ Item::Item(
     this->itemType = itemType;
 }
 
+ostream& Item::printDetails(ostream& out) {
+    out << "ID: "           << this->id    << endl;
+    out << "Product Code: "  << this->code  << endl;
+    out << "Product Name: "  << this->name  << endl;
+    out << "Product Type: "  << this->type  << endl;
+    out << "Product Price: " << this->price << endl;
+    out << endl;
+
+    return out;
+}
+
+ostream& operator<<(ostream& out, Item* x) {
+    return x->printDetails(out);
+}
+
 // ========================================================
 // ====================== Product =========================
 // ========================================================

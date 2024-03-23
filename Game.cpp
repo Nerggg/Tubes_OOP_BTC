@@ -28,11 +28,11 @@ Game::Game() {
     //     cout << *building;
     // }
 
-    cout << Game::GuldenWinAmount << endl;
-    cout << Game::WeightWinAmount << endl;
-    cout << Inventory::InventoryRows << " " << Inventory::InventoryCols<< endl;
-    cout << Farm::FarmRows << " " << Farm::FarmCols << endl;
-    cout << Barn::BarnRows << " " << Barn::BarnCols << endl;
+    // cout << Game::GuldenWinAmount << endl;
+    // cout << Game::WeightWinAmount << endl;
+    // cout << Inventory::InventoryRows << " " << Inventory::InventoryCols<< endl;
+    // cout << Farm::FarmRows << " " << Farm::FarmCols << endl;
+    // cout << Barn::BarnRows << " " << Barn::BarnCols << endl;
 }
 
 // ========================================================

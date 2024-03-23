@@ -21,15 +21,19 @@ Plant::Plant(
     this->age = 0;
 }
 
-ostream& operator<<(ostream& out, Plant p) {
-    out << "ID: "          << p.id     << endl;
-    out << "Plant Code: "  << p.code   << endl;
-    out << "Plant Name: "  << p.name   << endl;
-    out << "Plant Type: "  << p.type   << endl;
-    out << "Plant Age: "   << p.age    << endl;
-    out << "Plant Harvest Age: " << p.harvestAge << endl;
-    out << "Plant Price: " << p.price  << endl;
+ostream& Plant::printDetails(ostream& out) {
+    out << "ID: "          << this->id     << endl;
+    out << "Plant Code: "  << this->code   << endl;
+    out << "Plant Name: "  << this->name   << endl;
+    out << "Plant Type: "  << this->type   << endl;
+    out << "Plant Age: "   << this->age    << endl;
+    out << "Plant Harvest Age: " << this->harvestAge << endl;
+    out << "Plant Price: " << this->price  << endl;
     out << endl;
 
     return out;
+}
+
+ostream& operator<<(ostream& out, Plant* p) {
+    return p->printDetails(out);
 }

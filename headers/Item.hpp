@@ -32,6 +32,9 @@ class Item {
             int price, 
             string itemType
         );
+
+        virtual ostream& printDetails(ostream& out);
+        friend ostream& operator<<(ostream& out, Item* x);
 };
 
 class Product : public Item {
