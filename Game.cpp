@@ -12,21 +12,20 @@ Game::Game() {
     FileManager::readBuildingData();
     FileManager::readMiscData();
 
-    // for (auto plant : Plant::getPlantData()) {
-    //     cout << *plant;
+    // for (const auto& pair: Plant::getPlantData()) {
+    //     cout << pair.second;
     // }
 
-    // for (auto animal : Animal::getAnimalData()) {
-    //     cout << *animal;
+    // for (const auto& pair : Animal::getAnimalData()) {
+    //     cout << pair.second;
     // }
 
-    // for (auto product: Product::getProductData()) {
-    //     cout << *product;
+    // for (const auto& pair : Product::getProductData()) {
+    //     cout << *pair.second;
     // }
 
-    // for (auto building : Building::getBuildingData()) {
-    //     cout << *building;
-    // }
+    // for (const auto& pair : Building::getBuildingData()) {
+    //     cout << *pair.second;
 
     // cout << Game::GuldenWinAmount << endl;
     // cout << Game::WeightWinAmount << endl;
@@ -67,7 +66,7 @@ void FileManager::readPlantData() {
         x->price = stoi(line);
 
         // Append Plant to PlantData
-        Plant::PlantData.push_back(x);
+        Plant::PlantData.insert(make_pair(x->name, x));
     }
 }
 
@@ -113,7 +112,7 @@ void FileManager::readAnimalData() {
         }
         
         // Append Animal to AnimalData
-        Animal::AnimalData.push_back(x);
+        Animal::AnimalData.insert(make_pair(x->name, x));
     }
 }
 
@@ -152,7 +151,7 @@ void FileManager::readProductData() {
         x->price = stoi(line);
 
         // Append Product to ProductData
-        Product::ProductData.push_back(x);
+        Product::ProductData.insert(make_pair(x->name, x));
     }
 }
 
@@ -200,7 +199,7 @@ void FileManager::readBuildingData() {
         x->recipe = recipe;
 
         // Append Building to ProductData
-        Building::BuildingData.push_back(x);
+        Building::BuildingData.insert(make_pair(x->name, x));
     }
 }
 

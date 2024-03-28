@@ -7,7 +7,7 @@ class Plant : public Item {
     friend class FileManager;
 
     protected:
-        static vector<Plant*> PlantData; 
+        static map<string, Plant*> PlantData; 
         
         int harvestAge;
         int age;
@@ -34,7 +34,7 @@ class Plant : public Item {
             cout << endl;
         };
 
-        static vector<Plant*> getPlantData() {
+        static map<string, Plant*> getPlantData() {
             return Plant::PlantData;
         }
 

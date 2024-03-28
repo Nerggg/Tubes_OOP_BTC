@@ -1,8 +1,8 @@
 #include "headers/Item.hpp"
 
 // Static Attribute
-vector<Product*> Product::ProductData;
-vector<Building*> Building::BuildingData;
+map<string, Product*> Product::ProductData;
+map<string, Building*> Building::BuildingData;
 
 // ========================================================
 // ======================= Item ===========================

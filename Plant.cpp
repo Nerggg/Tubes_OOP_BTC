@@ -1,7 +1,7 @@
 #include "headers/Plant.hpp"
 
 // Static Attributes
-vector<Plant*> Plant::PlantData;
+map<string, Plant*> Plant::PlantData;
 
 Plant::Plant() : Item() {
     this->harvestAge = 0;
