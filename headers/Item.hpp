@@ -41,7 +41,7 @@ class Product : public Item {
     friend class FileManager;
 
     protected:
-        static vector<Product*> ProductData;
+        static map<string, Product*> ProductData;
 
         string origin;
         int addedWeight;
@@ -59,7 +59,7 @@ class Product : public Item {
             string itemType
         );
 
-        static vector<Product*> getProductData() {
+        static map<string, Product*> getProductData() {
             return Product::ProductData;
         }
 
@@ -70,7 +70,7 @@ class Building : public Item {
     friend class FileManager;
 
     protected:
-        static vector<Building*> BuildingData;
+        static map<string, Building*> BuildingData;
 
         map<string, int> recipe;
 
@@ -86,7 +86,7 @@ class Building : public Item {
             string itemType
         );
 
-        static vector<Building*> getBuildingData() {
+        static map<string, Building*> getBuildingData() {
             return Building::BuildingData;
         }
 

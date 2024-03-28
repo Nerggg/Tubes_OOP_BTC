@@ -15,7 +15,7 @@ class Animal : public Item {
     friend class FileManager;
 
     protected:
-        static vector<Animal*> AnimalData;
+        static map<string, Animal*> AnimalData;
 
         int harvestWeight;
         int weight;
@@ -43,7 +43,7 @@ class Animal : public Item {
             cout << endl;
         };
 
-        static vector<Animal*> getAnimalData() {
+        static map<string, Animal*> getAnimalData() {
             return Animal::AnimalData;
         
         };
