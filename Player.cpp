@@ -5,17 +5,26 @@ map<string, Player*> Player::PlayerData;
 // ========================================================
 // ====================== Player ==========================
 // ========================================================
-Player::Player(int weight, int money) {
+Player::Player(string name, int weight, int money) {
+    this->name = name;
     this->weight = weight;
     this->money = money;
     // this->inventory = Inventory<Item>();
 
 }
 
+void Player::insertToInventory(Item* i) {
+    this->inventory += i;
+}
+
+Inventory Player::getInventory() {
+    return this->inventory;
+}
+
 // ========================================================
 // ===================== Walikota =========================
 // ========================================================
-Walikota::Walikota(int weight, int money) : Player(weight, money) {
+Walikota::Walikota(string name, int weight, int money) : Player(name, weight, money) {
 }
 
 void Walikota::hitungPajak() {
@@ -25,7 +34,7 @@ void Walikota::hitungPajak() {
 // ========================================================
 // ====================== Petani ==========================
 // ========================================================
-Petani::Petani(int weight, int money) : Player(weight, money) {
+Petani::Petani(string name, int weight, int money) : Player(name, weight, money) {
     // this->farm = Farm<Plant>();
 }
 
@@ -36,7 +45,7 @@ void Petani::hitungPajak() {
 // ========================================================
 // ===================== Peternak =========================
 // ========================================================
-Peternak::Peternak(int weight, int money) : Player(weight, money) {
+Peternak::Peternak(string name, int weight, int money) : Player(name, weight, money) {
     // this->barn = Barn<Animal>();
 }
 

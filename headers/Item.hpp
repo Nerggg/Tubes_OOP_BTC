@@ -35,6 +35,8 @@ class Item {
             string itemType
         );
 
+        string getName();
+
         virtual ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Item* x);
 
@@ -64,6 +66,7 @@ class Product : public Item {
             int price, 
             string itemType
         );
+        Product(const Product&);
 
         static map<string, Product*> getProductData() {
             return Product::ProductData;
@@ -93,6 +96,7 @@ class Building : public Item {
             map<string, int> recipe, 
             string itemType
         );
+        Building(const Building&);
 
         static map<string, Building*> getBuildingData() {
             return Building::BuildingData;

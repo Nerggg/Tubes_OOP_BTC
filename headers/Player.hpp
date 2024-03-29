@@ -8,24 +8,32 @@
 #include "Inventory.hpp"
 
 class Player {
+    friend class FileManager;
     protected:
         static map<string, Player*> PlayerData;
 
+        string name;
         int weight;
         int money;
         Inventory inventory;
 
     public:
-        Player(int, int);
+        Player(string, int, int);
 
         virtual void hitungPajak() = 0;
+        void insertToInventory(Item*);
+        Inventory getInventory();
+
+        static map<string, Player*> getPlayerData() {
+            return Player::PlayerData;
+        }
 };
 
 class Walikota : public Player {
     protected:
 
     public:
-        Walikota(int, int);
+        Walikota(string, int, int);
 
         void hitungPajak();
 };
@@ -35,7 +43,7 @@ class Petani : public Player {
         Farm farm;
 
     public:
-        Petani(int, int);
+        Petani(string, int, int);
 
         void hitungPajak();
 };
@@ -45,7 +53,7 @@ class Peternak : public Player {
         Barn barn;
 
     public:
-        Peternak(int, int);
+        Peternak(string, int, int);
         
         void hitungPajak();
 };

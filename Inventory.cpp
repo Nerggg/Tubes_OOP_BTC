@@ -68,6 +68,10 @@ Inventory::Inventory(int r, int c) {
     this->empty_slots = r * c;
 }
 
+void Inventory::operator+=(Item* I) {
+    this->insertItem(I);
+}
+
 string Inventory::getEmptySlot() {
     int rows = this->getInvRows();
     int cols = this->getInvCols();

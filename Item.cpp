@@ -34,6 +34,10 @@ Item::Item(
     this->itemType = itemType;
 }
 
+string Item::getName() {
+    return this->name;
+}
+
 ostream& Item::printDetails(ostream& out) {
     out << "ID: "           << this->id    << endl;
     out << "Product Code: "  << this->code  << endl;
@@ -72,6 +76,17 @@ Product::Product(
     this->addedWeight = addedWeight;
 }
 
+Product::Product(const Product& x) {
+    this->id = x.id;
+    this->code = x.code;
+    this->name = x.name;
+    this->type = x.type;
+    this->origin = x.origin;
+    this->addedWeight = x.addedWeight;
+    this->price = x.price;
+    this->itemType = x.itemType;
+}
+
 ostream& Product::printDetails(ostream& out) {
     out << "ID: "            << this->id    << endl;
     out << "Product Code: "  << this->code  << endl;
@@ -105,6 +120,16 @@ Building::Building(
     string itemType
 ) : Item(id, code, name, type, price, itemType) {
     this->recipe = recipe;
+}
+
+Building::Building(const Building& x) {
+    this->id = x.id;
+    this->code = x.code;
+    this->name = x.name;
+    this->type = x.type;
+    this->price = x.price;
+    this->recipe = x.recipe;
+    this->itemType = x.itemType;
 }
 
 // ostream& operator<<(ostream& out, Building x) {

@@ -25,6 +25,16 @@ Animal::Animal(
     this->weight = 0;
 }
 
+Animal::Animal(const Animal& a) {
+    this->id = a.id;
+    this->code = a.code;
+    this->name = a.name;
+    this->type = a.type;
+    this->harvestWeight = a.harvestWeight;
+    this->weight = a.weight;
+    this->price = a.price;
+}
+
 ostream& Animal::printDetails(ostream& out) {
     out << "ID: "           << this->id    << endl;
     out << "Animal Code: "  << this->code  << endl;
