@@ -22,6 +22,8 @@ class Item {
         
         string itemType;
 
+        static map<string, Item*> ItemData;
+
     public:
         Item();
         Item(
@@ -35,6 +37,10 @@ class Item {
 
         virtual ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Item* x);
+
+        static map<string, Item*> getItemData() {
+            return Item::ItemData;
+        }
 };
 
 class Product : public Item {
@@ -63,7 +69,9 @@ class Product : public Item {
             return Product::ProductData;
         }
 
-        friend ostream& operator<<(ostream&, Product);
+        // friend ostream& operator<<(ostream&, Product);
+        ostream& printDetails(ostream& out);
+        friend ostream& operator<<(ostream& out, Product* x);
 };
 
 class Building : public Item {
@@ -90,7 +98,9 @@ class Building : public Item {
             return Building::BuildingData;
         }
 
-        friend ostream& operator<<(ostream&, Building);
+        // friend ostream& operator<<(ostream&, Building);
+        ostream& printDetails(ostream& out);
+        friend ostream& operator<<(ostream& out, Building* x);
 };
 
 #endif

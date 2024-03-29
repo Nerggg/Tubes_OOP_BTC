@@ -1,7 +1,7 @@
 #include "headers/Animal.hpp"
 
 // Static Attribute
-map<string, Animal*> Animal::AnimalData;
+// map<string, Animal*> Animal::AnimalData;
 
 // ========================================================
 // ====================== Animal ==========================

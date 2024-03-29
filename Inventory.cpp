@@ -1,14 +1,14 @@
 #include "headers/Inventory.hpp"
 
 // Static Attributes
-int Inventory::InventoryRows;
-int Inventory::InventoryCols;
+int Inventory::InventoryRows = 0;
+int Inventory::InventoryCols = 0;
 
-int Farm::FarmRows;
-int Farm::FarmCols;
+int Farm::FarmRows = 0;
+int Farm::FarmCols = 0;
 
-int Barn::BarnRows;
-int Barn::BarnCols;
+int Barn::BarnRows = 0;
+int Barn::BarnCols = 0;
 
 map<string, int> Inventory::charToInt = {
     {"A", 0},
@@ -42,7 +42,6 @@ map<string, int> Inventory::charToInt = {
 // ========================================================
 // ===================== Inventory ========================
 // ========================================================
-
 int Inventory::getCol(string s) {
     string key = string(1, s[0]);
     return charToInt[key];
@@ -112,11 +111,9 @@ Item* Inventory::getItem(string slot) {
 // ========================================================
 // ======================= Farm ===========================
 // ========================================================
-
 Farm::Farm() : Inventory(FarmRows, FarmCols) {}
 
 // ========================================================
 // ======================= Barn ===========================
 // ========================================================
-
 Barn::Barn() : Inventory(BarnRows, BarnCols) {}

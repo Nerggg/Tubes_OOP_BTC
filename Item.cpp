@@ -1,8 +1,9 @@
 #include "headers/Item.hpp"
 
 // Static Attribute
-map<string, Product*> Product::ProductData;
-map<string, Building*> Building::BuildingData;
+// map<string, Product*> Product::ProductData;
+// map<string, Building*> Building::BuildingData;
+map<string, Item*> Item::ItemData;
 
 // ========================================================
 // ======================= Item ===========================
@@ -71,17 +72,21 @@ Product::Product(
     this->addedWeight = addedWeight;
 }
 
-ostream& operator<<(ostream& out, Product x) {
-    out << "ID: "           << x.id    << endl;
-    out << "Product Code: "  << x.code  << endl;
-    out << "Product Name: "  << x.name  << endl;
-    out << "Product Type: "  << x.type  << endl;
-    out << "Product Origin: "   << x.origin  << endl;
-    out << "Product Added Weight: "   << x.addedWeight  << endl;
-    out << "Product Price: " << x.price << endl;
+ostream& Product::printDetails(ostream& out) {
+    out << "ID: "            << this->id    << endl;
+    out << "Product Code: "  << this->code  << endl;
+    out << "Product Name: "  << this->name  << endl;
+    out << "Product Type: "  << this->type  << endl;
+    out << "Product Origin: " << this->origin << endl;
+    out << "Product Added Weight: " << this->addedWeight << endl;
+    out << "Product Price: " << this->price << endl;
     out << endl;
 
     return out;
+}
+
+ostream& operator<<(ostream& out, Product* x) {
+    return x->printDetails(out);
 }
 // ========================================================
 // ===================== Building =========================
@@ -102,17 +107,36 @@ Building::Building(
     this->recipe = recipe;
 }
 
-ostream& operator<<(ostream& out, Building x) {
-    out << "ID: "           << x.id    << endl;
-    out << "Product Code: "  << x.code  << endl;
-    out << "Product Name: "  << x.name  << endl;
-    out << "Product Price: " << x.price << endl << endl;
+// ostream& operator<<(ostream& out, Building x) {
+//     out << "ID: "           << x.id    << endl;
+//     out << "Product Code: "  << x.code  << endl;
+//     out << "Product Name: "  << x.name  << endl;
+//     out << "Product Price: " << x.price << endl << endl;
 
-    out << "[Product Ingredients]" << endl;
-    for (const auto& pair : x.recipe) {
+//     out << "[Product Ingredients]" << endl;
+//     for (const auto& pair : x.recipe) {
+//         cout << "- " << pair.first << ": " << pair.second << endl;
+//     }
+//     out << endl;
+
+//     return out;
+// }
+
+ostream& Building::printDetails(ostream& out) {
+    out << "ID: "           << this->id    << endl;
+    out << "Building Code: "  << this->code  << endl;
+    out << "Building Name: "  << this->name  << endl;
+    out << "Building Type: "  << this->type  << endl;
+    out << "Building Price: " << this->price << endl << endl;
+
+    out << "[Building Ingredients]" << endl;
+    for (const auto& pair : this->recipe) {
         cout << "- " << pair.first << ": " << pair.second << endl;
     }
     out << endl;
 
     return out;
+}
+ostream& operator<<(ostream& out, Building* x) {
+    return x->printDetails(out);
 }

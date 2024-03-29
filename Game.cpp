@@ -11,6 +11,7 @@ Game::Game() {
     FileManager::readProductData();
     FileManager::readBuildingData();
     FileManager::readMiscData();
+    FileManager::readPlayerData();
 
     // for (const auto& pair: Plant::getPlantData()) {
     //     cout << pair.second;
@@ -26,6 +27,10 @@ Game::Game() {
 
     // for (const auto& pair : Building::getBuildingData()) {
     //     cout << *pair.second;
+
+    for (const auto& pair : Item::getItemData()) {
+        cout << pair.second;
+    }
 
     // cout << Game::GuldenWinAmount << endl;
     // cout << Game::WeightWinAmount << endl;
@@ -65,8 +70,8 @@ void FileManager::readPlantData() {
         getline(file, line);
         x->price = stoi(line);
 
-        // Append Plant to PlantData
-        Plant::PlantData.insert(make_pair(x->name, x));
+        // Append Plant to ItemData
+        Item::ItemData[x->name] = x;
     }
 }
 
@@ -111,8 +116,11 @@ void FileManager::readAnimalData() {
             x = new Omnivore(id, code, name, type, harvestWeight, price, "Animal");
         }
         
-        // Append Animal to AnimalData
-        Animal::AnimalData.insert(make_pair(x->name, x));
+        // // Append Animal to AnimalData
+        // Animal::AnimalData.insert(make_pair(x->name, x));
+
+        // Append Animal to ItemData
+        Item::ItemData[x->name] = x;
     }
 }
 
@@ -150,8 +158,11 @@ void FileManager::readProductData() {
         getline(file, line);
         x->price = stoi(line);
 
-        // Append Product to ProductData
-        Product::ProductData.insert(make_pair(x->name, x));
+        // // Append Product to ProductData
+        // Product::ProductData.insert(make_pair(x->name, x));
+
+        // Append Product to ItemData
+        Item::ItemData[x->name] = x;
     }
 }
 
@@ -198,8 +209,11 @@ void FileManager::readBuildingData() {
 
         x->recipe = recipe;
 
-        // Append Building to ProductData
-        Building::BuildingData.insert(make_pair(x->name, x));
+        // // Append Building to ProductData
+        // Building::BuildingData.insert(make_pair(x->name, x));
+
+        // Append Building to ItemData
+        Item::ItemData[x->name] = x;
     }
 }
 
@@ -240,4 +254,58 @@ void FileManager::readMiscData() {
     getline(file, line);
     Barn::BarnCols = stoi(line);
 
+}
+
+// ========================================================
+// =================== readPlayerData =====================
+// ========================================================
+
+void FileManager::readPlayerData() {
+    // ifstream file("./save/state.txt");
+    // string line;
+
+    // // Get number of players
+    // getline(file, line);
+    // int n_players = stoi(line);
+
+    // // Get player data
+    // for (int i = 0; i < n_players; i++) {
+    //     // Get player name
+    //     getline(file, line, ' ');
+    //     string name = line;
+
+    //     // Get player type
+    //     getline(file, line, ' ');
+    //     string type = line;
+
+    //     // Get player weight
+    //     getline(file, line, ' ');
+    //     int weight = stoi(line);
+
+    //     // Get player money
+    //     getline(file, line);
+    //     int money = stoi(line);
+
+    //     // Decide player type
+    //     Player* x;
+    //     if (type == TYPE_WALIKOTA) {
+    //         x = new Walikota(weight, money);
+    //     } else if (type == TYPE_PETANI) {
+    //         x = new Petani(weight, money);
+    //     } else {
+    //         x = new Peternak(weight, money);
+    //     }
+
+    //     // Get player inventory
+    //     getline(file, line);
+    //     int n_inventory = stoi(line);
+
+    //     for (int j = 0; j < n_inventory; j++) {
+    //         // Get item name
+    //         getline(file, line);
+    //         string item_name = line;
+
+
+    //     }
+    // }
 }
