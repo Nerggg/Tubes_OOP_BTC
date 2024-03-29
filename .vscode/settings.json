@@ -13,6 +13,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "deque": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "unordered_map": "cpp",
+        "initializer_list": "cpp"
     }
 }

@@ -43,6 +43,8 @@ class Item {
         static map<string, Item*> getItemData() {
             return Item::ItemData;
         }
+
+        virtual Item* clone() = 0;
 };
 
 class Product : public Item {
@@ -75,6 +77,8 @@ class Product : public Item {
         // friend ostream& operator<<(ostream&, Product);
         ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Product* x);
+
+        Item* clone();
 };
 
 class Building : public Item {
@@ -105,6 +109,8 @@ class Building : public Item {
         // friend ostream& operator<<(ostream&, Building);
         ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Building* x);
+
+        Item* clone();
 };
 
 #endif

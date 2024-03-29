@@ -19,10 +19,13 @@ class Player {
 
     public:
         Player(string, int, int);
+        Inventory getInventory();
+
+        void insertToInventory(Item*);
+        virtual void insertToBarn(Item*, string) {};
+        virtual void insertToFarm(Item*, string) {};
 
         virtual void hitungPajak() = 0;
-        void insertToInventory(Item*);
-        Inventory getInventory();
 
         static map<string, Player*> getPlayerData() {
             return Player::PlayerData;
@@ -45,6 +48,7 @@ class Petani : public Player {
     public:
         Petani(string, int, int);
 
+        void insertToFarm(Item*, string);
         void hitungPajak();
 };
 
@@ -55,6 +59,7 @@ class Peternak : public Player {
     public:
         Peternak(string, int, int);
         
+        void insertToBarn(Item*, string);
         void hitungPajak();
 };
 

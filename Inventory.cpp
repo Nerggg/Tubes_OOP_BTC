@@ -97,15 +97,19 @@ string Inventory::getEmptySlot() {
     return "";
 }
 
-void Inventory::insertItem(Item* I) {
-    string empty = this->getEmptySlot();
+void Inventory::InsertItemAt(Item* I, string slot) {
+    int row = getRow(slot);
+    int col = getCol(slot);
     
-    int row = getRow(empty);
-    int col = getCol(empty);
-
-    this->storage.insert(make_pair(empty, I));
+    this->storage.insert(make_pair(slot, I));
     this->data[row][col] = true;
     this->empty_slots--;
+}
+
+void Inventory::insertItem(Item* I) {
+    string empty = this->getEmptySlot();
+
+    if (empty != "") this->InsertItemAt(I, empty);
 }
 
 Item* Inventory::getItem(string slot) {

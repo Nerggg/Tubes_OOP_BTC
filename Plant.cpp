@@ -47,3 +47,7 @@ ostream& Plant::printDetails(ostream& out) {
 ostream& operator<<(ostream& out, Plant* p) {
     return p->printDetails(out);
 }
+
+Item* Plant::clone() {
+    return new Plant(*this);
+}

@@ -52,9 +52,9 @@ ostream& operator<<(ostream& out, Animal* x) {
     return x->printDetails(out);
 }
 
-void Animal::feed(Item t) {
-    cout << "Animal eating..." << endl;
-}
+// void Animal::feed(Item t) {
+//     cout << "Animal eating..." << endl;
+// }
 
 // ========================================================
 // ===================== Herbivore ========================
@@ -72,7 +72,15 @@ Herbivore::Herbivore(
 
 }
 
-void Herbivore::feed(Item i) {
+Herbivore::Herbivore(const Herbivore& h) : Animal(h) {
+
+}
+
+Item* Herbivore::clone() {
+    return new Herbivore(*this);
+}
+
+void Herbivore::feed(Item* i) {
     cout << "Herbivore eating..." << endl;
 }
 
@@ -92,7 +100,15 @@ Carnivore::Carnivore(
 
 }
 
-void Carnivore::feed(Item i) {
+Carnivore::Carnivore(const Carnivore& c) : Animal(c) {
+
+}
+
+Item* Carnivore::clone() {
+    return new Carnivore(*this);
+}
+
+void Carnivore::feed(Item* i) {
     cout << "Carnivore eating..." << endl;
 }
 
@@ -111,6 +127,14 @@ Omnivore::Omnivore(
 
 }
 
-void Omnivore::feed(Item i) {
+Omnivore::Omnivore(const Omnivore& o) : Animal(o) {
+
+}
+
+Item* Omnivore::clone() {
+    return new Omnivore(*this);
+}
+
+void Omnivore::feed(Item* i) {
     cout << "Omnivore eating..." << endl;
 }

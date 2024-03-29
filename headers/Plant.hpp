@@ -41,6 +41,8 @@ class Plant : public Item {
 
         ostream& printDetails(ostream&);
         friend ostream& operator<<(ostream&, Plant*);
+
+        Item* clone();
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "headers/Game.hpp"
 #include <sstream>
+#include <algorithm>
 
 // Static Attributes
 int Game::GuldenWinAmount;
@@ -273,13 +274,9 @@ void FileManager::readPlayerData() {
     ifstream file("./save/state.txt");
     string line;
 
-    cout << "TEST 1" << endl;
-
     // Get number of players
     getline(file, line);
     int n_players = stoi(line);
-
-    cout << "TEST 2" << endl;
 
     // Get player data
     for (int i = 0; i < n_players; i++) {
@@ -299,8 +296,6 @@ void FileManager::readPlayerData() {
         getline(file, line);
         int money = stoi(line);
 
-        cout << "TEST 3" << endl;
-
         // Decide player type
         Player* x;
         if (type == TYPE_WALIKOTA) {
@@ -311,38 +306,85 @@ void FileManager::readPlayerData() {
             x = new Peternak(name, weight, money);
         }
 
-        cout << name << " " << type << " " << weight << " " << money << endl;
-        cout << "TEST 4" << endl;
         // Get player inventory
         getline(file, line);
         int n_inventory = stoi(line);
 
-        cout << "TEST 5" << endl;
-
-        // for (int j = 0; j < n_inventory; j++) {
+        // Get items
+        for (int j = 0; j < n_inventory; j++) {
             // Get item name
             getline(file, line);
+            line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
             string item_name = line;
 
-            cout << "TEST 6" << endl;
-            cout << item_name << endl;
-
-            // for (const auto& pair : Item::ItemData) {
-            //     cout << pair.first << endl;
-            // }
-            string c = "COW";
-            cout << Item::ItemData[c];
-            cout << "TEST 7" << endl;
-            cout << (item_name == c) << endl;
             // Copy item
-            Item item = *(Item::ItemData[item_name]);
+            Item* item = Item::ItemData[item_name]->clone();
 
-            cout << &item;
+            cout << item;
 
             // Insert to player inventory
-            x->insertToInventory(&item);
-        // }
+            x->insertToInventory(item);
+        }
 
+        // If Player = Peternak, get barn data
+        if (type == TYPE_PETERNAK) {
+            // Get animal count
+            getline(file, line);
+            int n_animal = stoi(line);
+
+            // Get animals
+            for (int j = 0; j < n_animal; j++) {
+                // Get animal position
+                getline(file, line, ' ');
+                string pos = line;
+                
+                // Get animal name
+                getline(file, line, ' ');
+                line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+                string item_name = line;
+
+                // Get animal weight
+                getline(file, line);
+                int weight = stoi(line);
+
+                // Copy item
+                Animal* item = (Animal*) Item::ItemData[item_name]->clone();
+                item->weight = weight;
+
+                // Insert to player barn
+                x->insertToBarn(item, pos);
+            }
+        }
+
+        // If Player = Petani, get farm data
+        if (type == TYPE_PETANI) {
+            // Get plant count
+            getline(file, line);
+            int n_plant = stoi(line);
+
+            // Get plants
+            for (int j = 0; j < n_plant; j++) {
+                // Get plant position
+                getline(file, line, ' ');
+                string pos = line;
+                
+                // Get plant name
+                getline(file, line, ' ');
+                line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+                string item_name = line;
+
+                // Get plant age
+                getline(file, line);
+                int age = stoi(line);
+
+                // Copy item
+                Plant* item = (Plant*) Item::ItemData[item_name]->clone();
+                item->age = age;
+
+                // Insert to player farm
+                x->insertToFarm(item, pos);
+            }
+        }
 
         // Insert player to PlayerData
         Player::PlayerData[name] = x;

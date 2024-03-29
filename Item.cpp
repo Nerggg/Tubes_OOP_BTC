@@ -103,6 +103,10 @@ ostream& Product::printDetails(ostream& out) {
 ostream& operator<<(ostream& out, Product* x) {
     return x->printDetails(out);
 }
+
+Item* Product::clone() {
+    return new Product(*this);
+}
 // ========================================================
 // ===================== Building =========================
 // ========================================================
@@ -162,6 +166,11 @@ ostream& Building::printDetails(ostream& out) {
 
     return out;
 }
+
 ostream& operator<<(ostream& out, Building* x) {
     return x->printDetails(out);
+}
+
+Item* Building::clone() {
+    return new Building(*this);
 }
