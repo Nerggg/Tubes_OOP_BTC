@@ -53,6 +53,21 @@ ostream& operator<<(ostream& out, Item* x) {
     return x->printDetails(out);
 }
 
+SlowPrinter Item::slowPrintDetails(SlowPrinter slowp) {
+    slowp << "ID: "           << this->id    << endl;
+    slowp << "Product Code: "  << this->code  << endl;
+    slowp << "Product Name: "  << this->name  << endl;
+    slowp << "Product Type: "  << this->type  << endl;
+    slowp << "Product Price: " << this->price << endl;
+    slowp << endl;
+
+    return slowp;
+}
+
+SlowPrinter operator<<(SlowPrinter slowp, Item* I) {
+    return I->slowPrintDetails(slowp);
+}
+
 // ========================================================
 // ====================== Product =========================
 // ========================================================
@@ -102,6 +117,27 @@ ostream& Product::printDetails(ostream& out) {
 
 ostream& operator<<(ostream& out, Product* x) {
     return x->printDetails(out);
+}
+
+SlowPrinter Product::slowPrintDetails(SlowPrinter slowp) {
+    slowp << "ID: "            << this->id    << endl;
+    slowp << "Product Code: "  << this->code  << endl;
+    slowp << "Product Name: "  << this->name  << endl;
+    slowp << "Product Type: "  << this->type  << endl;
+    slowp << "Product Origin: " << this->origin << endl;
+    slowp << "Product Added Weight: " << this->addedWeight << endl;
+    slowp << "Product Price: " << this->price << endl;
+    slowp << endl;
+
+    return slowp;
+}
+
+SlowPrinter operator<<(SlowPrinter slowp, Product* x) {
+    return x->slowPrintDetails(slowp);
+}
+
+Item* Product::clone() {
+    return new Product(*this);
 }
 // ========================================================
 // ===================== Building =========================
@@ -162,6 +198,31 @@ ostream& Building::printDetails(ostream& out) {
 
     return out;
 }
+
 ostream& operator<<(ostream& out, Building* x) {
     return x->printDetails(out);
+}
+
+SlowPrinter Building::slowPrintDetails(SlowPrinter slowp) {
+    slowp << "ID: "           << this->id    << endl;
+    slowp << "Building Code: "  << this->code  << endl;
+    slowp << "Building Name: "  << this->name  << endl;
+    slowp << "Building Type: "  << this->type  << endl;
+    slowp << "Building Price: " << this->price << endl << endl;
+
+    slowp << "[Building Ingredients]" << endl;
+    for (const auto& pair : this->recipe) {
+        slowp << "- " << pair.first << ": " << pair.second << endl;
+    }
+    slowp << endl;
+
+    return slowp;
+}
+
+SlowPrinter operator<<(SlowPrinter slowp, Building* x) {
+    return x->slowPrintDetails(slowp);
+}
+
+Item* Building::clone() {
+    return new Building(*this);
 }

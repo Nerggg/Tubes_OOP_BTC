@@ -38,15 +38,24 @@ Petani::Petani(string name, int weight, int money) : Player(name, weight, money)
     // this->farm = Farm<Plant>();
 }
 
+void Petani::insertToFarm(Item* i, string slot) {
+    this->farm.InsertItemAt(i, slot);
+}
+
 void Petani::hitungPajak() {
     cout << "Petani hitung pajak" << endl;
 }
+
 
 // ========================================================
 // ===================== Peternak =========================
 // ========================================================
 Peternak::Peternak(string name, int weight, int money) : Player(name, weight, money) {
     // this->barn = Barn<Animal>();
+}
+
+void Peternak::insertToBarn(Item* i, string slot) {
+    this->barn.InsertItemAt(i, slot);
 }
 
 void Peternak::hitungPajak() {

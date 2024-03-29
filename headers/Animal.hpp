@@ -41,7 +41,10 @@ class Animal : public Item {
         ostream& printDetails(ostream&);
         friend ostream& operator<<(ostream&, Animal*);
 
-        virtual void feed(Item);
+        SlowPrinter slowPrintDetails(SlowPrinter);
+        friend SlowPrinter operator<<(SlowPrinter, Animal*);
+
+        virtual void feed(Item*) = 0;
 };
 
 class Herbivore : public Animal {
@@ -55,7 +58,10 @@ class Herbivore : public Animal {
             int price, 
             string itemType
         );
-        void feed(Item);
+        Herbivore(const Herbivore&);
+        Item* clone();
+        
+        void feed(Item*);
 };
 
 class Carnivore : public Animal {
@@ -69,7 +75,10 @@ class Carnivore : public Animal {
             int price, 
             string itemType
         );
-        void feed(Item);
+        Carnivore(const Carnivore&);
+        Item* clone();
+        
+        void feed(Item*);
 };
 
 class Omnivore : public Animal {
@@ -83,7 +92,10 @@ class Omnivore : public Animal {
             int price, 
             string itemType
         );
-        void feed(Item);
+        Omnivore(const Omnivore&);
+        Item* clone();
+
+        void feed(Item*);
 };
 
 #endif

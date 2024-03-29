@@ -6,13 +6,18 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <sstream>
+#include <algorithm>
 
 // Header Files
+#include "colors.h"
 #include "Item.hpp"
 #include "Animal.hpp"
 #include "Plant.hpp"
 #include "Player.hpp"
 #include "Inventory.hpp"
+#include "Store.hpp"
+#include "SlowPrinter.hpp"
 
 using namespace std;
 

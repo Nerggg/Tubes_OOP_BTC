@@ -53,6 +53,7 @@ class Inventory {
         }
 
         string getEmptySlot();
+        void InsertItemAt(Item*, string);
         void insertItem(Item*);
         Item* getItem(string);
 };
