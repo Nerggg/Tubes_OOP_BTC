@@ -11,6 +11,7 @@
 #include "Item.hpp"
 #include "Animal.hpp"
 #include "Plant.hpp"
+#include "Player.hpp"
 #include "Inventory.hpp"
 
 using namespace std;
@@ -33,6 +34,7 @@ class FileManager {
         static void readProductData();
         static void readBuildingData();
         static void readMiscData();
+        static void readPlayerData();
 };
 
 #endif

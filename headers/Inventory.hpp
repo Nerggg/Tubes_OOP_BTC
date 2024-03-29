@@ -12,6 +12,7 @@ using namespace std;
 
 class Inventory {
     friend class FileManager;
+    friend class Game;
     friend int main();
     protected:
         static int InventoryRows;
@@ -19,11 +20,11 @@ class Inventory {
 
         static map<string, int> charToInt;
 
-    public:
         vector<vector<bool>> data;
         map<string, Item*> storage;
         int empty_slots;
 
+    public:
         static int getCol(string);
         static int getRow(string);
 
@@ -42,6 +43,8 @@ class Inventory {
             return out;
         }
 
+        void operator+=(Item*);
+
         virtual int getInvRows() {
             return Inventory::InventoryRows;
         }
@@ -50,14 +53,13 @@ class Inventory {
         }
 
         string getEmptySlot();
-        
         void insertItem(Item*);
-
         Item* getItem(string);
 };
 
 class Farm : public Inventory {
     friend class FileManager;
+    friend class Player;
     friend int main();
     protected:
         static int FarmRows;
@@ -76,6 +78,7 @@ class Farm : public Inventory {
 
 class Barn : public Inventory {
     friend class FileManager;
+    friend class Player;
     friend int main();
     protected:
         static int BarnRows;

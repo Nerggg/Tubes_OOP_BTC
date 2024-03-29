@@ -23,6 +23,7 @@ class Plant : public Item {
             int price, 
             string itemType
         );
+        Plant(const Plant&);
         void printName() const {
             cout << this->id << ' ';
             cout << this->code << ' ';

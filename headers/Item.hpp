@@ -22,6 +22,8 @@ class Item {
         
         string itemType;
 
+        static map<string, Item*> ItemData;
+
     public:
         Item();
         Item(
@@ -33,8 +35,14 @@ class Item {
             string itemType
         );
 
+        string getName();
+
         virtual ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Item* x);
+
+        static map<string, Item*> getItemData() {
+            return Item::ItemData;
+        }
 };
 
 class Product : public Item {
@@ -58,12 +66,15 @@ class Product : public Item {
             int price, 
             string itemType
         );
+        Product(const Product&);
 
         static map<string, Product*> getProductData() {
             return Product::ProductData;
         }
 
-        friend ostream& operator<<(ostream&, Product);
+        // friend ostream& operator<<(ostream&, Product);
+        ostream& printDetails(ostream& out);
+        friend ostream& operator<<(ostream& out, Product* x);
 };
 
 class Building : public Item {
@@ -85,12 +96,15 @@ class Building : public Item {
             map<string, int> recipe, 
             string itemType
         );
+        Building(const Building&);
 
         static map<string, Building*> getBuildingData() {
             return Building::BuildingData;
         }
 
-        friend ostream& operator<<(ostream&, Building);
+        // friend ostream& operator<<(ostream&, Building);
+        ostream& printDetails(ostream& out);
+        friend ostream& operator<<(ostream& out, Building* x);
 };
 
 #endif

@@ -21,7 +21,6 @@ class Animal : public Item {
         int weight;
 
     public:
-        string lmao;
         Animal();
         Animal(
             int id, 
@@ -32,16 +31,7 @@ class Animal : public Item {
             int price, 
             string itemType
         );
-        void printName() {
-            cout << this->id << ' ';
-            cout << this->code << ' ';
-            cout << this->name << ' ';
-            cout << this->type << ' ';
-            cout << this->harvestWeight << ' ';
-            cout << this->price << ' ';
-            cout << this->itemType << ' ';
-            cout << endl;
-        };
+        Animal(const Animal&);
 
         static map<string, Animal*> getAnimalData() {
             return Animal::AnimalData;

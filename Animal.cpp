@@ -1,7 +1,7 @@
 #include "headers/Animal.hpp"
 
 // Static Attribute
-map<string, Animal*> Animal::AnimalData;
+// map<string, Animal*> Animal::AnimalData;
 
 // ========================================================
 // ====================== Animal ==========================
@@ -23,6 +23,16 @@ Animal::Animal(
 ) : Item(id, code, name, type, price, itemType) {
     this->harvestWeight = harvestWeight;
     this->weight = 0;
+}
+
+Animal::Animal(const Animal& a) {
+    this->id = a.id;
+    this->code = a.code;
+    this->name = a.name;
+    this->type = a.type;
+    this->harvestWeight = a.harvestWeight;
+    this->weight = a.weight;
+    this->price = a.price;
 }
 
 ostream& Animal::printDetails(ostream& out) {

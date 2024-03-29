@@ -1,7 +1,7 @@
 #include "headers/Plant.hpp"
 
 // Static Attributes
-map<string, Plant*> Plant::PlantData;
+// map<string, Plant*> Plant::PlantData;
 
 Plant::Plant() : Item() {
     this->harvestAge = 0;
@@ -19,6 +19,16 @@ Plant::Plant(
 ) : Item(id, code, name, type, price, itemType) {
     this->harvestAge = harvestAge;
     this->age = 0;
+}
+
+Plant::Plant(const Plant& p) {
+    this->id = p.id;
+    this->code = p.code;
+    this->name = p.name;
+    this->type = p.type;
+    this->harvestAge = p.harvestAge;
+    this->age = p.age;
+    this->price = p.price;
 }
 
 ostream& Plant::printDetails(ostream& out) {
