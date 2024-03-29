@@ -13,6 +13,7 @@
 #include "Plant.hpp"
 #include "Player.hpp"
 #include "Inventory.hpp"
+#include "Store.hpp"
 
 using namespace std;
 

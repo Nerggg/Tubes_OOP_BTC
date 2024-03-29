@@ -12,41 +12,7 @@ Game::Game() {
     FileManager::readProductData();
     FileManager::readBuildingData();
     FileManager::readMiscData();
-    FileManager::readPlayerData();
-
-    // for (const auto& pair: Plant::getPlantData()) {
-    //     cout << pair.second;
-    // }
-
-    // for (const auto& pair : Animal::getAnimalData()) {
-    //     cout << pair.second;
-    // }
-
-    // for (const auto& pair : Product::getProductData()) {
-    //     cout << *pair.second;
-    // }
-
-    // for (const auto& pair : Building::getBuildingData()) {
-    //     cout << *pair.second;
-
-    // for (const auto& pair : Item::getItemData()) {
-    //     cout << pair.second;
-    // }
-
-    for (const auto& pair : Player::getPlayerData()) {
-        Inventory inv = pair.second->getInventory();
-        for (const auto& pair2 : inv.storage) {
-            cout << pair2.second;
-        }
-    }
-
-    // cout << Game::GuldenWinAmount << endl;
-    // cout << Game::WeightWinAmount << endl;
-    // cout << Inventory::InventoryRows << " " << Inventory::InventoryCols<< endl;
-    // cout << Farm::FarmRows << " " << Farm::FarmCols << endl;
-    // cout << Barn::BarnRows << " " << Barn::BarnCols << endl;
-
-    
+    FileManager::readPlayerData();    
 }
 
 // ========================================================
@@ -388,5 +354,24 @@ void FileManager::readPlayerData() {
 
         // Insert player to PlayerData
         Player::PlayerData[name] = x;
+    }
+
+    // Get store data
+    // Get number of store items
+    getline(file, line);
+    int n_store = stoi(line);
+
+    // Get store items
+    for (int i = 0; i < n_store; i++) {
+        // Get item name
+        getline(file, line, ' ');
+        string item_name = line;
+
+        // Get item count
+        getline(file, line);
+        int count = stoi(line);
+
+        // Insert to store
+        Store::StoreData[item_name] = count;
     }
 }
