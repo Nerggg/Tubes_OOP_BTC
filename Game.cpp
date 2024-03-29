@@ -1,6 +1,4 @@
 #include "headers/Game.hpp"
-#include <sstream>
-#include <algorithm>
 
 // Static Attributes
 int Game::GuldenWinAmount;
@@ -12,7 +10,18 @@ Game::Game() {
     FileManager::readProductData();
     FileManager::readBuildingData();
     FileManager::readMiscData();
-    FileManager::readPlayerData();    
+    FileManager::readPlayerData();
+
+    SlowPrinter slowcout(cout, 20, 10);
+    slowcout << "Game data loaded successfully!" << 69 << 69 << 420 << endl; 
+
+    // slowcout << RED << BLINK_RAPID << "This text is red." << RESET << endl;
+    // slowcout << GREEN << BLINK_RAPID << "This text is green." << RESET << endl;
+    // slowcout << BLUE << BLINK_RAPID << "This text is blue." << RESET << endl;
+
+    // for (const auto& pair : Item::getItemData()) {
+    //     slowcout << pair.second;
+    // }
 }
 
 // ========================================================
@@ -93,7 +102,7 @@ void FileManager::readAnimalData() {
         }
         
         // // Append Animal to AnimalData
-        // Animal::AnimalData.insert(make_pair(x->name, x));
+        Animal::AnimalData.insert(make_pair(x->name, x));
 
         // Append Animal to ItemData
         Item::ItemData[x->name] = x;
@@ -285,8 +294,6 @@ void FileManager::readPlayerData() {
 
             // Copy item
             Item* item = Item::ItemData[item_name]->clone();
-
-            cout << item;
 
             // Insert to player inventory
             x->insertToInventory(item);

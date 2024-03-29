@@ -48,6 +48,23 @@ ostream& operator<<(ostream& out, Plant* p) {
     return p->printDetails(out);
 }
 
+SlowPrinter Plant::slowPrintDetails(SlowPrinter slowp) {
+    slowp << "ID: "          << this->id     << endl;
+    slowp << "Plant Code: "  << this->code   << endl;
+    slowp << "Plant Name: "  << this->name   << endl;
+    slowp << "Plant Type: "  << this->type   << endl;
+    slowp << "Plant Age: "   << this->age    << endl;
+    slowp << "Plant Harvest Age: " << this->harvestAge << endl;
+    slowp << "Plant Price: " << this->price  << endl;
+    slowp << endl;
+
+    return slowp;
+}
+
+SlowPrinter operator<<(SlowPrinter slowp, Plant* p) {
+    return p->slowPrintDetails(slowp);
+}
+
 Item* Plant::clone() {
     return new Plant(*this);
 }

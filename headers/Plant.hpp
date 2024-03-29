@@ -42,6 +42,9 @@ class Plant : public Item {
         ostream& printDetails(ostream&);
         friend ostream& operator<<(ostream&, Plant*);
 
+        SlowPrinter slowPrintDetails(SlowPrinter);
+        friend SlowPrinter operator<<(SlowPrinter, Plant*);
+
         Item* clone();
 };
 

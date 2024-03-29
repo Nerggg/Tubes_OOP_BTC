@@ -41,6 +41,9 @@ class Animal : public Item {
         ostream& printDetails(ostream&);
         friend ostream& operator<<(ostream&, Animal*);
 
+        SlowPrinter slowPrintDetails(SlowPrinter);
+        friend SlowPrinter operator<<(SlowPrinter, Animal*);
+
         virtual void feed(Item*) = 0;
 };
 

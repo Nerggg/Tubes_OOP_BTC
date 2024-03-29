@@ -1,7 +1,7 @@
 #include "headers/Animal.hpp"
 
 // Static Attribute
-// map<string, Animal*> Animal::AnimalData;
+map<string, Animal*> Animal::AnimalData;
 
 // ========================================================
 // ====================== Animal ==========================
@@ -50,6 +50,23 @@ ostream& Animal::printDetails(ostream& out) {
 
 ostream& operator<<(ostream& out, Animal* x) {
     return x->printDetails(out);
+}
+
+SlowPrinter Animal::slowPrintDetails(SlowPrinter slowp) {
+    slowp << "ID: "           << this->id    << endl;
+    slowp << "Animal Code: "  << this->code  << endl;
+    slowp << "Animal Name: "  << this->name  << endl;
+    slowp << "Animal Type: "  << this->type  << endl;
+    slowp << "Animal Weight: "   << this->weight  << endl;
+    slowp << "Animal Harvest Weight: " << this->harvestWeight << endl;
+    slowp << "Animal Price: " << this->price << endl;
+    slowp << endl;
+
+    return slowp;
+}
+
+SlowPrinter operator<<(SlowPrinter slowp, Animal* x) {
+    return x->slowPrintDetails(slowp);
 }
 
 // void Animal::feed(Item t) {

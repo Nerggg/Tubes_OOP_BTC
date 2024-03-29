@@ -7,6 +7,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "SlowPrinter.hpp"
+
 using namespace std;
 
 class Item {
@@ -39,6 +41,9 @@ class Item {
 
         virtual ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Item* x);
+
+        virtual SlowPrinter slowPrintDetails(SlowPrinter out);
+        friend SlowPrinter operator<<(SlowPrinter out, Item* I);
 
         static map<string, Item*> getItemData() {
             return Item::ItemData;
@@ -74,9 +79,11 @@ class Product : public Item {
             return Product::ProductData;
         }
 
-        // friend ostream& operator<<(ostream&, Product);
         ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Product* x);
+
+        SlowPrinter slowPrintDetails(SlowPrinter out);
+        friend SlowPrinter operator<<(SlowPrinter, Product*);
 
         Item* clone();
 };
@@ -109,6 +116,9 @@ class Building : public Item {
         // friend ostream& operator<<(ostream&, Building);
         ostream& printDetails(ostream& out);
         friend ostream& operator<<(ostream& out, Building* x);
+
+        SlowPrinter slowPrintDetails(SlowPrinter out);
+        friend SlowPrinter operator<<(SlowPrinter, Building*);
 
         Item* clone();
 };
