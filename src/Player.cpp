@@ -1,4 +1,4 @@
-#include "headers/Player.hpp"
+#include "lib/Player.hpp"
 
 // Static Attributes
 map<string, Player*> Player::PlayerData;

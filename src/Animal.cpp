@@ -1,4 +1,4 @@
-#include "headers/Animal.hpp"
+#include "lib/Animal.hpp"
 
 // Static Attribute
 map<string, Animal*> Animal::AnimalData;

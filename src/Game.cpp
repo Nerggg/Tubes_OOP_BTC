@@ -1,4 +1,4 @@
-#include "headers/Game.hpp"
+#include "lib/Game.hpp"
 
 Game::Game() {    
     // Initialize game data
@@ -61,7 +61,7 @@ void Game::Initialize() {
 
     // Load default lineup
     sc << BOLD MAGENTA << "Memuat setup pemain..." << RESET << endl;
-    sc.setMult(2);
+    sc.setMult(3);
     sc.setDelay(100); sc << BOLD YELLOW << ".    .    .    .    .    .    .    ." << endl; sc.resetDelay();
     sc.resetMult();
     if (choice == "1") {

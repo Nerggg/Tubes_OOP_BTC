@@ -1,4 +1,4 @@
-#include "headers/SlowPrinter.hpp"
+#include "lib/SlowPrinter.hpp"
 
 // Static Attributes
 SlowPrinter* SlowPrinter::slowcout = new SlowPrinter(cout, 20, 10);
