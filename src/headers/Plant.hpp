@@ -7,12 +7,14 @@ class Plant : public Item {
     friend class FileManager;
 
     protected:
-        static map<string, Plant*> PlantData; 
-        
+        // Static variables
+
+        // Instance variables         
         int harvestAge;
         int age;
         
     public:
+        // Constructors
         Plant();
         Plant(
             int id, 
@@ -20,32 +22,23 @@ class Plant : public Item {
             string name, 
             string type, 
             int harvestAge, 
-            int price, 
-            string itemType
+            int price
         );
         Plant(const Plant&);
-        void printName() const {
-            cout << this->id << ' ';
-            cout << this->code << ' ';
-            cout << this->name << ' ';
-            cout << this->type << ' ';
-            cout << this->harvestAge << ' ';
-            cout << this->price << ' ';
-            cout << this->itemType << ' ';
-            cout << endl;
-        };
 
-        static map<string, Plant*> getPlantData() {
-            return Plant::PlantData;
-        }
-
+        Item* clone();
+        
+        // Printers
         ostream& printDetails(ostream&);
         friend ostream& operator<<(ostream&, Plant*);
 
         SlowPrinter slowPrintDetails(SlowPrinter);
         friend SlowPrinter operator<<(SlowPrinter, Plant*);
 
-        Item* clone();
+        // Getters
+
+        // Instance methods
+
 };
 
 #endif

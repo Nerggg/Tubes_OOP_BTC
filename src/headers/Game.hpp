@@ -22,14 +22,11 @@
 using namespace std;
 
 class Game {
+    friend class FileManager;
     public:
         Game();
-
-        friend class FileManager;
-
-    private:
-        static int GuldenWinAmount;
-        static int WeightWinAmount;
+        void Initialize();
+        void Start();
 };
 
 class FileManager {

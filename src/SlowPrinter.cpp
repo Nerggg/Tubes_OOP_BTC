@@ -1,6 +1,12 @@
 #include "headers/SlowPrinter.hpp"
 
-SlowPrinter::SlowPrinter(ostream& out, int delay, int mult) : out(out), delay(delay), delay_multiplier(mult) {}
+// Static Attributes
+SlowPrinter* SlowPrinter::slowcout = new SlowPrinter(cout, 20, 10);
+
+// Methods
+SlowPrinter::SlowPrinter(ostream& out, int delay, int mult) : out(out), delay(delay), delay_multiplier(mult), default_delay(delay), default_mult(mult) {}
+
+SlowPrinter::SlowPrinter(const SlowPrinter& other) : out(other.out), delay(other.delay), delay_multiplier(other.delay_multiplier) {}
 
 // template<class T>
 // SlowPrinter& SlowPrinter::operator<<(const T& value) {
@@ -33,4 +39,28 @@ SlowPrinter& SlowPrinter::operator<<(const std::string& str) {
 SlowPrinter& SlowPrinter::operator<<(ostream& (*manipulator)(ostream&)) {
     manipulator(out);
     return *this;
+}
+
+int SlowPrinter::getDelay() {
+    return this->delay;
+}
+
+int SlowPrinter::getMult() {
+    return this->delay_multiplier;
+}
+
+void SlowPrinter::setDelay(int delay) {
+    this->delay = delay;
+}
+
+void SlowPrinter::setMult(int mult) {
+    this->delay_multiplier = mult;
+}
+
+void SlowPrinter::resetDelay() {
+    this->delay = default_delay;
+}
+
+void SlowPrinter::resetMult() {
+    this->delay_multiplier = default_mult;
 }

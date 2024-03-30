@@ -14,9 +14,8 @@ Plant::Plant(
     string name, 
     string type, 
     int harvestAge, 
-    int price, 
-    string itemType
-) : Item(id, code, name, type, price, itemType) {
+    int price
+) : Item(id, code, name, type, price) {
     this->harvestAge = harvestAge;
     this->age = 0;
 }

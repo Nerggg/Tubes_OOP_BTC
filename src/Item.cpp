@@ -15,7 +15,6 @@ Item::Item() {
     this->name = "";
     this->type = "";
     this->price = 0;
-    this->itemType = "";
 }
 
 Item::Item(
@@ -23,15 +22,13 @@ Item::Item(
     string code, 
     string name, 
     string type, 
-    int price, 
-    string itemType
+    int price
 ) {
     this->id = id;
     this->code = code;
     this->name = name;
     this->type = type;
     this->price = price;
-    this->itemType = itemType;
 }
 
 string Item::getName() {
@@ -84,9 +81,8 @@ Product::Product(
     string type,
     string origin, 
     int addedWeight, 
-    int price, 
-    string itemType
-) : Item(id, code, name, type, price, itemType) {
+    int price
+) : Item(id, code, name, type, price) {
     this->origin = origin;
     this->addedWeight = addedWeight;
 }
@@ -99,7 +95,6 @@ Product::Product(const Product& x) {
     this->origin = x.origin;
     this->addedWeight = x.addedWeight;
     this->price = x.price;
-    this->itemType = x.itemType;
 }
 
 ostream& Product::printDetails(ostream& out) {
@@ -152,9 +147,8 @@ Building::Building(
     string name, 
     string type, 
     int price,
-    map<string, int> recipe, 
-    string itemType
-) : Item(id, code, name, type, price, itemType) {
+    map<string, int> recipe
+) : Item(id, code, name, type, price) {
     this->recipe = recipe;
 }
 
@@ -165,23 +159,7 @@ Building::Building(const Building& x) {
     this->type = x.type;
     this->price = x.price;
     this->recipe = x.recipe;
-    this->itemType = x.itemType;
 }
-
-// ostream& operator<<(ostream& out, Building x) {
-//     out << "ID: "           << x.id    << endl;
-//     out << "Product Code: "  << x.code  << endl;
-//     out << "Product Name: "  << x.name  << endl;
-//     out << "Product Price: " << x.price << endl << endl;
-
-//     out << "[Product Ingredients]" << endl;
-//     for (const auto& pair : x.recipe) {
-//         cout << "- " << pair.first << ": " << pair.second << endl;
-//     }
-//     out << endl;
-
-//     return out;
-// }
 
 ostream& Building::printDetails(ostream& out) {
     out << "ID: "           << this->id    << endl;

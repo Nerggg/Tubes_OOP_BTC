@@ -5,8 +5,8 @@ CXX = g++
 CXXFLAGS = -g -std=c++11 -Wall
 
 # Directories
-SRC_DIR = .
-INC_DIR = headers
+SRC_DIR = src
+INC_DIR = src/headers
 OBJ_DIR = obj
 BIN_DIR = bin
 

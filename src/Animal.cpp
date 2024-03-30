@@ -18,9 +18,8 @@ Animal::Animal(
     string name, 
     string type, 
     int harvestWeight, 
-    int price, 
-    string itemType
-) : Item(id, code, name, type, price, itemType) {
+    int price
+) : Item(id, code, name, type, price) {
     this->harvestWeight = harvestWeight;
     this->weight = 0;
 }
@@ -83,9 +82,8 @@ Herbivore::Herbivore(
     string name, 
     string type, 
     int harvestWeight, 
-    int price, 
-    string itemType
-) : Animal(id, code, name, type, harvestWeight, price, itemType) {
+    int price
+) : Animal(id, code, name, type, harvestWeight, price) {
 
 }
 
@@ -111,9 +109,8 @@ Carnivore::Carnivore(
     string name, 
     string type, 
     int harvestWeight, 
-    int price, 
-    string itemType
-) : Animal(id, code, name, type, harvestWeight, price, itemType) {
+    int price
+) : Animal(id, code, name, type, harvestWeight, price) {
 
 }
 
@@ -138,9 +135,8 @@ Omnivore::Omnivore(
     string name, 
     string type, 
     int harvestWeight, 
-    int price, 
-    string itemType
-) : Animal(id, code, name, type, harvestWeight, price, itemType) {
+    int price
+) : Animal(id, code, name, type, harvestWeight, price) {
 
 }
 
