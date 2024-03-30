@@ -1,11 +1,7 @@
-#include <iostream>
-#include <string>
 #include "lib/Game.hpp"
 
-using namespace std;
-
 int main() {
-    Game game;
+    Game g;
 
     return 0;
 }
