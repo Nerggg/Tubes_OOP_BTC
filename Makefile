@@ -5,17 +5,20 @@ CXX = g++
 CXXFLAGS = -g -std=c++11 -Wall
 
 # Directories
-SRC_DIR = .
-INC_DIR = headers
+SRC_DIR = src
+INC_DIR = src/lib
+CMD_DIR = cmd
 OBJ_DIR = obj
 BIN_DIR = bin
 
 # Source files
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+# Source files from cmd
+SRCS_CMD = $(wildcard $(SRC_DIR)/$(CMD_DIR)/*.cpp)
 # Get list of header files
-HEADERS = $(wildcard $(INC_DIR)/*.hpp)
+LIB = $(wildcard $(INC_DIR)/*.hpp)
 # Generate list of object files
-OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS)) $(patsubst $(SRC_DIR)/$(CMD_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS_CMD))
 
 # Executable name
 TARGET = $(BIN_DIR)/main
@@ -30,7 +33,13 @@ build: $(TARGET)
 	@echo "Build completed."
 
 # Rule to compile source files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(LIB)
+	@mkdir -p $(OBJ_DIR)
+	@echo "Compiling $<..."
+	$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
+
+# Rule to compile cmd source files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/$(CMD_DIR)/%.cpp $(LIB)
 	@mkdir -p $(OBJ_DIR)
 	@echo "Compiling $<..."
 	$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@

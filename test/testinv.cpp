@@ -1,4 +1,4 @@
-#include "headers/Inventory.hpp"
+#include "lib/Inventory.hpp"
 
 int main() {
     Inventory::InventoryRows = 10;

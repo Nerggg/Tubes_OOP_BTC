@@ -1,6 +1,9 @@
-#include "headers/Player.hpp"
+#include "lib/Player.hpp"
 
+// Static Attributes
 map<string, Player*> Player::PlayerData;
+int Player::GuldenWinAmount;
+int Player::WeightWinAmount;
 
 // ========================================================
 // ====================== Player ==========================
@@ -13,12 +16,37 @@ Player::Player(string name, int weight, int money) {
 
 }
 
+int Player::getGuldenWinAmount() {
+    return Player::GuldenWinAmount;
+}
+
+int Player::getWeightWinAmount() {
+    return Player::WeightWinAmount;
+}
+
 void Player::insertToInventory(Item* i) {
     this->inventory += i;
 }
 
 Inventory Player::getInventory() {
     return this->inventory;
+}
+
+void Player::addPlayer(Player* p) {
+    Player::PlayerData[p->name] = p;
+}
+
+SlowPrinter Player::slowPrintDetails(SlowPrinter slowp) {
+    slowp << "Name: " << this->name << endl;
+    slowp << "Weight: " << this->weight << endl;
+    slowp << "Money: " << this->money << endl;
+    slowp << "Free Inventory Slots: " << this->inventory.getEmptySlotsCount() << endl;
+
+    return slowp;
+}
+
+SlowPrinter operator<<(SlowPrinter slowp, Player* p) {
+    return p->slowPrintDetails(slowp);
 }
 
 // ========================================================
@@ -45,7 +73,6 @@ void Petani::insertToFarm(Item* i, string slot) {
 void Petani::hitungPajak() {
     cout << "Petani hitung pajak" << endl;
 }
-
 
 // ========================================================
 // ===================== Peternak =========================
