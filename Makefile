@@ -59,7 +59,7 @@ run:
 # Clean rule
 clean:
 	@echo "Cleaning up..."
-	rm -rf $(OBJ_DIR)
+	#rm -rf $(OBJ_DIR)
 	@echo "Clean up completed."
 
 # Disable default make behavior of printing entering directory
