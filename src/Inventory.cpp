@@ -1,4 +1,4 @@
-#include "lib/Inventory2.hpp"
+#include "lib/Inventory.hpp"
 
 // Static variables
 int InventoryContainer::InventoryRows;
