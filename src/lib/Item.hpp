@@ -39,9 +39,7 @@ class Item {
         virtual Item* clone() = 0;
 
         // Static methods
-        static map<string, Item*> getItemData() {
-            return Item::ItemData;
-        }
+        static map<string, Item*> getItemData();
 
         // Printers
         virtual ostream& printDetails(ostream& out);
@@ -52,7 +50,15 @@ class Item {
 
         // Getters
         string getName();
+        string getCode();
+        string getType();
+        int getPrice();
 
+        // Type checkers
+        virtual bool isAnimal() = 0;
+        virtual bool isPlant() = 0;
+        virtual bool isProduct() = 0;
+        virtual bool isBuilding() = 0;
 };
 
 class Product : public Item {
@@ -91,7 +97,15 @@ class Product : public Item {
         friend SlowPrinter operator<<(SlowPrinter, Product*);
 
         // Getters
-
+        string getOrigin();
+        int getAddedWeight();
+        
+        // Type checkers
+        bool isAnimal();
+        bool isPlant();
+        bool isProduct();
+        bool isBuilding();
+        
         // Instance methods
 };
 
@@ -129,7 +143,14 @@ class Building : public Item {
         friend SlowPrinter operator<<(SlowPrinter, Building*);
 
         // Getters
+        map<string, int> getRecipe();
 
+        // Type checkers
+        bool isAnimal();
+        bool isPlant();
+        bool isProduct();
+        bool isBuilding();
+                
         // Instance methods
 
 };

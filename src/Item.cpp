@@ -1,12 +1,11 @@
 #include "lib/Item.hpp"
 
 // Static Attribute
-// map<string, Product*> Product::ProductData;
-// map<string, Building*> Building::BuildingData;
 map<string, Item*> Item::ItemData;
 
 // ========================================================
-// ======================= Item ===========================
+// ======================== Item ==========================
+// ==================== Constructors ======================
 // ========================================================
 
 Item::Item() {
@@ -31,9 +30,19 @@ Item::Item(
     this->price = price;
 }
 
-string Item::getName() {
-    return this->name;
+// ========================================================
+// ======================== Item ==========================
+// =================== Static Methods =====================
+// ========================================================
+
+map<string, Item*> Item::getItemData() {
+    return Item::ItemData;
 }
+
+// ========================================================
+// ======================== Item ==========================
+// ====================== Printers ========================
+// ========================================================
 
 ostream& Item::printDetails(ostream& out) {
     out << "ID: "           << this->id    << endl;
@@ -66,7 +75,30 @@ SlowPrinter operator<<(SlowPrinter slowp, Item* I) {
 }
 
 // ========================================================
+// ======================== Item ==========================
+// ======================= Getters ========================
+// ========================================================
+
+string Item::getName() {
+    return this->name;
+}
+
+string Item::getCode() {
+    return this->code;
+}
+
+string Item::getType() {
+    return this->type;
+}
+
+int Item::getPrice() {
+    return this->price;
+}
+
+
+// ========================================================
 // ====================== Product =========================
+// ==================== Constructors ======================
 // ========================================================
 
 Product::Product() : Item() {
@@ -96,6 +128,14 @@ Product::Product(const Product& x) {
     this->addedWeight = x.addedWeight;
     this->price = x.price;
 }
+
+Item* Product::clone() {
+    return new Product(*this);
+}
+// ========================================================
+// ====================== Product =========================
+// ====================== Printers ========================
+// ========================================================
 
 ostream& Product::printDetails(ostream& out) {
     out << "ID: "            << this->id    << endl;
@@ -130,12 +170,43 @@ SlowPrinter Product::slowPrintDetails(SlowPrinter slowp) {
 SlowPrinter operator<<(SlowPrinter slowp, Product* x) {
     return x->slowPrintDetails(slowp);
 }
+// ========================================================
+// ====================== Product =========================
+// ====================== Getters =========================
+// ========================================================
 
-Item* Product::clone() {
-    return new Product(*this);
+string Product::getOrigin() {
+    return this->origin;
 }
+
+int Product::getAddedWeight() {
+    return this->addedWeight;
+}
+
+// ========================================================
+// ====================== Product =========================
+// =================== Type Checkers ======================
+// ========================================================
+
+bool Product::isAnimal() {
+    return false;
+}
+
+bool Product::isPlant() {
+    return false;
+}
+
+bool Product::isProduct() {
+    return true;
+}
+
+bool Product::isBuilding() {
+    return false;
+}
+
 // ========================================================
 // ===================== Building =========================
+// =================== Constructors =======================
 // ========================================================
 
 Building::Building() : Item() {
@@ -160,6 +231,11 @@ Building::Building(const Building& x) {
     this->price = x.price;
     this->recipe = x.recipe;
 }
+
+// ========================================================
+// ===================== Building =========================
+// ===================== Printers =========================
+// ========================================================
 
 ostream& Building::printDetails(ostream& out) {
     out << "ID: "           << this->id    << endl;
@@ -203,4 +279,34 @@ SlowPrinter operator<<(SlowPrinter slowp, Building* x) {
 
 Item* Building::clone() {
     return new Building(*this);
+}
+
+// ========================================================
+// ===================== Building =========================
+// ===================== Getters ==========================
+// ========================================================
+
+map<string, int> Building::getRecipe() {
+    return this->recipe;
+}
+
+// ========================================================
+// ===================== Building =========================
+// ================== Type Checkers =======================
+// ========================================================
+
+bool Building::isAnimal() {
+    return false;
+}
+
+bool Building::isPlant() {
+    return false;
+}
+
+bool Building::isProduct() {
+    return false;
+}
+
+bool Building::isBuilding() {
+    return true;
 }

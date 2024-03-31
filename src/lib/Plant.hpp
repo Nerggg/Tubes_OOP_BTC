@@ -36,6 +36,17 @@ class Plant : public Item {
         friend SlowPrinter operator<<(SlowPrinter, Plant*);
 
         // Getters
+        int getHarvestAge();
+        int getAge();
+
+        // Setters
+        Plant& operator++(int);    // Add plant age
+
+        // Type checkers
+        bool isAnimal();
+        bool isPlant();
+        bool isProduct();
+        bool isBuilding();
 
         // Instance methods
 
