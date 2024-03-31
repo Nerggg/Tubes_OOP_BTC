@@ -49,6 +49,16 @@ SlowPrinter operator<<(SlowPrinter slowp, Player* p) {
     return p->slowPrintDetails(slowp);
 }
 
+void Player::withdrawMoney(int amount) {
+    int res = this->money - amount;
+    
+    this->money = max(res, 0);
+}
+
+void Player::depositMoney(int amount) {
+    this->money += amount;
+}
+
 // ========================================================
 // ===================== Walikota =========================
 // ========================================================
@@ -57,6 +67,10 @@ Walikota::Walikota(string name, int weight, int money) : Player(name, weight, mo
 
 void Walikota::hitungPajak() {
     cout << "Walikota hitung pajak" << endl;
+}
+
+string Walikota::getPlayerType() {
+    return TYPE_WALIKOTA;
 }
 
 // ========================================================
@@ -74,6 +88,10 @@ void Petani::hitungPajak() {
     cout << "Petani hitung pajak" << endl;
 }
 
+string Petani::getPlayerType() {
+    return TYPE_PETANI;
+}
+
 // ========================================================
 // ===================== Peternak =========================
 // ========================================================
@@ -87,4 +105,8 @@ void Peternak::insertToBarn(Item* i, string slot) {
 
 void Peternak::hitungPajak() {
     cout << "Peternak hitung pajak" << endl;
+}
+
+string Peternak::getPlayerType() {
+    return TYPE_PETERNAK;
 }
