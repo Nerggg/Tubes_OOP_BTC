@@ -1,7 +1,9 @@
 #include "lib/Plant.hpp"
 
-// Static Attributes
-// map<string, Plant*> Plant::PlantData;
+// ========================================================
+// ======================= Plant ==========================
+// =================== Constructors =======================
+// ========================================================
 
 Plant::Plant() : Item() {
     this->harvestAge = 0;
@@ -29,6 +31,15 @@ Plant::Plant(const Plant& p) {
     this->age = p.age;
     this->price = p.price;
 }
+
+Item* Plant::clone() {
+    return new Plant(*this);
+}
+
+// ========================================================
+// ======================= Plant ==========================
+// ======================= Printers =======================
+// ========================================================
 
 ostream& Plant::printDetails(ostream& out) {
     out << "ID: "          << this->id     << endl;
@@ -64,6 +75,46 @@ SlowPrinter operator<<(SlowPrinter slowp, Plant* p) {
     return p->slowPrintDetails(slowp);
 }
 
-Item* Plant::clone() {
-    return new Plant(*this);
+// ========================================================
+// ======================= Plant ==========================
+// ======================= Getters ========================
+// ========================================================
+
+int Plant::getHarvestAge() {
+    return this->harvestAge;
+}
+
+int Plant::getAge() {
+    return this->age;
+}
+
+// ========================================================
+// ======================= Plant ==========================
+// ======================= Setters ========================
+// ========================================================
+
+Plant& Plant::operator++(int) {
+    this->age++;
+    return *this;
+}
+
+// ========================================================
+// ======================= Plant ==========================
+// =================== Type Checkers ======================
+// ========================================================
+
+bool Plant::isAnimal() {
+    return false;
+}
+
+bool Plant::isPlant() {
+    return true;
+}
+
+bool Plant::isProduct() {
+    return false;
+}
+
+bool Plant::isBuilding() {
+    return false;
 }

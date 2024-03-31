@@ -32,11 +32,8 @@ class Animal : public Item {
         Animal(const Animal&);
 
         // Static methods
-        static map<string, Animal*> getAnimalData() {
-            return Animal::AnimalData;
+        static map<string, Animal*> getAnimalData(); 
         
-        };
-
         // Printers
         ostream& printDetails(ostream&);
         friend ostream& operator<<(ostream&, Animal*);
@@ -44,6 +41,19 @@ class Animal : public Item {
         SlowPrinter slowPrintDetails(SlowPrinter);
         friend SlowPrinter operator<<(SlowPrinter, Animal*);
 
+        // Getters
+        int getHarvestWeight();
+        int getWeight();
+
+        // Setters
+        Animal& operator+=(int);    // Add animal weight
+
+        // Type checkers
+        bool isAnimal();
+        bool isPlant();
+        bool isProduct();
+        bool isBuilding();
+        
         // Instance methods
         virtual void feed(Item*) = 0;
 };
