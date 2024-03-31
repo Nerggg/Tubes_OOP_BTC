@@ -39,6 +39,35 @@ map<string, int> Inventory::charToInt = {
     {"Z", 25}
 };
 
+map<int, string> Inventory::intToChar = {
+    {0, "A"},
+    {1, "B"},
+    {2, "C"},
+    {3, "D"},
+    {4, "E"},
+    {5, "F"},
+    {6, "G"},
+    {7, "H"},
+    {8, "I"},
+    {9, "J"},
+    {10, "K"},
+    {11, "L"},
+    {12, "M"},
+    {13, "N"},
+    {14, "O"},
+    {15, "P"},
+    {16, "Q"},
+    {17, "R"},
+    {18, "S"},
+    {19, "T"},
+    {20, "U"},
+    {21, "V"},
+    {22, "W"},
+    {23, "X"},
+    {24, "Y"},
+    {25, "Z"}
+};
+
 // ========================================================
 // ===================== Inventory ========================
 // ========================================================
@@ -49,6 +78,16 @@ int Inventory::getCol(string s) {
 
 int Inventory::getRow(string s) {
     return stoi(s.substr(1)) - 1;
+}
+
+string Inventory::getColString(int i) {
+    return intToChar[i];
+}
+
+string Inventory::getRowString(int i) {
+    string add = string(1, '0');
+    if (i < 10) return add + to_string(i + 1);
+    else return to_string(i + 1);
 }
 
 Inventory::Inventory() : Inventory(InventoryRows, InventoryCols) {
@@ -114,6 +153,10 @@ void Inventory::insertItem(Item* I) {
 
 Item* Inventory::getItem(string slot) {
     return this->storage[slot];
+}
+
+map<string, Item*> Inventory::getAllItems() {
+    return this->storage;
 }
 
 // ========================================================

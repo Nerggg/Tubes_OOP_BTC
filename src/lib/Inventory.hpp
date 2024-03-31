@@ -17,6 +17,7 @@ class Inventory {
         static int InventoryRows;
         static int InventoryCols;
         static map<string, int> charToInt;
+        static map<int, string> intToChar;
 
         // Instance variables
         vector<vector<bool>> data;
@@ -31,6 +32,8 @@ class Inventory {
         // Static methods
         static int getCol(string);
         static int getRow(string);
+        static string getColString(int);
+        static string getRowString(int);
 
         // Printers
         friend ostream& operator<<(ostream& out, Inventory& inv) {
@@ -57,6 +60,7 @@ class Inventory {
         }
         Item* getItem(string);
         string getEmptySlot();
+        map<string, Item*> getAllItems();
 
         // Instance methods
         void operator+=(Item*);
