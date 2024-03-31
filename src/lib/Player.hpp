@@ -26,7 +26,7 @@ class Player {
         string name;
         int weight;
         int money;
-        Inventory inventory;
+        Inventory<Item> inventory;
 
     public:
         // Constructors
@@ -70,13 +70,13 @@ class Player {
         virtual void tambahPemain() {};
         
         // Getters
-        Inventory getInventory();
+        Inventory<Item> getInventory();
         virtual string getPlayerType() = 0;
 
         // Setters
         void insertToInventory(Item*);
-        virtual void insertToBarn(Item*, string) {};
-        virtual void insertToFarm(Item*, string) {};
+        virtual void insertToBarn(Animal*, string) {};
+        virtual void insertToFarm(Plant*, string) {};
 
         // Instance methods
         virtual void hitungPajak() = 0;
@@ -121,7 +121,7 @@ class Petani : public Player {
         // Static variables
 
         // Instance variables
-        Farm farm;
+        Inventory<Plant> farm;
 
     public:
         // Constructors
@@ -144,7 +144,7 @@ class Petani : public Player {
         string getPlayerType();
 
         // Setters
-        void insertToFarm(Item*, string);
+        void insertToFarm(Plant*, string);
 
         // Instance methods
         void hitungPajak();
@@ -155,7 +155,7 @@ class Peternak : public Player {
         // Static variables
 
         // Instance variables
-        Barn barn;
+        Inventory<Animal> barn;
 
     public:
         // Constructors
@@ -180,7 +180,7 @@ class Peternak : public Player {
         string getPlayerType();
 
         // Setters
-        void insertToBarn(Item*, string);
+        void insertToBarn(Animal*, string);
 
         // Instance methods
         void hitungPajak();

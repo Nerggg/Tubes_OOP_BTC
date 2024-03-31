@@ -28,7 +28,7 @@ void Player::insertToInventory(Item* i) {
     this->inventory += i;
 }
 
-Inventory Player::getInventory() {
+Inventory<Item> Player::getInventory() {
     return this->inventory;
 }
 
@@ -77,10 +77,10 @@ string Walikota::getPlayerType() {
 // ====================== Petani ==========================
 // ========================================================
 Petani::Petani(string name, int weight, int money) : Player(name, weight, money) {
-    // this->farm = Farm<Plant>();
+    this->farm = Inventory<Plant>(InventoryContainer::FarmRows, InventoryContainer::FarmCols);
 }
 
-void Petani::insertToFarm(Item* i, string slot) {
+void Petani::insertToFarm(Plant* i, string slot) {
     this->farm.InsertItemAt(i, slot);
 }
 
@@ -96,10 +96,10 @@ string Petani::getPlayerType() {
 // ===================== Peternak =========================
 // ========================================================
 Peternak::Peternak(string name, int weight, int money) : Player(name, weight, money) {
-    // this->barn = Barn<Animal>();
+    this->barn = Inventory<Animal>(InventoryContainer::BarnRows, InventoryContainer::BarnCols);
 }
 
-void Peternak::insertToBarn(Item* i, string slot) {
+void Peternak::insertToBarn(Animal* i, string slot) {
     this->barn.InsertItemAt(i, slot);
 }
 

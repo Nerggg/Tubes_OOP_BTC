@@ -1,16 +1,16 @@
-#include "lib/Inventory.hpp"
+#include "lib/Inventory2.hpp"
 
-// Static Attributes
-int Inventory::InventoryRows = 0;
-int Inventory::InventoryCols = 0;
+// Static variables
+int InventoryContainer::InventoryRows;
+int InventoryContainer::InventoryCols;
 
-int Farm::FarmRows = 0;
-int Farm::FarmCols = 0;
+int InventoryContainer::FarmRows;
+int InventoryContainer::FarmCols;
 
-int Barn::BarnRows = 0;
-int Barn::BarnCols = 0;
+int InventoryContainer::BarnRows;
+int InventoryContainer::BarnCols;
 
-map<string, int> Inventory::charToInt = {
+map<string, int> InventoryContainer::charToInt = {
     {"A", 0},
     {"B", 1},
     {"C", 2},
@@ -39,82 +39,92 @@ map<string, int> Inventory::charToInt = {
     {"Z", 25}
 };
 
-map<int, string> Inventory::intToChar = {
-    {0, "A"},
-    {1, "B"},
-    {2, "C"},
-    {3, "D"},
-    {4, "E"},
-    {5, "F"},
-    {6, "G"},
-    {7, "H"},
-    {8, "I"},
-    {9, "J"},
-    {10, "K"},
-    {11, "L"},
-    {12, "M"},
-    {13, "N"},
-    {14, "O"},
-    {15, "P"},
-    {16, "Q"},
-    {17, "R"},
-    {18, "S"},
-    {19, "T"},
-    {20, "U"},
-    {21, "V"},
-    {22, "W"},
-    {23, "X"},
-    {24, "Y"},
-    {25, "Z"}
-};
+// ========================================================
+// ==================== Constructors ======================
+// ========================================================
+
+template <class T>
+Inventory<T>::Inventory() : Inventory<T>(InventoryRows, InventoryCols) {
+
+}
+
+template <class T>
+Inventory<T>::Inventory(int r, int c) {
+    for (int i = 0; i < r; i++) {
+        // Initialize row vector
+        vector<bool> v;
+        
+        // Fill row vector
+        for (int j = 0; j < c; j++) {
+            v.push_back(false);
+        }
+        
+        // Push row vector to matrix
+        data.push_back(v);
+    }
+
+    // Set instance variables
+    rows = r;
+    cols = c;
+    empty_slots = r * c;
+}
+
 
 // ========================================================
-// ===================== Inventory ========================
+// ==================== Static Methods ====================
 // ========================================================
-int Inventory::getCol(string s) {
+
+int InventoryContainer::getCol(string s) {
     string key = string(1, s[0]);
     return charToInt[key];
 }
 
-int Inventory::getRow(string s) {
+int InventoryContainer::getRow(string s){
     return stoi(s.substr(1)) - 1;
 }
 
-string Inventory::getColString(int i) {
-    return intToChar[i];
-}
-
-string Inventory::getRowString(int i) {
-    string add = string(1, '0');
-    if (i < 10) return add + to_string(i + 1);
-    else return to_string(i + 1);
-}
-
-Inventory::Inventory() : Inventory(InventoryRows, InventoryCols) {
-
-}
-
-Inventory::Inventory(int r, int c) {
-    for (int i = 0; i < r; i++) {
-        vector<bool> v;
-        
-        for (int j = 0; j < c; j++) {
-            v.push_back(false);
+// ========================================================
+// ======================= Printers =======================
+// ========================================================
+template <class T>
+ostream& operator<<(ostream& out, Inventory<T>& inv) {
+    for (auto row : inv.data) {
+        for (auto col : row) {
+            out << col << " ";
         }
-
-        this->data.push_back(v);
+        out << endl;
     }
-    this->empty_slots = r * c;
+    out << endl;
+
+    return out;
 }
 
-void Inventory::operator+=(Item* I) {
-    this->insertItem(I);
+// ========================================================
+// ======================= Getters ========================
+// ========================================================
+
+template <class T>
+int Inventory<T>::getInvRows() {
+    return rows;
 }
 
-string Inventory::getEmptySlot() {
-    int rows = this->getInvRows();
-    int cols = this->getInvCols();
+template <class T>
+int Inventory<T>::getInvCols() {
+    return cols;
+}
 
+template <class T>
+int Inventory<T>::getEmptySlotsCount() {
+    return empty_slots;
+}
+
+template <class T>
+T* Inventory<T>::getItem(string slot) {
+    return storage[slot];
+}
+
+template <class T>
+string Inventory<T>::getEmptySlot() {
     for (int i = 0; i < rows; i++) {
         int j = 0;
         for (const auto& pair : charToInt) {
@@ -125,7 +135,7 @@ string Inventory::getEmptySlot() {
             string ch = pair.first;
             int c = pair.second;
 
-            if (this->data[i][c] == false) {
+            if (data[i][c] == false) {
                 i++;
                 string r = (i < 10) ? "0" + to_string(i) : to_string(i);
                 return ch.append(r);
@@ -136,35 +146,38 @@ string Inventory::getEmptySlot() {
     return "";
 }
 
-void Inventory::InsertItemAt(Item* I, string slot) {
+// ========================================================
+// ======================= Setters ========================
+// ========================================================
+
+template <class T>
+void Inventory<T>::InsertItemAt(T* I, string slot) {
     int row = getRow(slot);
     int col = getCol(slot);
     
-    this->storage.insert(make_pair(slot, I));
-    this->data[row][col] = true;
-    this->empty_slots--;
+    storage.insert(make_pair(slot, I));
+    data[row][col] = true;
+    empty_slots--;
 }
 
-void Inventory::insertItem(Item* I) {
-    string empty = this->getEmptySlot();
+template <class T>
+void Inventory<T>::insertItem(T* I) {
+    string empty = getEmptySlot();
 
-    if (empty != "") this->InsertItemAt(I, empty);
-}
-
-Item* Inventory::getItem(string slot) {
-    return this->storage[slot];
-}
-
-map<string, Item*> Inventory::getAllItems() {
-    return this->storage;
+    if (empty != "") InsertItemAt(I, empty);
 }
 
 // ========================================================
-// ======================= Farm ===========================
-// ========================================================
-Farm::Farm() : Inventory(FarmRows, FarmCols) {}
+// ================== Operator Overloads ==================
+template <class T>
+void Inventory<T>::operator+=(T* I) {
+    insertItem(I);
+}
 
 // ========================================================
-// ======================= Barn ===========================
+// =================== Instance Methods ===================
 // ========================================================
-Barn::Barn() : Inventory(BarnRows, BarnCols) {}
+
+template class Inventory<Item>;
+template class Inventory<Animal>;
+template class Inventory<Plant>;
