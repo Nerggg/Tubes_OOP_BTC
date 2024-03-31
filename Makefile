@@ -12,7 +12,7 @@ OBJ_DIR = obj
 BIN_DIR = bin
 
 # Source files
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+SRCS = $(wildcard $(SRC_DIR)/*.cpp) 
 # Source files from cmd
 SRCS_CMD = $(wildcard $(SRC_DIR)/$(CMD_DIR)/*.cpp)
 # Get list of header files

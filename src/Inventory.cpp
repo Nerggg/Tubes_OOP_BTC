@@ -169,6 +169,7 @@ void Inventory<T>::insertItem(T* I) {
 
 // ========================================================
 // ================== Operator Overloads ==================
+// ========================================================
 template <class T>
 void Inventory<T>::operator+=(T* I) {
     insertItem(I);
