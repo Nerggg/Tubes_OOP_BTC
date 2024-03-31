@@ -71,6 +71,7 @@ class Player {
         
         // Getters
         Inventory getInventory();
+        virtual string getPlayerType() = 0;
 
         // Setters
         void insertToInventory(Item*);
@@ -79,6 +80,8 @@ class Player {
 
         // Instance methods
         virtual void hitungPajak() = 0;
+        void withdrawMoney(int);
+        void depositMoney(int);
 };
 
 class Walikota : public Player {
@@ -105,6 +108,7 @@ class Walikota : public Player {
         void tambahPemain();
         
         // Getters
+        string getPlayerType();
 
         // Setters
 
@@ -137,6 +141,7 @@ class Petani : public Player {
         void panen();
 
         // Getters
+        string getPlayerType();
 
         // Setters
         void insertToFarm(Item*, string);
@@ -172,6 +177,7 @@ class Peternak : public Player {
         void panen();
 
         // Getters
+        string getPlayerType();
 
         // Setters
         void insertToBarn(Item*, string);
