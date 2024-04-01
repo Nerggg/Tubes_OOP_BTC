@@ -26,10 +26,13 @@ class InventoryContainer {
         static int BarnCols;
 
         static map<string, int> charToInt;
+        static map<int, string> intToChar;
 
     // Static methods
     static int getCol(string);
     static int getRow(string);
+    static string getColString(int);
+    static string getRowString(int);
 };
 
 template <class T>

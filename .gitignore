@@ -1,3 +1,4 @@
 misc/
 bin/*
 obj/*.o
+src/legacy/
