@@ -54,6 +54,7 @@
         "stop_token": "cpp",
         "streambuf": "cpp",
         "thread": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "*.tpp": "cpp"
     }
 }

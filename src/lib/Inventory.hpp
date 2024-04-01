@@ -10,18 +10,39 @@
 
 using namespace std;
 
-class Inventory {
+class InventoryContainer {
     friend class FileManager;
+    friend class Peternak;
+    friend class Petani;
     protected:
         // Static variables
         static int InventoryRows;
         static int InventoryCols;
+
+        static int FarmRows;
+        static int FarmCols;
+
+        static int BarnRows;
+        static int BarnCols;
+
         static map<string, int> charToInt;
         static map<int, string> intToChar;
 
+    // Static methods
+    static int getCol(string);
+    static int getRow(string);
+    static string getColString(int);
+    static string getRowString(int);
+};
+
+template <class T>
+class Inventory : public InventoryContainer {
+    protected:
         // Instance variables
         vector<vector<bool>> data;
-        map<string, Item*> storage;
+        map<string, T*> storage;
+        int rows;
+        int cols;
         int empty_slots;
 
     public:
@@ -29,92 +50,26 @@ class Inventory {
         Inventory();
         Inventory(int, int);
 
-        // Static methods
-        static int getCol(string);
-        static int getRow(string);
-        static string getColString(int);
-        static string getRowString(int);
-
         // Printers
-        friend ostream& operator<<(ostream& out, Inventory& inv) {
-            for (auto row : inv.data) {
-                for (auto col : row) {
-                    out << col << " ";
-                }
-                out << endl;
-            }
-            out << endl;
-
-            return out;
-        }
+        template <class U>
+        friend ostream& operator<<(ostream& out, Inventory<U>& inv);
 
         // Getters
-        virtual int getInvRows() {
-            return Inventory::InventoryRows;
-        }
-        virtual int getInvCols() {
-            return Inventory::InventoryCols;
-        }
-        int getEmptySlotsCount() {
-            return this->empty_slots;
-        }
-        Item* getItem(string);
+        virtual int getInvRows();
+        virtual int getInvCols();
+        int getEmptySlotsCount();
+
+        T* getItem(string);
         string getEmptySlot();
-        map<string, Item*> getAllItems();
 
-        // Instance methods
-        void operator+=(Item*);
+        map<string, T*>& getAllItems();
 
-        void InsertItemAt(Item*, string);
-        void insertItem(Item*);
-};
+        // Setter
+        void InsertItemAt(T*, string);
+        void insertItem(T*);
 
-class Farm : public Inventory {
-    friend class FileManager;
-
-    protected:
-        // Static variables
-        static int FarmRows;
-        static int FarmCols;
-
-        // Instance variables
-    
-    public:
-        // Constructors
-        Farm();
-
-        // Getters
-        int getInvRows() {
-            return Farm::FarmRows;
-        }
-        int getInvCols() {
-            return Farm::FarmCols;
-        }
-
-        // Instance methods
-};
-
-class Barn : public Inventory {
-    friend class FileManager;
-
-    protected:
-        // Static variables
-        static int BarnRows;
-        static int BarnCols;
-
-        // Instance variables
-
-    public:
-        // Constructors
-        Barn();
-
-        // Getters
-        int getInvRows() {
-            return Barn::BarnRows;
-        }
-        int getInvCols() {
-            return Barn::BarnCols;
-        }
+        // Operator Overloads
+        void operator+=(T*);
 
         // Instance methods
 };

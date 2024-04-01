@@ -196,24 +196,24 @@ void FileManager::readMiscData() {
 
     // Get StorageRows and StorageCols
     getline(file, line, ' ');
-    Inventory::InventoryRows = stoi(line);
+    InventoryContainer::InventoryRows = stoi(line);
     
     getline(file, line);
-    Inventory::InventoryCols = stoi(line);
+    InventoryContainer::InventoryCols = stoi(line);
     
     // Get FarmRows and FarmCols
     getline(file, line, ' ');
-    Farm::FarmRows = stoi(line);
+    InventoryContainer::FarmRows = stoi(line);
     
     getline(file, line);
-    Farm::FarmCols = stoi(line);
+    InventoryContainer::FarmCols = stoi(line);
 
     // Get BarnRows and BarnCols
     getline(file, line, ' ');
-    Barn::BarnRows = stoi(line);
+    InventoryContainer::BarnRows = stoi(line);
     
     getline(file, line);
-    Barn::BarnCols = stoi(line);
+    InventoryContainer::BarnCols = stoi(line);
 
 }
 

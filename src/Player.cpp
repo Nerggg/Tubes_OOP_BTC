@@ -4,6 +4,7 @@
 map<string, Player*> Player::PlayerData;
 int Player::GuldenWinAmount;
 int Player::WeightWinAmount;
+bool Player::winningPlayerExists = false;
 
 // ========================================================
 // ====================== Player ==========================
@@ -24,11 +25,15 @@ int Player::getWeightWinAmount() {
     return Player::WeightWinAmount;
 }
 
+bool Player::playerHasWon() {
+    return Player::winningPlayerExists;
+}
+
 void Player::insertToInventory(Item* i) {
     this->inventory += i;
 }
 
-Inventory Player::getInventory() {
+Inventory<Item> Player::getInventory() {
     return this->inventory;
 }
 
@@ -47,6 +52,10 @@ SlowPrinter Player::slowPrintDetails(SlowPrinter slowp) {
 
 SlowPrinter operator<<(SlowPrinter slowp, Player* p) {
     return p->slowPrintDetails(slowp);
+}
+
+bool Player::checkPlayerWinning() {
+    return (this->weight >= Player::WeightWinAmount) && (this->money >= Player::GuldenWinAmount);
 }
 
 void Player::withdrawMoney(int amount) {
@@ -77,10 +86,10 @@ string Walikota::getPlayerType() {
 // ====================== Petani ==========================
 // ========================================================
 Petani::Petani(string name, int weight, int money) : Player(name, weight, money) {
-    // this->farm = Farm<Plant>();
+    this->farm = Inventory<Plant>(InventoryContainer::FarmRows, InventoryContainer::FarmCols);
 }
 
-void Petani::insertToFarm(Item* i, string slot) {
+void Petani::insertToFarm(Plant* i, string slot) {
     this->farm.InsertItemAt(i, slot);
 }
 
@@ -92,14 +101,25 @@ string Petani::getPlayerType() {
     return TYPE_PETANI;
 }
 
+void Petani::incrementAllPlants() {
+    // Get plants in farm
+    map<string, Plant*> plants = this->farm.getAllItems();
+    
+    // Increment all plants' age
+    for (auto const& pair : plants) {
+        Plant* plant = pair.second;
+        (*plant)++;
+    }
+}
+
 // ========================================================
 // ===================== Peternak =========================
 // ========================================================
 Peternak::Peternak(string name, int weight, int money) : Player(name, weight, money) {
-    // this->barn = Barn<Animal>();
+    this->barn = Inventory<Animal>(InventoryContainer::BarnRows, InventoryContainer::BarnCols);
 }
 
-void Peternak::insertToBarn(Item* i, string slot) {
+void Peternak::insertToBarn(Animal* i, string slot) {
     this->barn.InsertItemAt(i, slot);
 }
 

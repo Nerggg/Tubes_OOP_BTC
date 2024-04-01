@@ -21,12 +21,13 @@ class Player {
         static map<string, Player*> PlayerData;
         static int GuldenWinAmount;
         static int WeightWinAmount;
+        static bool winningPlayerExists;
 
         // Instance variables
         string name;
         int weight;
         int money;
-        Inventory inventory;
+        Inventory<Item> inventory;
 
     public:
         // Constructors
@@ -35,6 +36,7 @@ class Player {
         // Static methods
         static int getGuldenWinAmount();
         static int getWeightWinAmount();
+        static bool playerHasWon();
         
         static map<string, Player*> getPlayerData() {
             return Player::PlayerData;
@@ -70,15 +72,17 @@ class Player {
         virtual void tambahPemain() {};
         
         // Getters
-        Inventory getInventory();
+        Inventory<Item> getInventory();
         virtual string getPlayerType() = 0;
 
         // Setters
         void insertToInventory(Item*);
-        virtual void insertToBarn(Item*, string) {};
-        virtual void insertToFarm(Item*, string) {};
+        virtual void insertToBarn(Animal*, string) {};
+        virtual void insertToFarm(Plant*, string) {};
+        virtual void incrementAllPlants() {};
 
         // Instance methods
+        bool checkPlayerWinning();
         virtual void hitungPajak() = 0;
         void withdrawMoney(int);
         void depositMoney(int);
@@ -121,7 +125,7 @@ class Petani : public Player {
         // Static variables
 
         // Instance variables
-        Farm farm;
+        Inventory<Plant> farm;
 
     public:
         // Constructors
@@ -144,7 +148,8 @@ class Petani : public Player {
         string getPlayerType();
 
         // Setters
-        void insertToFarm(Item*, string);
+        void insertToFarm(Plant*, string);
+        void incrementAllPlants();
 
         // Instance methods
         void hitungPajak();
@@ -155,7 +160,7 @@ class Peternak : public Player {
         // Static variables
 
         // Instance variables
-        Barn barn;
+        Inventory<Animal> barn;
 
     public:
         // Constructors
@@ -180,7 +185,7 @@ class Peternak : public Player {
         string getPlayerType();
 
         // Setters
-        void insertToBarn(Item*, string);
+        void insertToBarn(Animal*, string);
 
         // Instance methods
         void hitungPajak();
