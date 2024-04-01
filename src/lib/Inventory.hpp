@@ -67,6 +67,7 @@ class Inventory : public InventoryContainer {
         // Setter
         void InsertItemAt(T*, string);
         void insertItem(T*);
+        void DeleteItemAt(string);
 
         // Operator Overloads
         void operator+=(T*);
