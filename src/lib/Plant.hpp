@@ -40,7 +40,7 @@ class Plant : public Item {
         int getAge();
 
         // Setters
-        Plant& operator++(int);    // Add plant age
+        void operator++(int);    // Add plant age
 
         // Type checkers
         bool isAnimal();

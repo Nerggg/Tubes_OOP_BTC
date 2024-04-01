@@ -119,6 +119,23 @@ void Player::Turn() {
             sc << BOLD << RED << "Perintah tidak valid!" << RESET << endl;
             sc << BOLD << RED << "Silahkan jalankan perintah " << YELLOW << "'HELP'" << BOLD << RED << " untuk mendapatkan perintah yang tersedia." << RESET << endl;
         }
+        
+        // End game if a player has won
+        for (const auto& pair : Player::getPlayerData()) {
+            if (pair.second->checkPlayerWinning()) {
+                sc << BOLD YELLOW << pair.second->name << MAGENTA << " berhasil memenangkan permainan dengan " << YELLOW << pair.second->weight << " kg berat badan" << MAGENTA << " dan " << YELLOW << pair.second->money << " Gulden!" << endl;
+                sc << BRIGHT_CYAN << "Permainan berakhir! Terimakasih telah bermain!" << RESET << endl;
+                
+                // End game
+                Player::winningPlayerExists = true;
+                return;
+            }
+        }
+
+        // Print current money and weight
+        if (command != NEXT) {
+            sc << BOLD BRIGHT_CYAN<< "Berat badan: " << YELLOW << this->weight << " kg (Progress: " << weightProgress << "%)" << BOLD BRIGHT_CYAN << " | " << "Gulden: " << YELLOW << this->money << " (Progress: " << moneyProgress << "%)" << RESET << endl;
+        }
     }
 }
 

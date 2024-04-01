@@ -21,6 +21,7 @@ class Player {
         static map<string, Player*> PlayerData;
         static int GuldenWinAmount;
         static int WeightWinAmount;
+        static bool winningPlayerExists;
 
         // Instance variables
         string name;
@@ -35,6 +36,7 @@ class Player {
         // Static methods
         static int getGuldenWinAmount();
         static int getWeightWinAmount();
+        static bool playerHasWon();
         
         static map<string, Player*> getPlayerData() {
             return Player::PlayerData;
@@ -77,8 +79,10 @@ class Player {
         void insertToInventory(Item*);
         virtual void insertToBarn(Animal*, string) {};
         virtual void insertToFarm(Plant*, string) {};
+        virtual void incrementAllPlants() {};
 
         // Instance methods
+        bool checkPlayerWinning();
         virtual void hitungPajak() = 0;
         void withdrawMoney(int);
         void depositMoney(int);
@@ -145,6 +149,7 @@ class Petani : public Player {
 
         // Setters
         void insertToFarm(Plant*, string);
+        void incrementAllPlants();
 
         // Instance methods
         void hitungPajak();

@@ -59,6 +59,8 @@ class Inventory : public InventoryContainer {
         T* getItem(string);
         string getEmptySlot();
 
+        map<string, T*>& getAllItems();
+
         // Setter
         void InsertItemAt(T*, string);
         void insertItem(T*);

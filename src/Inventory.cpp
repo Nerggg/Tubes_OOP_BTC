@@ -146,6 +146,11 @@ string Inventory<T>::getEmptySlot() {
     return "";
 }
 
+template <class T>
+map<string, T*>& Inventory<T>::getAllItems() {
+    return storage;
+}
+
 // ========================================================
 // ======================= Setters ========================
 // ========================================================

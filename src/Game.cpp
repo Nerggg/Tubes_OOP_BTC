@@ -16,14 +16,22 @@ Game::Game() {
 }
 
 void Game::Start() {
-    bool StillPlaying = true;
-    while (StillPlaying) {
+    while (!Player::playerHasWon()) {
         for (const auto& pair : Player::getPlayerData()) {
             // Get next player
             Player* player = pair.second;
 
             // Run the player's turn method
             player->Turn();
+
+            // Break if a player has won
+            if (Player::playerHasWon()) break;
+
+            // Increment all plant ages
+            for (const auto& pair : Player::getPlayerData()) {
+                Player* player = pair.second;
+                player->incrementAllPlants();
+            }
         }
     }
 }
@@ -62,7 +70,8 @@ void Game::Initialize() {
     // Load default lineup
     sc << BOLD MAGENTA << "Memuat setup pemain..." << RESET << endl;
     sc.setMult(3);
-    sc.setDelay(100); sc << BOLD YELLOW << ".    .    .    .    .    .    .    ." << endl; sc.resetDelay();
+    sc << BOLD BRIGHT_CYAN << ">> ";
+    sc.setDelay(100); sc << BOLD BG_YELLOW << "                                        " << RESET << endl; sc.resetDelay();
     sc.resetMult();
     if (choice == "1") {
         // Load default lineup

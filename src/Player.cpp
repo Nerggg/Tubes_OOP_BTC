@@ -4,6 +4,7 @@
 map<string, Player*> Player::PlayerData;
 int Player::GuldenWinAmount;
 int Player::WeightWinAmount;
+bool Player::winningPlayerExists = false;
 
 // ========================================================
 // ====================== Player ==========================
@@ -22,6 +23,10 @@ int Player::getGuldenWinAmount() {
 
 int Player::getWeightWinAmount() {
     return Player::WeightWinAmount;
+}
+
+bool Player::playerHasWon() {
+    return Player::winningPlayerExists;
 }
 
 void Player::insertToInventory(Item* i) {
@@ -47,6 +52,10 @@ SlowPrinter Player::slowPrintDetails(SlowPrinter slowp) {
 
 SlowPrinter operator<<(SlowPrinter slowp, Player* p) {
     return p->slowPrintDetails(slowp);
+}
+
+bool Player::checkPlayerWinning() {
+    return (this->weight >= Player::WeightWinAmount) && (this->money >= Player::GuldenWinAmount);
 }
 
 void Player::withdrawMoney(int amount) {
@@ -90,6 +99,17 @@ void Petani::hitungPajak() {
 
 string Petani::getPlayerType() {
     return TYPE_PETANI;
+}
+
+void Petani::incrementAllPlants() {
+    // Get plants in farm
+    map<string, Plant*> plants = this->farm.getAllItems();
+    
+    // Increment all plants' age
+    for (auto const& pair : plants) {
+        Plant* plant = pair.second;
+        (*plant)++;
+    }
 }
 
 // ========================================================
