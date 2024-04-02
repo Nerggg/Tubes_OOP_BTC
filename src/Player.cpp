@@ -13,7 +13,7 @@ Player::Player(string name, int weight, int money) {
     this->name = name;
     this->weight = weight;
     this->money = money;
-    // this->inventory = Inventory<Item>();
+    this->inventory = Inventory<Item>();
 
 }
 
@@ -36,6 +36,7 @@ void Player::insertToInventory(Item* i) {
 Inventory<Item> Player::getInventory() {
     return this->inventory;
 }
+
 
 void Player::addPlayer(Player* p) {
     Player::PlayerData[p->name] = p;
