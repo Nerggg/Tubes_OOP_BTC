@@ -37,6 +37,8 @@ class FileManager {
         static void readBuildingData();
         static void readMiscData();
         static void readPlayerData();
+
+        static void writePlayerData(string);
 };
 
 #endif

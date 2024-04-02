@@ -358,3 +358,12 @@ void FileManager::readPlayerData() {
         Store::StoreData[item_name] = count;
     }
 }
+
+// ========================================================
+// =================== writePlayerData ====================
+// ========================================================
+
+// void FileManager::writePlayerData(string filename) {
+//     string ext = ".txt"
+//     ofstream file();
+// }
