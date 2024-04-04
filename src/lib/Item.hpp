@@ -49,6 +49,7 @@ class Item {
         friend SlowPrinter operator<<(SlowPrinter out, Item* I);
 
         // Getters
+        int getId();
         string getName();
         string getCode();
         string getType();

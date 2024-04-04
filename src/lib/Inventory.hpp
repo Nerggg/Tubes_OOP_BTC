@@ -53,6 +53,8 @@ class Inventory : public InventoryContainer {
         // Printers
         template <class U>
         friend ostream& operator<<(ostream& out, Inventory<U>& inv);
+        
+        void printInventory();
 
         // Getters
         virtual int getInvRows();
@@ -63,6 +65,7 @@ class Inventory : public InventoryContainer {
         string getEmptySlot();
 
         map<string, T*>& getAllItems();
+
 
         // Setter
         void InsertItemAt(T*, string);
