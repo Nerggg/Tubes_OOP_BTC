@@ -211,6 +211,15 @@ void Inventory<T>::insertItem(T* I) {
     if (empty != "") InsertItemAt(I, empty);
 }
 
+template <class T>
+void Inventory<T>::DeleteItemAt(string slot) {
+    int row = getRow(slot);
+    int col = getCol(slot);
+    storage.erase(slot);
+    data[row][col] = false;
+    empty_slots++;
+}
+
 // ========================================================
 // ================== Operator Overloads ==================
 // ========================================================
