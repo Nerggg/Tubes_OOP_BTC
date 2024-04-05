@@ -8,7 +8,6 @@ void Petani::tanam()
 {
     // Initialize slowprinter
     SlowPrinter &sc = *(SlowPrinter::getSlowPrinter());
-    cetakPenyimpanan();
     // Run command
     map<string, Item *> tempInv = inventory.getAllItems();
     map<string, Plant *> siapTanam;
