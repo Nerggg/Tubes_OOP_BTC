@@ -93,7 +93,8 @@ void Petani::panen()
                     {
                         if (pair.second->isProduct())
                         {
-                            Product *product = dynamic_cast<Product *>(pair.second->clone());
+                            Item *temp = pair.second->clone();
+                            Product *product = (Product*) temp;
                             if (product->getOrigin() == it->first)
                             {
                                 inventory.insertItem(product);
@@ -209,7 +210,8 @@ void Peternak::panen()
                     {
                         if (pair.second->isProduct())
                         {
-                            Product *product = dynamic_cast<Product *>(pair.second->clone());
+                            Item *temp = pair.second->clone();
+                            Product *product = (Product*) temp;
                             if (product->getOrigin() == it->first)
                             {
                                 inventory.insertItem(product);

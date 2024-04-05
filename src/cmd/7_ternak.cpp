@@ -16,7 +16,9 @@ void Peternak::ternak() {
     {
         if (pair.second->isAnimal())
         {
-            siapTernak.insert({pair.first, dynamic_cast<Animal *>(pair.second)});
+            Item *temp = pair.second->clone();
+            Animal *tempAnimal = (Animal*) temp; 
+            siapTernak.insert({pair.first, tempAnimal});
         }
     }
 
@@ -64,7 +66,7 @@ void Peternak::ternak() {
         string petak;
         sc << GREEN << "Petak tanah: " << RESET;
         cin >> petak;
-        if (barn.cekSlot(petak))
+        if (!barn.cekSlot(petak))
         {
             barn.InsertItemAt(siapTernak[slot], petak);
             inventory.DeleteItemAt(slot);

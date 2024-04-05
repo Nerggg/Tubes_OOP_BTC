@@ -16,7 +16,9 @@ void Petani::tanam()
     {
         if (pair.second->isPlant())
         {
-            siapTanam.insert({pair.first, dynamic_cast<Plant *>(pair.second)});
+            Item *temp = pair.second->clone();
+            Plant *tempPlant = (Plant*) temp; 
+            siapTanam.insert({pair.first, tempPlant});
         }
     }
 
@@ -62,15 +64,17 @@ void Petani::tanam()
     while (!cek)
     {
         string petak;
-        sc << GREEN << "Petak tanah: " << RESET;
+        sc << GREEN << "Petak tanah: "<< RESET;
         cin >> petak;
-        if (farm.cekSlot(petak))
+        
+        if (!farm.cekSlot(petak))
         {
             farm.InsertItemAt(siapTanam[slot], petak);
             inventory.DeleteItemAt(slot);
             cek = true;
             sc << GREEN << "Cangkul, cangkul, cangkul yang dalam~!" << RESET << endl;
             sc << GREEN << siapTanam[slot]->getName() << " berhasil ditanam!" << RESET << endl;
+
         }
         if (!cek)
         {
