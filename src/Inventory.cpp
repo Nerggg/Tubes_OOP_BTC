@@ -1,4 +1,5 @@
 #include "lib/Inventory.hpp"
+#include <iomanip>
 
 // Static variables
 int InventoryContainer::InventoryRows;
@@ -74,7 +75,6 @@ map<int, string> InventoryContainer::intToChar = {
 
 template <class T>
 Inventory<T>::Inventory() : Inventory<T>(InventoryRows, InventoryCols) {
-
 }
 
 template <class T>
@@ -137,6 +137,50 @@ ostream& operator<<(ostream& out, Inventory<T>& inv) {
 
     return out;
 }
+
+template <class T>
+void Inventory<T>::printInventory(){
+    cout << " ";
+    for (int i = 0; i < this->cols; i++){
+        cout << "     " << getColString(i);
+    }
+    cout << "   ";
+    cout << endl;
+
+    for (int i = 0; i < this->rows; i++) {
+        cout << "   +-----";
+        for (int j = 0; j < this->cols - 1; ++j) {
+            cout << "+-----";
+        }
+        cout << "+";
+        cout << endl;
+
+        cout << setw(2) << i + 1 << " |"; // Row number
+
+        for (int j = 0; j < this->cols; ++j) {
+            string key = getRowString(i) + getColString(j);
+            if (storage.find(key) != storage.end()) {
+                cout << " " << storage[key]->getId() << " |"; // ID of item
+            } else {
+                cout << "     |"; 
+            }
+        }
+        cout << endl;
+    }
+
+    cout << "   +-----";
+    for (int j = 0; j < this->cols - 1; ++j) {
+        cout << "+-----";
+    }
+    cout << "+";
+    cout << endl;
+
+    int emptySlots = getEmptySlotsCount();
+    cout << "Total slot kosong: " << emptySlots << endl;
+}
+
+
+
 
 // ========================================================
 // ======================= Getters ========================

@@ -79,6 +79,10 @@ SlowPrinter operator<<(SlowPrinter slowp, Item* I) {
 // ======================= Getters ========================
 // ========================================================
 
+int Item::getId(){
+    return this->id;
+}
+
 string Item::getName() {
     return this->name;
 }
