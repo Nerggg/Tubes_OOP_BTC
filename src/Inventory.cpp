@@ -234,6 +234,13 @@ map<string, T*>& Inventory<T>::getAllItems() {
     return storage;
 }
 
+template <class T>
+bool Inventory<T>::cekSlot(string slot) {
+    int row = getRow(slot);
+    int col = getCol(slot);
+    return data[row][col];
+}
+
 // ========================================================
 // ======================= Setters ========================
 // ========================================================

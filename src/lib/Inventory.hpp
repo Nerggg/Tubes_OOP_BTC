@@ -65,6 +65,7 @@ class Inventory : public InventoryContainer {
         string getEmptySlot();
 
         map<string, T*>& getAllItems();
+        bool cekSlot(string);
 
 
         // Setter
