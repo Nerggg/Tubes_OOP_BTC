@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iomanip>
 
 #include "Inventory.hpp"
 #include "SlowPrinter.hpp"

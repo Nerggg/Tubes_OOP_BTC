@@ -55,6 +55,7 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "cstring": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "iomanip": "cpp"
     }
 }

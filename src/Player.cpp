@@ -83,10 +83,6 @@ string Walikota::getPlayerType() {
     return TYPE_WALIKOTA;
 }
 
-void Walikota::cetakPenyimpanan() {
-    this->inventory.printInventory();
-}
-
 // ========================================================
 // ====================== Petani ==========================
 // ========================================================
@@ -117,10 +113,6 @@ void Petani::incrementAllPlants() {
     }
 }
 
-void Petani::cetakPenyimpanan() {
-    this->inventory.printInventory();
-}
-
 // ========================================================
 // ===================== Peternak =========================
 // ========================================================
@@ -138,8 +130,4 @@ void Peternak::hitungPajak() {
 
 string Peternak::getPlayerType() {
     return TYPE_PETERNAK;
-}
-
-void Peternak::cetakPenyimpanan() {
-    this->inventory.printInventory();
 }
