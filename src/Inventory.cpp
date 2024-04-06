@@ -1,5 +1,6 @@
 #include "lib/Inventory.hpp"
 #include <iomanip>
+#include "lib/colors.h"
 
 // Static variables
 int InventoryContainer::InventoryRows;
@@ -140,27 +141,29 @@ ostream& operator<<(ostream& out, Inventory<T>& inv) {
 
 template <class T>
 void Inventory<T>::printInventory(){
-    cout << " ";
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+
+    sc << " ";
     for (int i = 0; i < this->cols; i++){
         cout << "     " << getColString(i);
     }
-    cout << "   ";
-    cout << endl;
+    sc << "   ";
+    sc << endl;
 
     for (int i = 0; i < this->rows; i++) {
-        cout << "   +-----";
+        sc << "   +-----";
         for (int j = 0; j < this->cols - 1; ++j) {
             cout << "+-----";
         }
         cout << "+";
         cout << endl;
 
-        cout << setw(2) << i + 1 << " |"; // Row number
+        cout << setw(2) << setfill('0') << i + 1 << " |"; // Row number
 
         for (int j = 0; j < this->cols; ++j) {
             string key = getRowString(i) + getColString(j);
             if (storage.find(key) != storage.end()) {
-                cout << " " << storage[key]->getId() << " |"; // ID of item
+                sc << " " << storage[key]->getId() << " |"; // ID of item
             } else {
                 cout << "     |"; 
             }
@@ -176,7 +179,7 @@ void Inventory<T>::printInventory(){
     cout << endl;
 
     int emptySlots = getEmptySlotsCount();
-    cout << "Total slot kosong: " << emptySlots << endl;
+    sc << BOLD CYAN << "Total slot kosong: " << BOLD YELLOW << emptySlots << endl;
 }
 
 
