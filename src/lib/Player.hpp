@@ -5,9 +5,9 @@
 #define TYPE_PETANI "Petani"
 #define TYPE_PETERNAK "Peternak"
 
-#include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <iomanip>
 
 #include "Inventory.hpp"
 #include "SlowPrinter.hpp"
@@ -34,8 +34,6 @@ class Player {
         // Constructors
         Player(string, int, int);
 
-        // Destructors
-        ~Player();
         // Static methods
         static int getGuldenWinAmount();
         static int getWeightWinAmount();
@@ -57,22 +55,22 @@ class Player {
 
         // Player commmands
         // get commands from commands.h
-        virtual void help();
+        virtual void help() {};
         virtual void next();
-        virtual void cetakPenyimpanan();
-        virtual void pungutPajak();
-        virtual void cetakLadang();
-        virtual void cetakPeternakan();
-        virtual void tanam();
-        virtual void ternak();
-        virtual void bangun();
-        virtual void makan();
-        virtual void kasihMakan();
-        virtual void beli();
-        virtual void jual();
-        virtual void panen();
+        virtual void cetakPenyimpanan() {};
+        virtual void pungutPajak() {};
+        virtual void cetakLadang() {};
+        virtual void cetakPeternakan() {};
+        virtual void tanam() {};
+        virtual void ternak() {};
+        virtual void bangun() {};
+        virtual void makan() {};
+        virtual void kasihMakan() {};
+        virtual void beli() {};
+        virtual void jual() {};
+        virtual void panen() {};
         virtual void simpan();
-        virtual void tambahPemain();
+        virtual void tambahPemain() {};
         
         // Getters
         Inventory<Item> getInventory();
@@ -105,21 +103,13 @@ class Walikota : public Player {
         bool checkCommandValid(string);
 
         // Walikota commands
-        void next();
         void help();
         void cetakPenyimpanan();
         void pungutPajak();
-        void cetakLadang();
-        void cetakPeternakan();
-        void tanam();
-        void ternak();
         void bangun();
         void makan();
-        void kasihMakan();
         void beli();
         void jual();
-        void panen();
-        void simpan();
         void tambahPemain();
         
         // Getters
@@ -142,28 +132,18 @@ class Petani : public Player {
         // Constructors
         Petani(string, int, int);
 
-        ~Petani();
-        
         // Petani command methods
         bool checkCommandValid(string);
 
         // Petani commands
-        void next(){}
         void help();
         void cetakPenyimpanan();
-        void pungutPajak(){}
         void cetakLadang();
-        void cetakPeternakan(){}
         void tanam();
-        void ternak(){}
-        void bangun(){}
         void makan();
-        void kasihMakan(){}
         void beli();
         void jual();
         void panen();
-        void simpan(){}
-        void tambahPemain(){}
 
         // Getters
         string getPlayerType();
@@ -187,28 +167,20 @@ class Peternak : public Player {
         // Constructors
         Peternak(string, int, int);
 
-        ~Peternak();
 
         // Peternak command methods
         bool checkCommandValid(string);
 
         // Peternak commands
-        void next(){}
         void help();
         void cetakPenyimpanan();
-        void pungutPajak(){}
-        void cetakLadang(){}
         void cetakPeternakan();
-        void tanam(){}
         void ternak();
-        void bangun(){}
         void makan();
         void kasihMakan();
         void beli();
         void jual();
         void panen();
-        void simpan(){}
-        void tambahPemain(){}
 
         // Getters
         string getPlayerType();
