@@ -15,180 +15,181 @@
 #include "commands.h"
 #include "Exception.hpp"
 
-class Player
-{
+class Player {
     friend class FileManager;
+    protected:
+        // Static variables
+        static map<string, Player*> PlayerData;
+        static int GuldenWinAmount;
+        static int WeightWinAmount;
+        static bool winningPlayerExists;
 
-protected:
-    // Static variables
-    static map<string, Player *> PlayerData;
-    static int GuldenWinAmount;
-    static int WeightWinAmount;
-    static bool winningPlayerExists;
+        // Instance variables
+        string name;
+        int weight;
+        int money;
+        Inventory<Item> inventory;
 
-    // Instance variables
-    string name;
-    int weight;
-    int money;
-    Inventory<Item> inventory;
+    public:
+        // Constructors
+        Player(string, int, int);
 
-public:
-    // Constructors
-    Player(string, int, int);
+        // Static methods
+        static int getGuldenWinAmount();
+        static int getWeightWinAmount();
+        static bool playerHasWon();
+        
+        static map<string, Player*> getPlayerData() {
+            return Player::PlayerData;
+        }
+        static void addPlayer(Player*);
 
-    // Static methods
-    static int getGuldenWinAmount();
-    static int getWeightWinAmount();
-    static bool playerHasWon();
+        // Printers
+        SlowPrinter slowPrintDetails(SlowPrinter);
+        friend SlowPrinter operator<<(SlowPrinter, Player*);
+ 
+        // Player command methods
+        void Turn();
+        virtual bool checkCommandValid(string) = 0;
+        void executeCommand(string); 
 
-    static map<string, Player *> getPlayerData()
-    {
-        return Player::PlayerData;
-    }
-    static void addPlayer(Player *);
+        // Player commmands
+        // get commands from commands.h
+        virtual void help() {};
+        virtual void next();
+        virtual void cetakPenyimpanan() {};
+        virtual void pungutPajak() {};
+        virtual void cetakLadang() {};
+        virtual void cetakPeternakan() {};
+        virtual void tanam() {};
+        virtual void ternak() {};
+        virtual void bangun() {};
+        virtual void makan() {};
+        virtual void kasihMakan() {};
+        virtual void beli() {};
+        virtual void jual() {};
+        virtual void panen() {};
+        virtual void simpan();
+        virtual void tambahPemain() {};
+        
+        // Getters
+        Inventory<Item> getInventory();
+        virtual string getPlayerType() = 0;
 
-    // Printers
-    SlowPrinter slowPrintDetails(SlowPrinter);
-    friend SlowPrinter operator<<(SlowPrinter, Player *);
+        // Setters
+        void insertToInventory(Item*);
+        virtual void insertToBarn(Animal*, string) {};
+        virtual void insertToFarm(Plant*, string) {};
+        virtual void incrementAllPlants() {};
 
-    // Player command methods
-    void Turn();
-    virtual bool checkCommandValid(string) = 0;
-    void executeCommand(string);
-
-    // Player commmands
-    // get commands from commands.h
-    virtual void help() {};
-    virtual void next();
-    void cetakPenyimpanan() {};
-    virtual void pungutPajak() {};
-    virtual void cetakLadang() {};
-    virtual void cetakPeternakan() {};
-    virtual void tanam() {};
-    virtual void ternak() {};
-    virtual void bangun() {};
-    void makan() {};
-    virtual void kasihMakan() {};
-    virtual void beli() {};
-    virtual void jual() {};
-    virtual void panen() {};
-    virtual void simpan();
-    virtual void tambahPemain() {};
-
-    // Getters
-    Inventory<Item> getInventory();
-    virtual string getPlayerType() = 0;
-
-    // Setters
-    void insertToInventory(Item *);
-    virtual void insertToBarn(Animal *, string) {};
-    virtual void insertToFarm(Plant *, string) {};
-    virtual void incrementAllPlants() {};
-
-    // Instance methods
-    bool checkPlayerWinning();
-    virtual void hitungPajak() = 0;
-    void withdrawMoney(int);
-    void depositMoney(int);
+        // Instance methods
+        bool checkPlayerWinning();
+        virtual void hitungPajak() = 0;
+        void withdrawMoney(int);
+        void depositMoney(int);
 };
 
-class Walikota : public Player
-{
-protected:
-    // Static variables
+class Walikota : public Player {
+    protected:
+        // Static variables
 
-    // Instance variables
+        // Instance variables
 
-public:
-    // Constructors
-    Walikota(string, int, int);
+    public:
+        // Constructors
+        Walikota(string, int, int);
 
-    // Walikota command methods
-    bool checkCommandValid(string);
+        // Walikota command methods
+        bool checkCommandValid(string);
 
-    // Walikota commands
-    void help();
-    void pungutPajak();
-    void bangun();
-    void beli();
-    void jual();
-    void tambahPemain();
+        // Walikota commands
+        void help();
+        void cetakPenyimpanan();
+        void pungutPajak();
+        void bangun();
+        void makan();
+        void beli();
+        void jual();
+        void tambahPemain();
+        
+        // Getters
+        string getPlayerType();
 
-    // Getters
-    string getPlayerType();
+        // Setters
 
-    // Setters
-
-    // Instance methods
-    void hitungPajak();
+        // Instance methods
+        void hitungPajak();
 };
 
-class Petani : public Player
-{
-protected:
-    // Static variables
+class Petani : public Player {
+    protected:
+        // Static variables
 
-    // Instance variables
-    Inventory<Plant> farm;
+        // Instance variables
+        Inventory<Plant> farm;
 
-public:
-    // Constructors
-    Petani(string, int, int);
+    public:
+        // Constructors
+        Petani(string, int, int);
 
-    // Petani command methods
-    bool checkCommandValid(string);
+        // Petani command methods
+        bool checkCommandValid(string);
 
-    // Petani commands
-    void help();
-    void cetakLadang();
-    void tanam();
-    void beli();
-    void jual();
-    void panen();
+        // Petani commands
+        void help();
+        void cetakPenyimpanan();
+        void cetakLadang();
+        void tanam();
+        void makan();
+        void beli();
+        void jual();
+        void panen();
 
-    // Getters
-    string getPlayerType();
+        // Getters
+        string getPlayerType();
 
-    // Setters
-    void insertToFarm(Plant *, string);
-    void incrementAllPlants();
+        // Setters
+        void insertToFarm(Plant*, string);
+        void incrementAllPlants();
 
-    // Instance methods
-    void hitungPajak();
+        // Instance methods
+        void hitungPajak();
 };
 
-class Peternak : public Player
-{
-protected:
-    // Static variables
+class Peternak : public Player {
+    protected:
+        // Static variables
 
-    // Instance variables
-    Inventory<Animal> barn;
+        // Instance variables
+        Inventory<Animal> barn;
 
-public:
-    // Constructors
-    Peternak(string, int, int);
+    public:
+        // Constructors
+        Peternak(string, int, int);
 
-    // Peternak command methods
-    bool checkCommandValid(string);
 
-    // Peternak commands
-    void help();
-    void cetakPeternakan();
-    void ternak();
-    void kasihMakan();
-    void beli();
-    void jual();
-    void panen();
+        // Peternak command methods
+        bool checkCommandValid(string);
 
-    // Getters
-    string getPlayerType();
+        // Peternak commands
+        void help();
+        void cetakPenyimpanan();
+        void cetakPeternakan();
+        void ternak();
+        void makan();
+        void kasihMakan();
+        void beli();
+        void jual();
+        void panen();
 
-    // Setters
-    void insertToBarn(Animal *, string);
+        // Getters
+        string getPlayerType();
 
-    // Instance methods
-    void hitungPajak();
+        // Setters
+        void insertToBarn(Animal*, string);
+
+        // Instance methods
+        void hitungPajak();
 };
 
 #endif

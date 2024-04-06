@@ -4,7 +4,7 @@
 // ================== CETAK_PENYIMPANAN ===================
 // ========================================================
 
-void Player::cetakPenyimpanan()
+void Walikota::cetakPenyimpanan()
 {
     // Initialize slowprinter
     SlowPrinter &sc = *(SlowPrinter::getSlowPrinter());
