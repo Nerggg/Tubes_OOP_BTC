@@ -4,9 +4,10 @@
 // ================== CETAK_PENYIMPANAN ===================
 // ========================================================
 
-void Walikota::cetakPenyimpanan() {
+void Player::cetakPenyimpanan()
+{
     // Initialize slowprinter
-    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    SlowPrinter &sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
     sc << BOLD YELLOW;
