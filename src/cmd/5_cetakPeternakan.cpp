@@ -8,6 +8,8 @@ void Peternak::cetakPeternakan() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << BOLD YELLOW << "Implementation goes here." << RESET << endl << endl;
+    sc << BOLD YELLOW;
+    this->barn.printInventory(); 
+    sc << RESET << endl << endl;
 }
 

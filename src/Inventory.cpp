@@ -142,28 +142,38 @@ ostream& operator<<(ostream& out, Inventory<T>& inv) {
 template <class T>
 void Inventory<T>::printInventory(){
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 12);
+
+    int lineLength = this->cols * 6;
+    string title = " Penyimpanan ";
+    int totalPadding = lineLength - title.length();
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+
+    title = string(4, ' ') + string(leftPadding, '=') + title + string(rightPadding, '=');
+    sc << title << endl;
 
     sc << " ";
     for (int i = 0; i < this->cols; i++){
-        cout << "     " << getColString(i);
+        sc << "     " << getColString(i);
     }
-    sc << "   ";
-    sc << endl;
+    sc << "   " << endl;
 
     for (int i = 0; i < this->rows; i++) {
         sc << "   +-----";
         for (int j = 0; j < this->cols - 1; ++j) {
-            cout << "+-----";
+            sc << "+-----";
         }
-        cout << "+";
-        cout << endl;
+        sc << "+" << endl;
 
-        cout << setw(2) << setfill('0') << i + 1 << " |"; // Row number
+        cout << setw(2) << setfill('0') << i + 1;
+        cout << " |";
 
         for (int j = 0; j < this->cols; ++j) {
-            string key = getRowString(i) + getColString(j);
+            string key = getColString(j) + getRowString(i);
             if (storage.find(key) != storage.end()) {
-                sc << " " << storage[key]->getId() << " |"; // ID of item
+                cout << " " << BOLD CYAN << storage[key]->getCode() << BOLD YELLOW << " |";
             } else {
                 cout << "     |"; 
             }
@@ -171,16 +181,141 @@ void Inventory<T>::printInventory(){
         cout << endl;
     }
 
-    cout << "   +-----";
+    sc << "   +-----";
     for (int j = 0; j < this->cols - 1; ++j) {
-        cout << "+-----";
+        sc << "+-----";
     }
-    cout << "+";
-    cout << endl;
+    sc << "+" << endl;
+
+    sc.resetMult();
+    sc.resetDelay();
 
     int emptySlots = getEmptySlotsCount();
     sc << BOLD CYAN << "Total slot kosong: " << BOLD YELLOW << emptySlots << endl;
 }
+
+template<>
+void Inventory<Plant>::printInventory(){
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 12);
+
+    int lineLength = this->cols * 6;
+    string title = " Ladang ";
+    int totalPadding = lineLength - title.length();
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+
+    title = string(4, ' ') + string(leftPadding, '=') + title + string(rightPadding, '=');
+    sc << title << endl;
+
+    sc << " ";
+    for (int i = 0; i < this->cols; i++){
+        cout << "     " << getColString(i);
+    }
+    sc << "   " << endl;
+
+    for (int i = 0; i < this->rows; i++) {
+        sc << "   +-----";
+        for (int j = 0; j < this->cols - 1; ++j) {
+            sc << "+-----";
+        }
+        sc << "+" << endl;
+
+        cout << setw(2) << setfill('0') << i + 1 << " |";
+
+        for (int j = 0; j < this->cols; ++j) {
+            string key = getColString(j) + getRowString(i);
+            if (storage.find(key) != storage.end()) {
+                if (storage[key]->getAge() < storage[key]->getHarvestAge()) {
+                    cout << BOLD RED << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                } else {
+                    cout << BOLD GREEN << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                }
+            } else {
+                cout << "     |"; 
+            }
+        }
+        cout << endl;
+    }
+
+    sc << "   +-----";
+    for (int j = 0; j < this->cols - 1; ++j) {
+        sc << "+-----";
+    }
+    sc << "+" << endl;
+
+    sc.resetMult();
+    sc.resetDelay();
+
+    for (const auto& pair : storage) {
+        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+    }
+
+}
+
+
+template<>
+void Inventory<Animal>::printInventory(){
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 12);
+
+    int lineLength = this->cols * 6;
+    string title = " Peternakan ";
+    int totalPadding = lineLength - title.length();
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+
+    title = string(4, ' ') + string(leftPadding, '=') + title + string(rightPadding, '=');
+    sc << title << endl;
+
+    sc << " ";
+    for (int i = 0; i < this->cols; i++){
+        sc << "     " << getColString(i);
+    }
+    sc << "   ";
+    sc << endl;
+
+    for (int i = 0; i < this->rows; i++) {
+        sc << "   +-----";
+        for (int j = 0; j < this->cols - 1; ++j) {
+            sc << "+-----";
+        }
+        sc << "+" << endl;
+
+        cout << setw(2) << setfill('0') << i + 1 << " |";
+
+        for (int j = 0; j < this->cols; ++j) {
+            string key = getColString(j) + getRowString(i);
+            if (storage.find(key) != storage.end()) {
+                if (storage[key]->getWeight() < storage[key]->getHarvestWeight()) {
+                    cout << BOLD RED << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                } else {
+                    cout << BOLD GREEN << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                }
+            } else {
+                cout << "     |"; 
+            }
+        }
+        cout << endl;
+    }
+
+    sc << "   +-----";
+    for (int j = 0; j < this->cols - 1; ++j) {
+        sc << "+-----";
+    }
+    sc << "+" << endl;
+
+    sc.resetMult();
+    sc.resetDelay();
+    
+    for (const auto& pair : storage) {
+        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+    }
+
+}
+
 
 
 

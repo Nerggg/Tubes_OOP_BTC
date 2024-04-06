@@ -9,6 +9,8 @@ void Petani::cetakLadang() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << BOLD YELLOW << "Implementation goes here." << RESET << endl << endl;
+    sc << BOLD YELLOW;
+    this->farm.printInventory();
+    sc << RESET << endl << endl;
 }
 
