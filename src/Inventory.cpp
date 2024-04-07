@@ -341,7 +341,10 @@ int Inventory<T>::getEmptySlotsCount() {
 
 template <class T>
 T* Inventory<T>::getItem(string slot) {
-    return storage[slot];
+    // potential bug because [] operator can mutate the map by generating the item if it doesnt exist in the map.
+    // return storage[slot];
+    // so we use at() instead
+    return storage.at(slot);
 }
 
 template <class T>
