@@ -4,23 +4,7 @@
 // ======================= MAKAN ==========================
 // ========================================================
 
-void Walikota::makan() {
-    // Initialize slowprinter
-    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
-
-    // Run command
-    sc << BOLD YELLOW << "Implementation goes here." << RESET << endl << endl;
-}
-
-void Petani::makan() {
-    // Initialize slowprinter
-    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
-
-    // Run command
-    sc << BOLD YELLOW << "Implementation goes here." << RESET << endl << endl;
-}
-
-void Peternak::makan() {
+void Player::makan() {
     // Initialize slowprinter
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
