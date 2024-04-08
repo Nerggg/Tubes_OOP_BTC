@@ -343,10 +343,11 @@ template <class T>
 int Inventory<T>::countItem(string code){
     int count =0;
     for(const auto&pair : this->getAllItems()){
-        if(pair.second.code = code){
+        if(pair.second->getCode() == code){
             count++;
         }
     }
+    return count;
 }
 
 template <class T>
