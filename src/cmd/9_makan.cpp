@@ -37,20 +37,20 @@ void Player::makan()
             {
                 item = inventory.getItem(choice);
             }
-            catch (out_of_range& e)
+            catch (out_of_range &e)
             {
                 sc << BOLD RED << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
                 sc << "Silahkan masukkan slot yang berisi makanan." << endl;
             }
             if (item->isBuilding())
             {
-                sc << BOLD RED << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
+                sc << BOLD RED << "Apa yang kamu lakukan?\?!! Kamu mencoba untuk memakan itu?!!" << endl;
                 sc << "Silahkan masukkan slot yang berisi makanan." << endl;
             }
             Product *produk = (Product *)item;
             if (!produk->isEdibleAnimal() && !produk->isEdiblePlant())
             {
-                sc << BOLD RED << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
+                sc << BOLD RED << "Apa yang kamu lakukan?\?!! Kamu mencoba untuk memakan itu?!!" << endl;
                 sc << "Silahkan masukkan slot yang berisi makanan." << endl;
             }
             else
