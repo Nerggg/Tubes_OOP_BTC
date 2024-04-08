@@ -33,4 +33,12 @@ class commandInvalidException {
         };
 };
 
+class wrongFoodException
+{
+public:
+    const char *what()
+    {
+        return "Jangan kasih makan itu dong, gabisa!";
+};
+
 #endif
