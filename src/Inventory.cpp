@@ -344,7 +344,13 @@ T* Inventory<T>::getItem(string slot) {
     // potential bug because [] operator can mutate the map by generating the item if it doesnt exist in the map.
     // return storage[slot];
     // so we use at() instead
-    return storage.at(slot);
+    auto it = storage.find(slot);
+    if (it != storage.end()) {
+        return it->second;
+    }
+    else {
+        return NULL;
+    }
 }
 
 template <class T>

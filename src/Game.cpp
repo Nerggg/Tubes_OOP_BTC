@@ -59,9 +59,9 @@ void Game::Initialize() {
         cin >> choice;
 
         try {
-            if (choice != "1" && choice != "2") throw commandInvalidExeption();
+            if (choice != "1" && choice != "2") throw commandInvalidException();
             valid = true;
-        } catch (commandInvalidExeption e) {
+        } catch (commandInvalidException e) {
             sc << BOLD << RED << "Pilihan tidak valid! Silakan pilih 1 atau 2." << RESET << endl;
         }
     }
