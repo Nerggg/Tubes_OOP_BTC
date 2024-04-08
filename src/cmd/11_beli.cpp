@@ -97,7 +97,7 @@ void Walikota::beli() {
             slots.push_back(slotTemp);
         }
 
-        if (slots.size() != q) {
+        if (int(slots.size()) != q) {
             sc << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << endl;
             while (!slots.empty()) {
                 slots.pop_back();
@@ -105,7 +105,7 @@ void Walikota::beli() {
         }
         else {
             bool occupied = false;
-            for (int i = 0; i < slots.size(); i++) {
+            for (int i = 0; i < int(slots.size()); i++) {
                 if (this->inventory.getItem(slots.at(i)) != NULL) {
                     sc << "Slot " << slots.at(i) << " telah diambil" << endl;
                     occupied = true;
@@ -121,7 +121,7 @@ void Walikota::beli() {
         }
     }
 
-    for (unsigned long int i = 0; i < slots.size(); i++) {
+    for (int i = 0; i < int(slots.size()); i++) {
         this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
     }
 
@@ -217,7 +217,7 @@ void Petani::beli() {
             slots.push_back(slotTemp);
         }
 
-        if (slots.size() != q) {
+        if (int(slots.size()) != q) {
             sc << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << endl;
             while (!slots.empty()) {
                 slots.pop_back();
@@ -225,7 +225,7 @@ void Petani::beli() {
         }
         else {
             bool occupied = false;
-            for (int i = 0; i < slots.size(); i++) {
+            for (int i = 0; i < int(slots.size()); i++) {
                 if (this->inventory.getItem(slots.at(i)) != NULL) {
                     sc << "Slot " << slots.at(i) << " telah diambil" << endl;
                     occupied = true;
@@ -241,7 +241,7 @@ void Petani::beli() {
         }
     }
 
-    for (unsigned long int i = 0; i < slots.size(); i++) {
+    for (int i = 0; i < int(slots.size()); i++) {
         this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
     }
 
@@ -337,7 +337,7 @@ void Peternak::beli() {
             slots.push_back(slotTemp);
         }
 
-        if (slots.size() != q) {
+        if (int(slots.size()) != q) {
             sc << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << endl;
             while (!slots.empty()) {
                 slots.pop_back();
@@ -345,7 +345,7 @@ void Peternak::beli() {
         }
         else {
             bool occupied = false;
-            for (int i = 0; i < slots.size(); i++) {
+            for (int i = 0; i < int(slots.size()); i++) {
                 if (this->inventory.getItem(slots.at(i)) != NULL) {
                     sc << "Slot " << slots.at(i) << " telah diambil" << endl;
                     occupied = true;
@@ -361,7 +361,7 @@ void Peternak::beli() {
         }
     }
 
-    for (unsigned long int i = 0; i < slots.size(); i++) {
+    for (int i = 0; i < int(slots.size()); i++) {
         this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
     }
 

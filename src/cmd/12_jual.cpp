@@ -1,5 +1,6 @@
 #include "../lib/Player.hpp"
 #include "../lib/Store.hpp"
+#include <sstream>
 
 // ========================================================
 // ======================== JUAL ==========================
@@ -29,7 +30,7 @@ void Walikota::jual() {
             slots.push_back(slotTemp);
         }
         bool empty;
-        for (int i = 0; i < slots.size(); i++) {
+        for (int i = 0; i < int(slots.size()); i++) {
             if (this->inventory.getItem(slots.at(i)) == NULL) {
                 sc << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
@@ -45,7 +46,7 @@ void Walikota::jual() {
     }
 
     int profit = 0;
-    for (int i = 0; i < slots.size(); i++) {
+    for (int i = 0; i < int(slots.size()); i++) {
         Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
         this->money += this->inventory.getItem(slots.at(i))->getPrice();
         profit += this->inventory.getItem(slots.at(i))->getPrice();
@@ -79,7 +80,7 @@ void Petani::jual() {
             slots.push_back(slotTemp);
         }
         bool empty;
-        for (int i = 0; i < slots.size(); i++) {
+        for (int i = 0; i < int(slots.size()); i++) {
             if (this->inventory.getItem(slots.at(i)) == NULL) {
                 sc << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
@@ -104,7 +105,7 @@ void Petani::jual() {
     }
 
     int profit = 0;
-    for (int i = 0; i < slots.size(); i++) {
+    for (int i = 0; i < int(slots.size()); i++) {
         Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
         this->money += this->inventory.getItem(slots.at(i))->getPrice();
         profit += this->inventory.getItem(slots.at(i))->getPrice();
@@ -138,7 +139,7 @@ void Peternak::jual() {
             slots.push_back(slotTemp);
         }
         bool empty;
-        for (int i = 0; i < slots.size(); i++) {
+        for (int i = 0; i < int(slots.size()); i++) {
             if (this->inventory.getItem(slots.at(i)) == NULL) {
                 sc << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
@@ -163,7 +164,7 @@ void Peternak::jual() {
     }
 
     int profit = 0;
-    for (int i = 0; i < slots.size(); i++) {
+    for (int i = 0; i < int(slots.size()); i++) {
         Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
         this->money += this->inventory.getItem(slots.at(i))->getPrice();
         profit += this->inventory.getItem(slots.at(i))->getPrice();
