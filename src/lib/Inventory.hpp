@@ -10,23 +10,25 @@
 
 using namespace std;
 
-class InventoryContainer {
+class InventoryContainer
+{
     friend class FileManager;
     friend class Peternak;
     friend class Petani;
-    protected:
-        // Static variables
-        static int InventoryRows;
-        static int InventoryCols;
 
-        static int FarmRows;
-        static int FarmCols;
+protected:
+    // Static variables
+    static int InventoryRows;
+    static int InventoryCols;
 
-        static int BarnRows;
-        static int BarnCols;
+    static int FarmRows;
+    static int FarmCols;
 
-        static map<string, int> charToInt;
-        static map<int, string> intToChar;
+    static int BarnRows;
+    static int BarnCols;
+
+    static map<string, int> charToInt;
+    static map<int, string> intToChar;
 
     // Static methods
     static int getCol(string);
@@ -36,43 +38,48 @@ class InventoryContainer {
 };
 
 template <class T>
-class Inventory : public InventoryContainer {
-    protected:
-        // Instance variables
-        vector<vector<bool>> data;
-        map<string, T*> storage;
-        int rows;
-        int cols;
-        int empty_slots;
+class Inventory : public InventoryContainer
+{
+protected:
+    // Instance variables
+    vector<vector<bool>> data;
+    map<string, T *> storage;
+    int rows;
+    int cols;
+    int empty_slots;
 
-    public:
-        // Constructors
-        Inventory();
-        Inventory(int, int);
+public:
+    // Constructors
+    Inventory();
+    Inventory(int, int);
 
-        // Printers
-        template <class U>
-        friend ostream& operator<<(ostream& out, Inventory<U>& inv);
+    // Printers
+    template <class U>
+    friend ostream &operator<<(ostream &out, Inventory<U> &inv);
 
-        // Getters
-        virtual int getInvRows();
-        virtual int getInvCols();
-        int getEmptySlotsCount();
+    void printInventory();
 
-        T* getItem(string);
-        string getEmptySlot();
+    // Getters
+    virtual int getInvRows();
+    virtual int getInvCols();
+    int getEmptySlotsCount();
 
-        map<string, T*>& getAllItems();
+    T *getItem(string);
+    string getEmptySlot();
+
+    map<string, T *> &getAllItems();
+    bool cekSlot(string);
+    int countItem(string);
 
         // Setter
-        void InsertItemAt(T*, string);
-        void insertItem(T*);
-        void DeleteItemAt(string);
+        void InsertItemAt(T *, string);
+    void insertItem(T *);
+    void DeleteItemAt(string);
 
-        // Operator Overloads
-        void operator+=(T*);
+    // Operator Overloads
+    void operator+=(T *);
 
-        // Instance methods
+    // Instance methods
 };
 
 #endif

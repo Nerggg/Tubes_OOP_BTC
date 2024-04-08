@@ -111,11 +111,11 @@ void Player::Turn() {
 
         // Validate user input
         try {
-            if (!checkCommandValid(command)) throw commandInvalidExeption();
+            if (!checkCommandValid(command)) throw commandInvalidException();
 
             // Execute user input
             executeCommand(command);
-        } catch (commandInvalidExeption e) {
+        } catch (commandInvalidException e) {
             sc << BOLD << RED << "Perintah tidak valid!" << RESET << endl;
             sc << BOLD << RED << "Silahkan jalankan perintah " << YELLOW << "'HELP'" << BOLD << RED << " untuk mendapatkan perintah yang tersedia." << RESET << endl;
         }
@@ -138,4 +138,3 @@ void Player::Turn() {
         }
     }
 }
-

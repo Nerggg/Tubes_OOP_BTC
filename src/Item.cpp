@@ -79,6 +79,10 @@ SlowPrinter operator<<(SlowPrinter slowp, Item* I) {
 // ======================= Getters ========================
 // ========================================================
 
+int Item::getId(){
+    return this->id;
+}
+
 string Item::getName() {
     return this->name;
 }
@@ -202,6 +206,16 @@ bool Product::isProduct() {
 
 bool Product::isBuilding() {
     return false;
+}
+
+bool Product::isEdiblePlant()
+{
+    return this->getType() == "PRODUCT_FRUIT_PLANT";
+}
+
+bool Product::isEdibleAnimal()
+{
+    return this->getType() == "PRODUCT_ANIMAL";
 }
 
 // ========================================================

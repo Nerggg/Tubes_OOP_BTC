@@ -17,6 +17,13 @@ class Store {
         // Printers
 
         // Getters
+        static map<string, int> getStoreData() {
+            return Store::StoreData;
+        }
+
+        static void addStoreData(string name) {
+            Store::StoreData[name]++;
+        }
 
         // Setters
 

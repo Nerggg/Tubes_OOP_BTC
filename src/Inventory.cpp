@@ -1,4 +1,6 @@
 #include "lib/Inventory.hpp"
+#include <iomanip>
+#include "lib/colors.h"
 
 // Static variables
 int InventoryContainer::InventoryRows;
@@ -74,7 +76,6 @@ map<int, string> InventoryContainer::intToChar = {
 
 template <class T>
 Inventory<T>::Inventory() : Inventory<T>(InventoryRows, InventoryCols) {
-
 }
 
 template <class T>
@@ -138,6 +139,187 @@ ostream& operator<<(ostream& out, Inventory<T>& inv) {
     return out;
 }
 
+template <class T>
+void Inventory<T>::printInventory(){
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 12);
+
+    int lineLength = this->cols * 6;
+    string title = " Penyimpanan ";
+    int totalPadding = lineLength - title.length();
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+
+    title = string(4, ' ') + string(leftPadding, '=') + title + string(rightPadding, '=');
+    sc << title << endl;
+
+    sc << " ";
+    for (int i = 0; i < this->cols; i++){
+        sc << "     " << getColString(i);
+    }
+    sc << "   " << endl;
+
+    for (int i = 0; i < this->rows; i++) {
+        sc << "   +-----";
+        for (int j = 0; j < this->cols - 1; ++j) {
+            sc << "+-----";
+        }
+        sc << "+" << endl;
+
+        cout << setw(2) << setfill('0') << i + 1;
+        cout << " |";
+
+        for (int j = 0; j < this->cols; ++j) {
+            string key = getColString(j) + getRowString(i);
+            if (storage.find(key) != storage.end()) {
+                cout << " " << BOLD CYAN << storage[key]->getCode() << BOLD YELLOW << " |";
+            } else {
+                cout << "     |"; 
+            }
+        }
+        cout << endl;
+    }
+
+    sc << "   +-----";
+    for (int j = 0; j < this->cols - 1; ++j) {
+        sc << "+-----";
+    }
+    sc << "+" << endl;
+
+    sc.resetMult();
+    sc.resetDelay();
+
+    int emptySlots = getEmptySlotsCount();
+    sc << BOLD CYAN << "Total slot kosong: " << BOLD YELLOW << emptySlots << endl;
+}
+
+template<>
+void Inventory<Plant>::printInventory(){
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 12);
+
+    int lineLength = this->cols * 6;
+    string title = " Ladang ";
+    int totalPadding = lineLength - title.length();
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+
+    title = string(4, ' ') + string(leftPadding, '=') + title + string(rightPadding, '=');
+    sc << title << endl;
+
+    sc << " ";
+    for (int i = 0; i < this->cols; i++){
+        cout << "     " << getColString(i);
+    }
+    sc << "   " << endl;
+
+    for (int i = 0; i < this->rows; i++) {
+        sc << "   +-----";
+        for (int j = 0; j < this->cols - 1; ++j) {
+            sc << "+-----";
+        }
+        sc << "+" << endl;
+
+        cout << setw(2) << setfill('0') << i + 1 << " |";
+
+        for (int j = 0; j < this->cols; ++j) {
+            string key = getColString(j) + getRowString(i);
+            if (storage.find(key) != storage.end()) {
+                if (storage[key]->getAge() < storage[key]->getHarvestAge()) {
+                    cout << BOLD RED << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                } else {
+                    cout << BOLD GREEN << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                }
+            } else {
+                cout << "     |"; 
+            }
+        }
+        cout << endl;
+    }
+
+    sc << "   +-----";
+    for (int j = 0; j < this->cols - 1; ++j) {
+        sc << "+-----";
+    }
+    sc << "+" << endl;
+
+    sc.resetMult();
+    sc.resetDelay();
+
+    for (const auto& pair : storage) {
+        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+    }
+
+}
+
+
+template<>
+void Inventory<Animal>::printInventory(){
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 12);
+
+    int lineLength = this->cols * 6;
+    string title = " Peternakan ";
+    int totalPadding = lineLength - title.length();
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+
+    title = string(4, ' ') + string(leftPadding, '=') + title + string(rightPadding, '=');
+    sc << title << endl;
+
+    sc << " ";
+    for (int i = 0; i < this->cols; i++){
+        sc << "     " << getColString(i);
+    }
+    sc << "   ";
+    sc << endl;
+
+    for (int i = 0; i < this->rows; i++) {
+        sc << "   +-----";
+        for (int j = 0; j < this->cols - 1; ++j) {
+            sc << "+-----";
+        }
+        sc << "+" << endl;
+
+        cout << setw(2) << setfill('0') << i + 1 << " |";
+
+        for (int j = 0; j < this->cols; ++j) {
+            string key = getColString(j) + getRowString(i);
+            if (storage.find(key) != storage.end()) {
+                if (storage[key]->getWeight() < storage[key]->getHarvestWeight()) {
+                    cout << BOLD RED << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                } else {
+                    cout << BOLD GREEN << " " << storage[key]->getCode() << RESET << BOLD YELLOW << " |";
+                }
+            } else {
+                cout << "     |"; 
+            }
+        }
+        cout << endl;
+    }
+
+    sc << "   +-----";
+    for (int j = 0; j < this->cols - 1; ++j) {
+        sc << "+-----";
+    }
+    sc << "+" << endl;
+
+    sc.resetMult();
+    sc.resetDelay();
+    
+    for (const auto& pair : storage) {
+        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+    }
+
+}
+
+
+
+
+
 // ========================================================
 // ======================= Getters ========================
 // ========================================================
@@ -159,7 +341,16 @@ int Inventory<T>::getEmptySlotsCount() {
 
 template <class T>
 T* Inventory<T>::getItem(string slot) {
-    return storage[slot];
+    // potential bug because [] operator can mutate the map by generating the item if it doesnt exist in the map.
+    // return storage[slot];
+    // so we use at() instead
+    auto it = storage.find(slot);
+    if (it != storage.end()) {
+        return it->second;
+    }
+    else {
+        return NULL;
+    }
 }
 
 template <class T>
@@ -188,6 +379,13 @@ string Inventory<T>::getEmptySlot() {
 template <class T>
 map<string, T*>& Inventory<T>::getAllItems() {
     return storage;
+}
+
+template <class T>
+bool Inventory<T>::cekSlot(string slot) {
+    int row = getRow(slot);
+    int col = getCol(slot);
+    return data[row][col];
 }
 
 // ========================================================

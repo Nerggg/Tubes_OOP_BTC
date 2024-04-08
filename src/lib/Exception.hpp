@@ -5,11 +5,39 @@
 
 using namespace std;
 
-class commandInvalidExeption {
+class vectorOutOfRangeException {
     public:
         const char* what() {
-            return "Command is invalid! Please enter a valid command.";
+            return "Indeks invalid";
         };
+};
+
+class moneyNotEnoughException {
+    public:
+        const char* what() {
+            return "Uang Anda tidak mencukupi";
+        };
+};
+
+class storageNotEnoughException {
+    public:
+        const char* what() {
+            return "Kapasitas Anda tidak mencukupi";
+        };
+};
+
+class commandInvalidException {
+    public:
+        const char* what() {
+            return "Perintah invalid! Tolong masukkan perintah yang benar.";
+        };
+};
+
+class wrongFoodException {
+public:
+    const char *what() {
+        return "Jangan kasih makan itu dong, gabisa!";
+    };
 };
 
 #endif

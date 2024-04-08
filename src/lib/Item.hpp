@@ -49,6 +49,7 @@ class Item {
         friend SlowPrinter operator<<(SlowPrinter out, Item* I);
 
         // Getters
+        int getId();
         string getName();
         string getCode();
         string getType();
@@ -105,6 +106,8 @@ class Product : public Item {
         bool isPlant();
         bool isProduct();
         bool isBuilding();
+        bool isEdiblePlant();
+        bool isEdibleAnimal();
         
         // Instance methods
 };
