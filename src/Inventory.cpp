@@ -340,6 +340,16 @@ int Inventory<T>::getEmptySlotsCount() {
 }
 
 template <class T>
+int Inventory<T>::countItem(string code){
+    int count =0;
+    for(const auto&pair : this->getAllItems()){
+        if(pair.second.code = code){
+            count++;
+        }
+    }
+}
+
+template <class T>
 T* Inventory<T>::getItem(string slot) {
     // potential bug because [] operator can mutate the map by generating the item if it doesnt exist in the map.
     // return storage[slot];
