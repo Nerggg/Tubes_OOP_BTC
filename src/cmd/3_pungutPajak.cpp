@@ -9,6 +9,6 @@ void Walikota::pungutPajak() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << BOLD YELLOW << "Implementation goes here." << RESET << endl << endl;
+    sc << "Cring cring cring...\nPajak sudah dipungut!\n" << endl;
 }
 
