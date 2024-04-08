@@ -208,6 +208,16 @@ bool Product::isBuilding() {
     return false;
 }
 
+bool Product::isEdiblePlant()
+{
+    return this->getType() == "PRODUCT_FRUIT_PLANT";
+}
+
+bool Product::isEdibleAnimal()
+{
+    return this->getType() == "PRODUCT_ANIMAL";
+}
+
 // ========================================================
 // ===================== Building =========================
 // =================== Constructors =======================
