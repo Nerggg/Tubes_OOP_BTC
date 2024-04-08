@@ -1,4 +1,5 @@
 #include "lib/Player.hpp"
+#include <cmath>
 
 // Static Attributes
 map<string, Player*> Player::PlayerData;
@@ -75,8 +76,8 @@ void Player::depositMoney(int amount) {
 Walikota::Walikota(string name, int weight, int money) : Player(name, weight, money) {
 }
 
-void Walikota::hitungPajak() {
-    cout << "Walikota hitung pajak" << endl;
+int Walikota::hitungPajak() {
+    return 0;
 }
 
 string Walikota::getPlayerType() {
@@ -94,8 +95,40 @@ void Petani::insertToFarm(Plant* i, string slot) {
     this->farm.InsertItemAt(i, slot);
 }
 
-void Petani::hitungPajak() {
-    cout << "Petani hitung pajak" << endl;
+int Petani::hitungPajak() {
+    float kkp = this->money;
+    map<string, Item*>::iterator it;
+    map<string, Item*> inv = this->inventory.getAllItems();
+    for (it = inv.begin(); it != inv.end(); it++) {
+        kkp += it->second->getPrice();
+    }
+    kkp -= 13;
+    float pajak;
+
+    if (kkp <= 6) {
+        pajak = kkp * 0.05;
+    }
+    else if (kkp <= 25) {
+        pajak = kkp * 0.15;
+    }
+    else if (kkp <= 50) {
+        pajak = kkp * 0.25;
+    }
+    else if (kkp <= 500) {
+        pajak = kkp * 0.30;
+    }
+    else {
+        pajak = kkp * 0.35;
+    }
+
+    if (this->money < pajak) {
+        this->money = 0;
+    }
+    else {
+        this->money -= pajak;
+    }
+
+    return int(round(pajak));
 }
 
 string Petani::getPlayerType() {
@@ -124,8 +157,40 @@ void Peternak::insertToBarn(Animal* i, string slot) {
     this->barn.InsertItemAt(i, slot);
 }
 
-void Peternak::hitungPajak() {
-    cout << "Peternak hitung pajak" << endl;
+int Peternak::hitungPajak() {
+    float kkp = this->money;
+    map<string, Item*>::iterator it;
+    map<string, Item*> inv = this->inventory.getAllItems();
+    for (it = inv.begin(); it != inv.end(); it++) {
+        kkp += it->second->getPrice();
+    }
+    kkp -= 11;
+    float pajak;
+
+    if (kkp <= 6) {
+        pajak = kkp * 0.05;
+    }
+    else if (kkp <= 25) {
+        pajak = kkp * 0.15;
+    }
+    else if (kkp <= 50) {
+        pajak = kkp * 0.25;
+    }
+    else if (kkp <= 500) {
+        pajak = kkp * 0.30;
+    }
+    else {
+        pajak = kkp * 0.35;
+    }
+
+    if (this->money < pajak) {
+        this->money = 0;
+    }
+    else {
+        this->money -= pajak;
+    }
+
+    return int(round(pajak));
 }
 
 string Peternak::getPlayerType() {

@@ -87,7 +87,7 @@ class Player
 
         // Instance methods
         bool checkPlayerWinning();
-        virtual void hitungPajak() = 0;
+        virtual int hitungPajak() = 0;
         void withdrawMoney(int);
         void depositMoney(int);
 };
@@ -120,7 +120,7 @@ class Walikota : public Player
         // Setters
 
         // Instance methods
-        void hitungPajak();
+        int hitungPajak();
 };
 
 class Petani : public Player
@@ -154,7 +154,7 @@ class Petani : public Player
         void incrementAllPlants();
 
         // Instance methods
-        void hitungPajak();
+        int hitungPajak();
 };
 
 class Peternak : public Player
@@ -188,7 +188,7 @@ class Peternak : public Player
         void insertToBarn(Animal *, string);
 
         // Instance methods
-        void hitungPajak();
+        int hitungPajak();
 };
 
 #endif
