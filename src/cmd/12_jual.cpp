@@ -1,4 +1,5 @@
 #include "../lib/Player.hpp"
+#include "../lib/Store.hpp"
 
 // ========================================================
 // ======================== JUAL ==========================
@@ -45,6 +46,7 @@ void Walikota::jual() {
 
     int profit = 0;
     for (int i = 0; i < slots.size(); i++) {
+        Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
         this->money += this->inventory.getItem(slots.at(i))->getPrice();
         profit += this->inventory.getItem(slots.at(i))->getPrice();
         this->inventory.DeleteItemAt(slots.at(i));
@@ -103,6 +105,7 @@ void Petani::jual() {
 
     int profit = 0;
     for (int i = 0; i < slots.size(); i++) {
+        Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
         this->money += this->inventory.getItem(slots.at(i))->getPrice();
         profit += this->inventory.getItem(slots.at(i))->getPrice();
         this->inventory.DeleteItemAt(slots.at(i));
@@ -161,6 +164,7 @@ void Peternak::jual() {
 
     int profit = 0;
     for (int i = 0; i < slots.size(); i++) {
+        Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
         this->money += this->inventory.getItem(slots.at(i))->getPrice();
         profit += this->inventory.getItem(slots.at(i))->getPrice();
         this->inventory.DeleteItemAt(slots.at(i));

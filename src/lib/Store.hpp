@@ -21,6 +21,10 @@ class Store {
             return Store::StoreData;
         }
 
+        static void addStoreData(string name) {
+            Store::StoreData[name]++;
+        }
+
         // Setters
 
         // Instance methods
