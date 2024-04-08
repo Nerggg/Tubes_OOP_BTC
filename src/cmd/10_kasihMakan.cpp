@@ -15,61 +15,63 @@ void Peternak::kasihMakan()
     Animal *animal = nullptr;
     Item *item = nullptr;
     Product *produk = (Product *)item;
-
-    while (true)
+    try
     {
-        sc << "Petak kandang: ";
-        cin >> choice;
-        try
+        while (true)
         {
+            sc << "Petak kandang: ";
+            cin >> choice;
             animal = barn.getItem(choice);
         }
-        catch (out_of_range &e)
+        Animal *hewan = barn.getItem(choice);
+        sc << "Kamu memilih " << hewan->getName() << " untuk diberi makan." << endl;
+        sc << "Pilih pangan yang akan diberikan:" << endl;
+        cetakPenyimpanan();
+        while (true)
         {
-            sc << BOLD RED << "Kamu memilih kandang kosong." << endl;
-            sc << "Silahkan masukkan kandang yang berisi ternak." << endl;
-        }
-    }
-    Animal *hewan = barn.getItem(choice);
-    sc << "Kamu memilih " << hewan->getName() << " untuk diberi makan." << endl;
-    sc << "Pilih pangan yang akan diberikan:" << endl;
-    cetakPenyimpanan();
-    while (true)
-    {
-        sc << "Slot: ";
-        cin >> choice;
-        try
-        {
+            sc << "Slot: ";
+            cin >> choice;
             item = inventory.getItem(choice);
-        }
-        catch (out_of_range& e)
-        {
-            sc << BOLD RED << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
-            sc << "Silahkan masukkan slot yang berisi makanan." << endl;
-        }
-        if (item->isBuilding())
-        {
-            sc << BOLD RED << "Apa yang kamu lakukan?\?!! Kamu mencoba untuk memberi makan itu?!!" << endl;
-            sc << "Silahkan masukkan slot yang berisi makanan." << endl;
-        }
-        if (!produk->isEdibleAnimal() && !produk->isEdiblePlant())
-        {
-            sc << BOLD RED << "Itu produk yang tidak bisa dimakan sobat." << endl;
-            sc << "Silahkan masukkan slot yang berisi makanan." << endl;
-        }
-        else
-        {
-            map<string, Animal *> ladang = barn.getAllItems();
-            for (const auto &pair : ladang)
+
+            if (item->isBuilding())
             {
-                if (pair.first == choice)
+                sc << BOLD RED << "Apa yang kamu lakukan?\?!! Kamu mencoba untuk memberi makan itu?!!" << endl;
+                sc << "Silahkan masukkan slot yang berisi makanan." << endl;
+            }
+            if (!produk->isEdibleAnimal() && !produk->isEdiblePlant())
+            {
+                sc << BOLD RED << "Itu produk yang tidak bisa dimakan sobat." << endl;
+                sc << "Silahkan masukkan slot yang berisi makanan." << endl;
+            }
+            else
+            {
+                map<string, Animal *> ladang = barn.getAllItems();
+                for (const auto &pair : ladang)
                 {
-                    sc << BOLD GREEN << "Kamu memilih " << pair.second->getName() << RESET << endl;
+                    if (pair.first == choice)
+                    {
+                        sc << BOLD GREEN << "Kamu memilih " << pair.second->getName() << RESET << endl;
+                    }
                 }
             }
         }
+        animal->feed(produk);
+        inventory.DeleteItemAt(choice);
+        sc << "Dengan lahapnya, kamu memakan hidangan itu" << endl;
+        sc << BOLD GREEN << "Alhasil, berat badan kamu naik menjadi " << this->weight << endl;
     }
-    animal->feed(produk);
-    sc << "Dengan lahapnya, kamu memakan hidangan itu" << endl;
-    sc << BOLD GREEN << "Alhasil, berat badan kamu naik menjadi " << this->weight << endl;
+    catch (wrongFoodException e)
+    {
+        sc << e.what() << '\n';
+    }
+    catch (out_of_range &e)
+    {
+        sc << BOLD RED << "Kamu memilih kandang kosong." << endl;
+        sc << "Silahkan masukkan kandang yang berisi ternak." << endl;
+    }
+    // catch (out_of_range &e)
+    // {
+    //     sc << BOLD RED << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
+    //     sc << "Silahkan masukkan slot yang berisi makanan." << endl;
+    // }
 }
