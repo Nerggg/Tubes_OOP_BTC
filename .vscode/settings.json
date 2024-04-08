@@ -58,4 +58,5 @@
         "*.tpp": "cpp",
         "iomanip": "cpp"
     },
+    "ros.distro": "humble",
 }
