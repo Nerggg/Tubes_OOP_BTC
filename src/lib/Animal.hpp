@@ -2,7 +2,7 @@
 #define __ANIMAL_HPP
 
 #include "Item.hpp"
-
+#include "Exception.hpp"
 #define TYPE_HERBIVORE "HERBIVORE"
 #define TYPE_CARNIVORE "CARNIVORE"
 #define TYPE_OMNIVORE "OMNIVORE"
