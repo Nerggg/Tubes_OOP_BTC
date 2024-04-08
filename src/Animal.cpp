@@ -1,31 +1,33 @@
 #include "lib/Animal.hpp"
 
 // Static Attribute
-map<string, Animal*> Animal::AnimalData;
+map<string, Animal *> Animal::AnimalData;
 
 // ========================================================
 // ====================== Animal ==========================
 // =================== Constructors =======================
 // ========================================================
 
-Animal::Animal() : Item() {
+Animal::Animal() : Item()
+{
     this->harvestWeight = 0;
     this->weight = 0;
 }
 
 Animal::Animal(
-    int id, 
-    string code, 
-    string name, 
-    string type, 
-    int harvestWeight, 
-    int price
-) : Item(id, code, name, type, price) {
+    int id,
+    string code,
+    string name,
+    string type,
+    int harvestWeight,
+    int price) : Item(id, code, name, type, price)
+{
     this->harvestWeight = harvestWeight;
     this->weight = 0;
 }
 
-Animal::Animal(const Animal& a) {
+Animal::Animal(const Animal &a)
+{
     this->id = a.id;
     this->code = a.code;
     this->name = a.name;
@@ -35,12 +37,13 @@ Animal::Animal(const Animal& a) {
     this->price = a.price;
 }
 
-ostream& Animal::printDetails(ostream& out) {
-    out << "ID: "           << this->id    << endl;
-    out << "Animal Code: "  << this->code  << endl;
-    out << "Animal Name: "  << this->name  << endl;
-    out << "Animal Type: "  << this->type  << endl;
-    out << "Animal Weight: "   << this->weight  << endl;
+ostream &Animal::printDetails(ostream &out)
+{
+    out << "ID: " << this->id << endl;
+    out << "Animal Code: " << this->code << endl;
+    out << "Animal Name: " << this->name << endl;
+    out << "Animal Type: " << this->type << endl;
+    out << "Animal Weight: " << this->weight << endl;
     out << "Animal Harvest Weight: " << this->harvestWeight << endl;
     out << "Animal Price: " << this->price << endl;
     out << endl;
@@ -48,7 +51,8 @@ ostream& Animal::printDetails(ostream& out) {
     return out;
 }
 
-ostream& operator<<(ostream& out, Animal* x) {
+ostream &operator<<(ostream &out, Animal *x)
+{
     return x->printDetails(out);
 }
 
@@ -57,7 +61,8 @@ ostream& operator<<(ostream& out, Animal* x) {
 // =================  Static Methods ======================
 // ========================================================
 
-map<string, Animal*> Animal::getAnimalData() {
+map<string, Animal *> Animal::getAnimalData()
+{
     return Animal::AnimalData;
 };
 
@@ -66,12 +71,13 @@ map<string, Animal*> Animal::getAnimalData() {
 // ===================== Printers =========================
 // ========================================================
 
-SlowPrinter Animal::slowPrintDetails(SlowPrinter slowp) {
-    slowp << "ID: "           << this->id    << endl;
-    slowp << "Animal Code: "  << this->code  << endl;
-    slowp << "Animal Name: "  << this->name  << endl;
-    slowp << "Animal Type: "  << this->type  << endl;
-    slowp << "Animal Weight: "   << this->weight  << endl;
+SlowPrinter Animal::slowPrintDetails(SlowPrinter slowp)
+{
+    slowp << "ID: " << this->id << endl;
+    slowp << "Animal Code: " << this->code << endl;
+    slowp << "Animal Name: " << this->name << endl;
+    slowp << "Animal Type: " << this->type << endl;
+    slowp << "Animal Weight: " << this->weight << endl;
     slowp << "Animal Harvest Weight: " << this->harvestWeight << endl;
     slowp << "Animal Price: " << this->price << endl;
     slowp << endl;
@@ -79,7 +85,8 @@ SlowPrinter Animal::slowPrintDetails(SlowPrinter slowp) {
     return slowp;
 }
 
-SlowPrinter operator<<(SlowPrinter slowp, Animal* x) {
+SlowPrinter operator<<(SlowPrinter slowp, Animal *x)
+{
     return x->slowPrintDetails(slowp);
 }
 
@@ -88,11 +95,13 @@ SlowPrinter operator<<(SlowPrinter slowp, Animal* x) {
 // ===================== Getters ==========================
 // ========================================================
 
-int Animal::getHarvestWeight() {
+int Animal::getHarvestWeight()
+{
     return this->harvestWeight;
 }
 
-int Animal::getWeight() {
+int Animal::getWeight()
+{
     return this->weight;
 }
 
@@ -101,7 +110,8 @@ int Animal::getWeight() {
 // ===================== Setters ==========================
 // ========================================================
 
-Animal& Animal::operator+=(int w) {
+Animal &Animal::operator+=(int w)
+{
     this->weight += w;
     return *this;
 }
@@ -111,19 +121,23 @@ Animal& Animal::operator+=(int w) {
 // ================== Type Checkers =======================
 // ========================================================
 
-bool Animal::isAnimal() {
+bool Animal::isAnimal()
+{
     return true;
 }
 
-bool Animal::isPlant() {
+bool Animal::isPlant()
+{
     return false;
 }
 
-bool Animal::isProduct() {
+bool Animal::isProduct()
+{
     return false;
 }
 
-bool Animal::isBuilding() {
+bool Animal::isBuilding()
+{
     return false;
 }
 
@@ -133,21 +147,21 @@ bool Animal::isBuilding() {
 // ========================================================
 
 Herbivore::Herbivore(
-    int id, 
-    string code, 
-    string name, 
-    string type, 
-    int harvestWeight, 
-    int price
-) : Animal(id, code, name, type, harvestWeight, price) {
-
+    int id,
+    string code,
+    string name,
+    string type,
+    int harvestWeight,
+    int price) : Animal(id, code, name, type, harvestWeight, price)
+{
 }
 
-Herbivore::Herbivore(const Herbivore& h) : Animal(h) {
-
+Herbivore::Herbivore(const Herbivore &h) : Animal(h)
+{
 }
 
-Item* Herbivore::clone() {
+Item *Herbivore::clone()
+{
     return new Herbivore(*this);
 }
 
@@ -156,7 +170,12 @@ Item* Herbivore::clone() {
 // ================= Instance Methods =====================
 // ========================================================
 
-void Herbivore::feed(Item* i) {
+void Herbivore::feed(Item *i)
+{
+    if (i->isAnimal())
+    {
+        throw wrongFoodException();
+    }
     cout << "Herbivore eating..." << endl;
 }
 
@@ -166,21 +185,21 @@ void Herbivore::feed(Item* i) {
 // ========================================================
 
 Carnivore::Carnivore(
-    int id, 
-    string code, 
-    string name, 
-    string type, 
-    int harvestWeight, 
-    int price
-) : Animal(id, code, name, type, harvestWeight, price) {
-
+    int id,
+    string code,
+    string name,
+    string type,
+    int harvestWeight,
+    int price) : Animal(id, code, name, type, harvestWeight, price)
+{
 }
 
-Carnivore::Carnivore(const Carnivore& c) : Animal(c) {
-
+Carnivore::Carnivore(const Carnivore &c) : Animal(c)
+{
 }
 
-Item* Carnivore::clone() {
+Item *Carnivore::clone()
+{
     return new Carnivore(*this);
 }
 
@@ -189,7 +208,12 @@ Item* Carnivore::clone() {
 // ================= Instance Methods =====================
 // ========================================================
 
-void Carnivore::feed(Item* i) {
+void Carnivore::feed(Item *i)
+{
+    if (i->isPlant())
+    {
+        throw wrongFoodException();
+    }
     cout << "Carnivore eating..." << endl;
 }
 
@@ -198,21 +222,21 @@ void Carnivore::feed(Item* i) {
 // =================== Constructors =======================
 // ========================================================
 Omnivore::Omnivore(
-    int id, 
-    string code, 
-    string name, 
-    string type, 
-    int harvestWeight, 
-    int price
-) : Animal(id, code, name, type, harvestWeight, price) {
-
+    int id,
+    string code,
+    string name,
+    string type,
+    int harvestWeight,
+    int price) : Animal(id, code, name, type, harvestWeight, price)
+{
 }
 
-Omnivore::Omnivore(const Omnivore& o) : Animal(o) {
-
+Omnivore::Omnivore(const Omnivore &o) : Animal(o)
+{
 }
 
-Item* Omnivore::clone() {
+Item *Omnivore::clone()
+{
     return new Omnivore(*this);
 }
 
@@ -221,6 +245,7 @@ Item* Omnivore::clone() {
 // ================= Instance Methods =====================
 // ========================================================
 
-void Omnivore::feed(Item* i) {
+void Omnivore::feed(Item *i)
+{
     cout << "Omnivore eating..." << endl;
 }
