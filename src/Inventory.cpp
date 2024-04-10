@@ -361,9 +361,8 @@ T* Inventory<T>::getItem(string slot) {
 template <class T>
 string Inventory<T>::getEmptySlot() {
     for (int i = 0; i < rows; i++) {
-        int j = 0;
         for (const auto& pair : charToInt) {
-            if (j >= cols) {
+            if (pair.second >= cols) {
                 break;
             }
 
@@ -371,8 +370,7 @@ string Inventory<T>::getEmptySlot() {
             int c = pair.second;
 
             if (data[i][c] == false) {
-                i++;
-                string r = (i < 10) ? "0" + to_string(i) : to_string(i);
+                string r = (i + 1 < 10) ? "0" + to_string(i + 1) : to_string(i + 1);
                 return ch.append(r);
             }
         }
