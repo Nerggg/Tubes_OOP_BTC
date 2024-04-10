@@ -92,6 +92,7 @@ void Walikota::beli() {
     string slotTemp, slotInput;
     getline(cin, slotInput);
 
+petak:
     valid = false;
     while (!valid) {
         sc << "Petak slot: ";
@@ -127,11 +128,29 @@ void Walikota::beli() {
         }
     }
 
-
-    for (int i = 0; i < int(slots.size()); i++) {
-        this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
+    try {
+        for (int i = 0; i < int(slots.size()); i++) {
+            this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
+        }
+    }
+    catch (invalidSlotException e) {
+        sc << e.what() << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
+    }
+    catch (invalid_argument &e) {
+        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
     }
 
+    if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {
+        Store::reduceStoreData(itemList.at(buy-1), q);
+    }
     sc << Item::getItemData()[itemList.at(buy-1)]->getName() << " berhasil disimpan dalam penyimpanan!" << endl;
 }
 
@@ -188,6 +207,9 @@ void Petani::beli() {
             else if (this->inventory.getEmptySlotsCount() < q) {
                 throw storageNotEnoughException();
             }
+            else if (storeTemp[itemList.at(buy-1)] < q) {
+                throw storeStockNotEnoughException();
+            }
             valid = true;
         }
         catch (vectorOutOfRangeException e) {
@@ -198,6 +220,9 @@ void Petani::beli() {
             sc << e.what() << endl;
         }
         catch (storageNotEnoughException e) {
+            sc << e.what() << endl;
+        }
+        catch (storeStockNotEnoughException e) {
             sc << e.what() << endl;
         }
     }
@@ -213,6 +238,7 @@ void Petani::beli() {
     string slotTemp, slotInput;
     getline(cin, slotInput);
 
+petak:
     valid = false;
     while (!valid) {
         sc << "Petak slot: ";
@@ -248,10 +274,29 @@ void Petani::beli() {
         }
     }
 
-    for (int i = 0; i < int(slots.size()); i++) {
-        this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
+    try {
+        for (int i = 0; i < int(slots.size()); i++) {
+            this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
+        }
+    }
+    catch (invalidSlotException e) {
+        sc << e.what() << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
+    }
+    catch (invalid_argument &e) {
+        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
     }
 
+    if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {
+        Store::reduceStoreData(itemList.at(buy-1), q);
+    }
     sc << Item::getItemData()[itemList.at(buy-1)]->getName() << " berhasil disimpan dalam penyimpanan!" << endl;
 }
 
@@ -308,6 +353,9 @@ void Peternak::beli() {
             else if (this->inventory.getEmptySlotsCount() < q) {
                 throw storageNotEnoughException();
             }
+            else if (storeTemp[itemList.at(buy-1)] < q) {
+                throw storeStockNotEnoughException();
+            }
             valid = true;
         }
         catch (vectorOutOfRangeException e) {
@@ -318,6 +366,9 @@ void Peternak::beli() {
             sc << e.what() << endl;
         }
         catch (storageNotEnoughException e) {
+            sc << e.what() << endl;
+        }
+        catch (storeStockNotEnoughException e) {
             sc << e.what() << endl;
         }
     }
@@ -333,6 +384,7 @@ void Peternak::beli() {
     string slotTemp, slotInput;
     getline(cin, slotInput);
 
+petak:
     valid = false;
     while (!valid) {
         sc << "Petak slot: ";
@@ -368,9 +420,28 @@ void Peternak::beli() {
         }
     }
 
-    for (int i = 0; i < int(slots.size()); i++) {
-        this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
+    try {
+        for (int i = 0; i < int(slots.size()); i++) {
+            this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
+        }
+    }
+    catch (invalidSlotException e) {
+        sc << e.what() << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
+    }
+    catch (invalid_argument &e) {
+        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
     }
 
+    if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {
+        Store::reduceStoreData(itemList.at(buy-1), q);
+    }
     sc << Item::getItemData()[itemList.at(buy-1)]->getName() << " berhasil disimpan dalam penyimpanan!" << endl;
 }

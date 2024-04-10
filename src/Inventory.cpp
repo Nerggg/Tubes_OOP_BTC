@@ -1,4 +1,5 @@
 #include "lib/Inventory.hpp"
+#include "lib/Exception.hpp"
 #include <iomanip>
 #include "lib/colors.h"
 
@@ -424,9 +425,14 @@ void Inventory<T>::InsertItemAt(T* I, string slot) {
     int row = getRow(slot);
     int col = getCol(slot);
     
-    storage.insert(make_pair(slot, I));
-    data[row][col] = true;
-    empty_slots--;
+    if (row < 0 || row >= InventoryRows || col < 0 || col >= InventoryCols) {
+        throw invalidSlotException();
+    }
+    else {
+        storage.insert(make_pair(slot, I));
+        data[row][col] = true;
+        empty_slots--;
+    }
 }
 
 template <class T>

@@ -26,6 +26,13 @@ class storageNotEnoughException {
         };
 };
 
+class invalidSlotException {
+    public:
+        const char* what() {
+            return "Slot yang Anda masukkan tidak valid";
+        };
+};
+
 class storeStockNotEnoughException {
     public:
         const char* what() {
