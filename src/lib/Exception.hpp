@@ -40,4 +40,11 @@ public:
     };
 };
 
+class folderNotFoundException {
+    public:
+        const char* what() {
+            return "Folder tidak ditemukan";
+        };
+};
+
 #endif

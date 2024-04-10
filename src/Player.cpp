@@ -6,6 +6,7 @@ map<string, Player*> Player::PlayerData;
 int Player::GuldenWinAmount;
 int Player::WeightWinAmount;
 bool Player::winningPlayerExists = false;
+bool Player::isSaving = false;
 
 // ========================================================
 // ====================== Player ==========================
@@ -28,6 +29,10 @@ int Player::getWeightWinAmount() {
 
 bool Player::playerHasWon() {
     return Player::winningPlayerExists;
+}
+
+bool Player::getPlayerIsSaving() {
+    return Player::isSaving;
 }
 
 void Player::insertToInventory(Item* i) {

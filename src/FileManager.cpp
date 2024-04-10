@@ -1,4 +1,5 @@
 #include "lib/Game.hpp"
+#include <filesystem>
 
 // ========================================================
 // =================== readPlantData ======================
@@ -357,4 +358,143 @@ void FileManager::readPlayerData() {
         // Insert to store
         Store::StoreData[item_name] = count;
     }
+}
+
+// ========================================================
+// =================== writePlayerData ====================
+// ========================================================
+
+string FileManager::getDirectories(string filename) {
+    string directories = "";
+    for (int i = 0; i < (int) filename.length(); i++) {
+        if (filename[i] == '/') {
+            directories += filename[i];
+        }
+    }
+    return directories;
+}
+
+void FileManager::writePlayerData() {
+    // Initialize slowprinter
+    SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
+    
+    // Start prompt
+    sc << BOLD MAGENTA << "Anda memilih untuk menyimpan state permainan saat ini ke sebuah save file." << endl << endl;
+
+    // Get filename
+    string path;
+    sc << BRIGHT_CYAN << "Silahkan masukkan lokasi serta nama file simpanan anda. (Contoh: './save/bondowoso/state.txt')" << endl;
+    
+    while (true) {
+        sc << BOLD GREEN << "Lokasi file: " << RESET;
+        cin >> path;
+
+        try {
+            if (!std::filesystem::exists(getDirectories(path))) throw folderNotFoundException();
+
+            break;
+                        
+        } catch (folderNotFoundException e) {
+            sc << BOLD RED << "Folder tidak ditemukan. Silahkan masukkan ulang lokasi penyimpanan." << endl;
+        }
+    }
+    sc << endl;
+
+    // Open file
+    ofstream file;
+    file.open(path);
+
+    // Write number of players
+    file << Player::PlayerData.size() << endl;
+
+    // Write player data
+    for (const auto& pair : Player::getPlayerData()) {
+        Player* player = pair.second;
+
+        // Write player name
+        file << player->name << " ";
+
+        // Write player type
+        file << player->getPlayerType() << " ";
+
+        // Write player weight
+        file << player->weight << " ";
+
+        // Write player money
+        file << player->money << endl;
+
+        // Write player inventory
+        file << player->inventory.getUsedSlotsCount() << endl;
+        for (const auto& pair : player->inventory.getAllItems()) {
+            Item* item = pair.second;
+
+            // Write item name
+            file << item->name << endl;
+        }
+
+        // If Player = Peternak, write barn data
+        if (player->getPlayerType() == TYPE_PETERNAK) {
+            // Convert player to type Peternak
+            Peternak* peternak = (Peternak*) player;
+
+            // Write animal count
+            file << peternak->barn.getUsedSlotsCount() << endl;
+
+            // Write animals
+            for (const auto& pair : peternak->barn.getAllItems()) {
+                Animal* item = pair.second;
+
+                // Write animal position
+                file << pair.first << " ";
+
+                // Write animal name
+                file << item->name << " ";
+
+                // Write animal weight
+                file << item->weight << endl;
+            }
+        }
+
+        // If Player = Petani, write farm data
+        if (player->getPlayerType() == TYPE_PETANI) {
+            // Convert player to type Petani
+            Petani* petani = (Petani*) player;
+
+            // Write plant count
+            file << petani->farm.getUsedSlotsCount() << endl;
+
+            // Write plants
+            for (const auto& pair : petani->farm.getAllItems()) {
+                Plant* item = pair.second;
+
+                // Write plant position
+                file << pair.first << " ";
+
+                // Write plant name
+                file << item->name << " ";
+
+                // Write plant age
+                file << item->age << endl;
+            }
+        }
+    }
+
+    // Write store data
+    // Write number of store items
+    file << Store::StoreData.size() << endl;
+
+    // Write store items
+    for (const auto& pair : Store::getStoreData()) {
+        // Write item name
+        file << pair.first << " ";
+
+        // Write item count
+        file << pair.second << endl;
+    }
+
+    // Close file
+    file.close();
+
+    // End prompt
+    sc << BOLD BRIGHT_CYAN << "State permainan berhasil disimpan ke file " << YELLOW << path << endl;
 }
