@@ -222,8 +222,8 @@ void FileManager::readMiscData() {
 // =================== readPlayerData =====================
 // ========================================================
 
-void FileManager::readPlayerData() {
-    ifstream file("./save/state.txt");
+void FileManager::readPlayerData(string path) {
+    ifstream file(path);
     string line;
 
     // Get number of players
@@ -364,11 +364,13 @@ void FileManager::readPlayerData() {
 // =================== writePlayerData ====================
 // ========================================================
 
-string FileManager::getDirectories(string filename) {
+string FileManager::getDirectories(string path) {
     string directories = "";
-    for (int i = 0; i < (int) filename.length(); i++) {
-        if (filename[i] == '/') {
-            directories += filename[i];
+    int start = 0;
+    for (int i = 0; i < (int) path.length(); i++) {
+        if (path[i] == '/') {
+            directories += path.substr(start, (i + 1) - start);
+            start = i + 1;
         }
     }
     return directories;
@@ -388,14 +390,16 @@ void FileManager::writePlayerData() {
     while (true) {
         sc << BOLD GREEN << "Lokasi file: " << RESET;
         cin >> path;
+        string dirs = getDirectories(path);
 
         try {
-            if (!std::filesystem::exists(getDirectories(path))) throw folderNotFoundException();
+            if (!filesystem::exists(dirs)) throw folderNotFoundException();
 
             break;
                         
         } catch (folderNotFoundException e) {
-            sc << BOLD RED << "Folder tidak ditemukan. Silahkan masukkan ulang lokasi penyimpanan." << endl;
+            sc << BOLD RED << "Folder tidak ditemukan." << endl;
+            sc << "Silahkan masukkan ulang lokasi penyimpanan." << endl;
         }
     }
     sc << endl;
