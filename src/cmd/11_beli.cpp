@@ -41,7 +41,7 @@ void Walikota::beli() {
     sc << endl << "Uang Anda: " << this->money << endl;
     sc << "Slot penyimpanan tersedia: " << this->inventory.getEmptySlotsCount() << endl << endl;
 
-    long unsigned int buy;
+    int buy;
     int q;
     bool valid = false;
 
@@ -52,7 +52,7 @@ void Walikota::beli() {
         cin >> q;
 
         try {
-            if (buy <= 0 || buy >= itemList.size()-1) {
+            if (buy <= 0 || buy >= int(itemList.size()-1)) {
                 throw vectorOutOfRangeException();
             }
             else if (this->money < Item::getItemData()[itemList.at(buy-1)]->getPrice() * q) {
@@ -60,6 +60,9 @@ void Walikota::beli() {
             }
             else if (this->inventory.getEmptySlotsCount() < q) {
                 throw storageNotEnoughException();
+            }
+            else if (storeTemp[itemList.at(buy-1)] < q) {
+                throw storeStockNotEnoughException();
             }
             valid = true;
         }
@@ -71,6 +74,9 @@ void Walikota::beli() {
             sc << e.what() << endl;
         }
         catch (storageNotEnoughException e) {
+            sc << e.what() << endl;
+        }
+        catch (storeStockNotEnoughException e) {
             sc << e.what() << endl;
         }
     }
@@ -106,7 +112,7 @@ void Walikota::beli() {
         else {
             bool occupied = false;
             for (int i = 0; i < int(slots.size()); i++) {
-                if (this->inventory.getItem(slots.at(i)) != NULL) {
+                if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
                     sc << "Slot " << slots.at(i) << " telah diambil" << endl;
                     occupied = true;
                     while (!slots.empty()) {
@@ -120,6 +126,7 @@ void Walikota::beli() {
             }
         }
     }
+
 
     for (int i = 0; i < int(slots.size()); i++) {
         this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
@@ -161,7 +168,7 @@ void Petani::beli() {
     sc << endl << "Uang Anda: " << this->money << endl;
     sc << "Slot penyimpanan tersedia: " << this->inventory.getEmptySlotsCount() << endl << endl;
 
-    long unsigned int buy;
+    int buy;
     int q;
     bool valid = false;
 
@@ -172,7 +179,7 @@ void Petani::beli() {
         cin >> q;
 
         try {
-            if (buy <= 0 || buy >= itemList.size()-1) {
+            if (buy <= 0 || buy >= int(itemList.size()-1)) {
                 throw vectorOutOfRangeException();
             }
             else if (this->money < Item::getItemData()[itemList.at(buy-1)]->getPrice() * q) {
@@ -226,7 +233,7 @@ void Petani::beli() {
         else {
             bool occupied = false;
             for (int i = 0; i < int(slots.size()); i++) {
-                if (this->inventory.getItem(slots.at(i)) != NULL) {
+                if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
                     sc << "Slot " << slots.at(i) << " telah diambil" << endl;
                     occupied = true;
                     while (!slots.empty()) {
@@ -281,7 +288,7 @@ void Peternak::beli() {
     sc << endl << "Uang Anda: " << this->money << endl;
     sc << "Slot penyimpanan tersedia: " << this->inventory.getEmptySlotsCount() << endl << endl;
 
-    long unsigned int buy;
+    int buy;
     int q;
     bool valid = false;
 
@@ -292,7 +299,7 @@ void Peternak::beli() {
         cin >> q;
 
         try {
-            if (buy <= 0 || buy >= itemList.size()-1) {
+            if (buy <= 0 || buy >= int(itemList.size()-1)) {
                 throw vectorOutOfRangeException();
             }
             else if (this->money < Item::getItemData()[itemList.at(buy-1)]->getPrice() * q) {
@@ -346,7 +353,7 @@ void Peternak::beli() {
         else {
             bool occupied = false;
             for (int i = 0; i < int(slots.size()); i++) {
-                if (this->inventory.getItem(slots.at(i)) != NULL) {
+                if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
                     sc << "Slot " << slots.at(i) << " telah diambil" << endl;
                     occupied = true;
                     while (!slots.empty()) {

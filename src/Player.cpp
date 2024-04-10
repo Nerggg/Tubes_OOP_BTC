@@ -133,7 +133,7 @@ int Petani::hitungPajak() {
         this->money = 0;
     }
     else {
-        this->money -= pajak;
+        this->money -= int(round(pajak));
     }
 
     return int(round(pajak));

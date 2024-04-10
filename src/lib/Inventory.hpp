@@ -65,6 +65,7 @@ public:
     int getUsedSlotsCount();
 
     T *getItem(string);
+    T *getSlotStatus(string);
     string getEmptySlot();
 
     map<string, T *> &getAllItems();

@@ -372,6 +372,17 @@ T* Inventory<T>::getItem(string slot) {
 }
 
 template <class T>
+T* Inventory<T>::getSlotStatus(string slot) {
+    auto it = storage.find(slot);
+    if (it != storage.end()) {
+        return it->second;
+    }
+    else {
+        return NULL;
+    }
+}
+
+template <class T>
 string Inventory<T>::getEmptySlot() {
     for (int i = 0; i < rows; i++) {
         for (const auto& pair : charToInt) {

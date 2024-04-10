@@ -26,6 +26,13 @@ class storageNotEnoughException {
         };
 };
 
+class storeStockNotEnoughException {
+    public:
+        const char* what() {
+            return "Stok barang tersebut tidak mencukupi";
+        };
+};
+
 class commandInvalidException {
     public:
         const char* what() {
