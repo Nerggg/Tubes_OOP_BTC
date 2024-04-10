@@ -1,7 +1,8 @@
 #include "lib/SlowPrinter.hpp"
 
 // Static Attributes
-SlowPrinter* SlowPrinter::slowcout = new SlowPrinter(cout, 20, 10);
+// SlowPrinter* SlowPrinter::slowcout = new SlowPrinter(cout, 20, 10);
+SlowPrinter* SlowPrinter::slowcout = new SlowPrinter(cout, 0, 0);
 
 // Methods
 SlowPrinter::SlowPrinter(ostream& out, int delay, int mult) : out(out), delay(delay), delay_multiplier(mult), default_delay(delay), default_mult(mult) {}

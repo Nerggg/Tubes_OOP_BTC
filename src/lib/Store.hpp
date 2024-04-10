@@ -20,14 +20,17 @@ class Store {
         static map<string, int> getStoreData() {
             return Store::StoreData;
         }
+    
+        // Setters
 
+        // Instance methods
         static void addStoreData(string name) {
             Store::StoreData[name]++;
         }
 
-        // Setters
-
-        // Instance methods
+        static void reduceStoreData(string name, int n) {
+            Store::StoreData[name] -= n;
+        }
 };
 
 #endif
