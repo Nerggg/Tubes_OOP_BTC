@@ -176,6 +176,8 @@ void Herbivore::feed(Item *i)
     {
         throw wrongFoodException();
     }
+    Product *product = (Product *)i;
+    this->weight = this->weight + product->getAddedWeight();
     cout << "Herbivore eating..." << endl;
 }
 
@@ -214,6 +216,8 @@ void Carnivore::feed(Item *i)
     {
         throw wrongFoodException();
     }
+    Product *product = (Product *)i;
+    this->weight = this->weight + product->getAddedWeight();
     cout << "Carnivore eating..." << endl;
 }
 
@@ -247,5 +251,7 @@ Item *Omnivore::clone()
 
 void Omnivore::feed(Item *i)
 {
+    Product *product = (Product *)i;
+    this->weight = this->weight + product->getAddedWeight();
     cout << "Omnivore eating..." << endl;
 }

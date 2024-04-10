@@ -56,7 +56,8 @@
         "thread": "cpp",
         "cstring": "cpp",
         "*.tpp": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "set": "cpp"
     },
     "ros.distro": "humble",
 }
