@@ -43,6 +43,9 @@ Inventory<Item> Player::getInventory() {
     return this->inventory;
 }
 
+string Player::getName() {
+    return this->name;
+}
 
 void Player::addPlayer(Player* p) {
     Player::PlayerData[p->name] = p;

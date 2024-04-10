@@ -47,4 +47,18 @@ class folderNotFoundException {
         };
 };
 
+class nameHasSpacesException {
+    public:
+        const char* what() {
+            return "Nama tidak boleh mengandung spasi";
+        };
+};
+
+class nameAlreadyTakenException {
+    public:
+        const char* what() {
+            return "Nama sudah digunakan";
+        };
+};
+
 #endif

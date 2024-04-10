@@ -78,6 +78,7 @@ class Player
 
         // Getters
         Inventory<Item> getInventory();
+        string getName();
         virtual string getPlayerType() = 0;
         static bool getPlayerIsSaving();
 
