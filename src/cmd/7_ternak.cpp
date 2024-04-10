@@ -58,7 +58,7 @@ void Peternak::ternak() {
         }
     }
 
-    sc << BOLD GREEN << "Pilih petak yang ingin ditanami" << RESET << endl;
+    sc << BOLD GREEN << "Pilih petak yang ingin dimasukkan ternak" << RESET << endl;
     cetakPeternakan();
     cek = false;
     while (!cek)

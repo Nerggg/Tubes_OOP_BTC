@@ -26,6 +26,13 @@ class storageNotEnoughException {
         };
 };
 
+class storeStockNotEnoughException {
+    public:
+        const char* what() {
+            return "Stok barang tersebut tidak mencukupi";
+        };
+};
+
 class commandInvalidException {
     public:
         const char* what() {
@@ -38,6 +45,34 @@ public:
     const char *what() {
         return "Jangan kasih makan itu dong, gabisa!";
     };
+};
+
+class fileNotFoundException {
+    public:
+        const char* what() {
+            return "File tidak ditemukan";
+        };
+};
+
+class folderNotFoundException {
+    public:
+        const char* what() {
+            return "Folder tidak ditemukan";
+        };
+};
+
+class nameHasSpacesException {
+    public:
+        const char* what() {
+            return "Nama tidak boleh mengandung spasi";
+        };
+};
+
+class nameAlreadyTakenException {
+    public:
+        const char* what() {
+            return "Nama sudah digunakan";
+        };
 };
 
 #endif

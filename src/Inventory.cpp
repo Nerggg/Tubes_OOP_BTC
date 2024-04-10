@@ -248,10 +248,14 @@ void Inventory<Plant>::printInventory(){
     sc.resetMult();
     sc.resetDelay();
 
+    map<string, string> displayedCodes;
     for (const auto& pair : storage) {
-        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+        displayedCodes[pair.second->getCode()] = pair.second->getName();
     }
 
+    for (const auto& pair : displayedCodes) {
+        sc << BOLD CYAN << " - " << pair.first << ": " << BOLD YELLOW << pair.second << endl;
+    }
 }
 
 
@@ -310,10 +314,14 @@ void Inventory<Animal>::printInventory(){
     sc.resetMult();
     sc.resetDelay();
     
+    map<string, string> displayedCodes;
     for (const auto& pair : storage) {
-        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+        displayedCodes[pair.second->getCode()] = pair.second->getName();
     }
 
+    for (const auto& pair : displayedCodes) {
+        sc << BOLD CYAN << " - " << pair.first << ": " << BOLD YELLOW << pair.second << endl;
+    }
 }
 
 
@@ -340,6 +348,11 @@ int Inventory<T>::getEmptySlotsCount() {
 }
 
 template <class T>
+int Inventory<T>::getUsedSlotsCount() {
+    return storage.size();
+}
+
+template <class T>
 int Inventory<T>::countItem(string name){
     int count =0;
     for(const auto&pair : this->getAllItems()){
@@ -359,11 +372,21 @@ T* Inventory<T>::getItem(string slot) {
 }
 
 template <class T>
+T* Inventory<T>::getSlotStatus(string slot) {
+    auto it = storage.find(slot);
+    if (it != storage.end()) {
+        return it->second;
+    }
+    else {
+        return NULL;
+    }
+}
+
+template <class T>
 string Inventory<T>::getEmptySlot() {
     for (int i = 0; i < rows; i++) {
-        int j = 0;
         for (const auto& pair : charToInt) {
-            if (j >= cols) {
+            if (pair.second >= cols) {
                 break;
             }
 
@@ -371,8 +394,7 @@ string Inventory<T>::getEmptySlot() {
             int c = pair.second;
 
             if (data[i][c] == false) {
-                i++;
-                string r = (i < 10) ? "0" + to_string(i) : to_string(i);
+                string r = (i + 1 < 10) ? "0" + to_string(i + 1) : to_string(i + 1);
                 return ch.append(r);
             }
         }

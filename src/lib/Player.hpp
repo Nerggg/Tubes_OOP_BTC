@@ -25,6 +25,7 @@ class Player
         static int GuldenWinAmount;
         static int WeightWinAmount;
         static bool winningPlayerExists;
+        static bool isSaving;
 
         // Instance variables
         string name;
@@ -77,7 +78,9 @@ class Player
 
         // Getters
         Inventory<Item> getInventory();
+        string getName();
         virtual string getPlayerType() = 0;
+        static bool getPlayerIsSaving();
 
         // Setters
         void insertToInventory(Item *);
@@ -92,8 +95,8 @@ class Player
         void depositMoney(int);
 };
 
-class Walikota : public Player
-{
+class Walikota : public Player {
+    friend class FileManager;
     protected:
         // Static variables
 
@@ -123,8 +126,8 @@ class Walikota : public Player
         int hitungPajak();
 };
 
-class Petani : public Player
-{
+class Petani : public Player {
+    friend class FileManager;
     protected:
         // Static variables
 
@@ -157,8 +160,8 @@ class Petani : public Player
         int hitungPajak();
 };
 
-class Peternak : public Player
-{
+class Peternak : public Player {
+    friend class FileManager;
     protected:
         // Static variables
 

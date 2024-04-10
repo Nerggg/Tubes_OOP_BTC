@@ -21,11 +21,16 @@ void Game::Start() {
             // Get next player
             Player* player = pair.second;
 
-            // Run the player's turn method
-            player->Turn();
+            do {
+                // Run the player's turn method
+                player->Turn();
 
-            // Break if a player has won
-            if (Player::playerHasWon()) break;
+                // Break if a player has won
+                if (Player::playerHasWon()) break;
+
+                // Save player data if player runs save command
+                if (Player::getPlayerIsSaving()) FileManager::writePlayerData();
+            } while (Player::getPlayerIsSaving());
 
             // Increment all plant ages
             for (const auto& pair : Player::getPlayerData()) {
@@ -67,6 +72,28 @@ void Game::Initialize() {
     }
     sc << endl;
 
+    // Load from save file
+    string path;
+    if (choice == "2") {
+        sc << BOLD BRIGHT_CYAN << "Silahkan masukkan lokasi file simpanan anda. (Contoh: './save/bondowoso/state.txt')" << RESET << endl;
+
+        while (true) {
+            sc << BOLD GREEN << "Lokasi file: " << RESET;
+            cin >> path;
+
+            // Check if file exists
+            try {
+                if (!filesystem::exists(path)) throw fileNotFoundException();
+
+                break; 
+            } catch (fileNotFoundException e) {
+                sc << BOLD RED << "File tidak ditemukan!" << endl;
+                sc << "Silahkan masukkan ulang lokasi penyimpanan file." << RESET << endl;
+            }
+        }
+    }
+    sc << endl;
+
     // Load default lineup
     sc << BOLD MAGENTA << "Memuat setup pemain..." << RESET << endl;
     sc.setMult(3);
@@ -85,7 +112,7 @@ void Game::Initialize() {
         Player::addPlayer(p3);
     } else {
         // Load lineup from file
-        FileManager::readPlayerData();
+        FileManager::readPlayerData(path);
     }
     sc << endl;
     sc << BOLD MAGENTA << "Setup pemain berhasil dimuat!" << RESET << endl;

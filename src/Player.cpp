@@ -6,6 +6,7 @@ map<string, Player*> Player::PlayerData;
 int Player::GuldenWinAmount;
 int Player::WeightWinAmount;
 bool Player::winningPlayerExists = false;
+bool Player::isSaving = false;
 
 // ========================================================
 // ====================== Player ==========================
@@ -30,6 +31,10 @@ bool Player::playerHasWon() {
     return Player::winningPlayerExists;
 }
 
+bool Player::getPlayerIsSaving() {
+    return Player::isSaving;
+}
+
 void Player::insertToInventory(Item* i) {
     this->inventory += i;
 }
@@ -38,6 +43,9 @@ Inventory<Item> Player::getInventory() {
     return this->inventory;
 }
 
+string Player::getName() {
+    return this->name;
+}
 
 void Player::addPlayer(Player* p) {
     Player::PlayerData[p->name] = p;
@@ -125,7 +133,7 @@ int Petani::hitungPajak() {
         this->money = 0;
     }
     else {
-        this->money -= pajak;
+        this->money -= int(round(pajak));
     }
 
     return int(round(pajak));
