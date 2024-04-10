@@ -90,17 +90,20 @@ void Player::executeCommand(string command) {
 void Player::Turn() {
     // Initialize slowprinter
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
-
+ 
     // Get player progress percentage
     float weightProgress = (round((this->weight) * 10000 / (float) getWeightWinAmount())) / (float) 100;
     float moneyProgress = (round((this->money) * 10000 / (float) getGuldenWinAmount())) / (float) 100;
 
-    // Print starting message
-    sc.setMult(sc.getMult() + 10);
-    sc << BOLD BRIGHT_CYAN << "Sekarang giliran pemain " << YELLOW << this->name << "!" << RESET << endl; sc.resetMult();
-    sc << BOLD MAGENTA << "Berat badan: " << YELLOW << this->weight << " kg (Progress: " << weightProgress << "%)" << RESET << endl;
-    sc << BOLD MAGENTA << "Gulden: " << YELLOW << this->money << " (Progress: " << moneyProgress << "%)" << RESET << endl;
-    sc << BOLD BRIGHT_CYAN << "Silahkan jalankan perintah " << YELLOW << "'HELP'" << BRIGHT_CYAN << " untuk mendapatkan perintah yang tersedia." << RESET << endl << endl;
+    if (!Player::isSaving) {
+        // Print starting message
+        sc.setMult(sc.getMult() + 10);
+        sc << BOLD BRIGHT_CYAN << "Sekarang giliran pemain " << YELLOW << this->name << "!" << RESET << endl; sc.resetMult();
+        sc << BOLD MAGENTA << "Berat badan: " << YELLOW << this->weight << " kg (Progress: " << weightProgress << "%)" << RESET << endl;
+        sc << BOLD MAGENTA << "Gulden: " << YELLOW << this->money << " (Progress: " << moneyProgress << "%)" << RESET << endl;
+        sc << BOLD BRIGHT_CYAN << "Silahkan jalankan perintah " << YELLOW << "'HELP'" << BRIGHT_CYAN << " untuk mendapatkan perintah yang tersedia." << RESET << endl << endl;
+    }
+    Player::isSaving = false;
 
     // Start loop for user input
     string command = "";
@@ -131,6 +134,9 @@ void Player::Turn() {
                 return;
             }
         }
+
+        // Return if player is saving
+        if (command == SIMPAN) return;
 
         // Print current money and weight
         if (command != NEXT) {

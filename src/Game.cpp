@@ -21,11 +21,16 @@ void Game::Start() {
             // Get next player
             Player* player = pair.second;
 
-            // Run the player's turn method
-            player->Turn();
+            do {
+                // Run the player's turn method
+                player->Turn();
 
-            // Break if a player has won
-            if (Player::playerHasWon()) break;
+                // Break if a player has won
+                if (Player::playerHasWon()) break;
+
+                // Save player data if player runs save command
+                if (Player::getPlayerIsSaving()) FileManager::writePlayerData();
+            } while (Player::getPlayerIsSaving());
 
             // Increment all plant ages
             for (const auto& pair : Player::getPlayerData()) {

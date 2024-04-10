@@ -38,8 +38,7 @@ protected:
 };
 
 template <class T>
-class Inventory : public InventoryContainer
-{
+class Inventory : public InventoryContainer {
 protected:
     // Instance variables
     vector<vector<bool>> data;
@@ -63,6 +62,7 @@ public:
     virtual int getInvRows();
     virtual int getInvCols();
     int getEmptySlotsCount();
+    int getUsedSlotsCount();
 
     T *getItem(string);
     string getEmptySlot();
@@ -71,8 +71,8 @@ public:
     bool cekSlot(string);
     int countItem(string);
 
-        // Setter
-        void InsertItemAt(T *, string);
+    // Setter
+    void InsertItemAt(T *, string);
     void insertItem(T *);
     void DeleteItemAt(string);
 

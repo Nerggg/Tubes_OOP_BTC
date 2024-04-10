@@ -340,6 +340,11 @@ int Inventory<T>::getEmptySlotsCount() {
 }
 
 template <class T>
+int Inventory<T>::getUsedSlotsCount() {
+    return storage.size();
+}
+
+template <class T>
 int Inventory<T>::countItem(string code){
     int count =0;
     for(const auto&pair : this->getAllItems()){
