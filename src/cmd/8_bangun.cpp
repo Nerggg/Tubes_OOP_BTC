@@ -118,7 +118,7 @@ void Walikota::bangun()
             }
         }
     }
-    catch (out_of_range &e)
+    catch (const std::out_of_range &e)
     {
         sc << e.what() << endl;
     }

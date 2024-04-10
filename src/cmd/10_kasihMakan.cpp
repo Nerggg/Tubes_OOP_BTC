@@ -27,7 +27,7 @@ void Peternak::kasihMakan()
             break;
         }
     }
-    catch (out_of_range &e)
+    catch (const std::out_of_range &e)
     {
         sc << BOLD RED << "Kamu memilih kandang kosong." << endl;
         sc << "Silahkan masukkan kandang yang berisi ternak." << endl;
@@ -62,7 +62,7 @@ void Peternak::kasihMakan()
             }
         }
     }
-    catch (out_of_range &e)
+    catch (const std::out_of_range &e)
     {
         sc << BOLD RED << "Kamu memilih petak kosong." << endl;
         sc << "Silahkan masukkan kandang yang berisi ternak." << endl;
