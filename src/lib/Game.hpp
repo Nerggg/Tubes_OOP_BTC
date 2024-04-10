@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <filesystem>
 
 // Header Files
 #include "colors.h"
@@ -36,7 +37,7 @@ class FileManager {
         static void readProductData();
         static void readBuildingData();
         static void readMiscData();
-        static void readPlayerData();
+        static void readPlayerData(string path);
 
         static string getDirectories(string path);
         static void writePlayerData();
