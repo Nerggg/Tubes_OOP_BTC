@@ -63,4 +63,9 @@ void Walikota::tambahPemain() {
     } else {
         this->addPlayer(new Peternak(name, 0, 0));
     }
+
+    // Print output prompt
+    sc << RESET << endl;
+    sc << BOLD MAGENTA << "Pemain baru berhasil ditambahkan!" << endl;
+    sc << "Selamat datang " << YELLOW << "'" << name << "'" << MAGENTA << " di kota ini!" << RESET << endl << endl;
 }

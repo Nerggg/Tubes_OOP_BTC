@@ -1,0 +1,13 @@
+4
+Ahuy Peternak 0 0
+0
+0
+Petani1 Petani 40 50
+0
+0
+Peternak1 Peternak 40 50
+0
+0
+Walikota Walikota 40 50
+0
+0
