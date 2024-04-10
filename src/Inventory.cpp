@@ -248,8 +248,12 @@ void Inventory<Plant>::printInventory(){
     sc.resetMult();
     sc.resetDelay();
 
+    set<string> displayedCodes;
     for (const auto& pair : storage) {
-        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+        if (displayedCodes.find(pair.second->getCode()) == displayedCodes.end()){
+            sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+            displayedCodes.insert(pair.second->getCode());
+        }
     }
 
 }
@@ -310,8 +314,12 @@ void Inventory<Animal>::printInventory(){
     sc.resetMult();
     sc.resetDelay();
     
+    set<string> displayedCodes;
     for (const auto& pair : storage) {
-        sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+        if (displayedCodes.find(pair.second->getCode()) == displayedCodes.end()){
+            sc << BOLD CYAN << " - " << pair.second->getCode() << ": " << BOLD YELLOW << pair.second->getName() << endl;
+            displayedCodes.insert(pair.second->getCode());
+        }
     }
 
 }

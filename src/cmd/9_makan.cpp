@@ -45,7 +45,7 @@ void Player::makan()
             }
             if (item->isBuilding())
             {
-                sc << BOLD RED << "\nApa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
+                sc << BOLD RED << "\nApa yang kamu lakukan?!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
                 sc << "Silahkan masukkan slot yang berisi makanan." << RESET << endl;
             }
             else
@@ -53,7 +53,7 @@ void Player::makan()
                 Product *produk = (Product *)item;
                 if (!produk->isEdibleAnimal() && !produk->isEdiblePlant())
                 {
-                    sc << BOLD RED << "\nApa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
+                    sc << BOLD RED << "\nApa yang kamu lakukan?!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
                     sc << "Silahkan masukkan slot yang berisi makanan." << RESET << endl;
                 }
                 else
