@@ -374,12 +374,21 @@ T* Inventory<T>::getItem(string slot) {
 
 template <class T>
 T* Inventory<T>::getSlotStatus(string slot) {
-    auto it = storage.find(slot);
-    if (it != storage.end()) {
-        return it->second;
-    }
-    else {
+    int row = getRow(slot);
+    int col = getCol(slot);
+
+    if (row < 0 || row >= InventoryRows || col < 0 || col >= InventoryCols) {
+        throw invalidSlotException();
         return NULL;
+    }
+    else {    
+        auto it = storage.find(slot);
+        if (it != storage.end()) {
+            return it->second;
+        }
+        else {
+            return NULL;
+        }
     }
 }
 
@@ -424,15 +433,9 @@ template <class T>
 void Inventory<T>::InsertItemAt(T* I, string slot) {
     int row = getRow(slot);
     int col = getCol(slot);
-    
-    if (row < 0 || row >= InventoryRows || col < 0 || col >= InventoryCols) {
-        throw invalidSlotException();
-    }
-    else {
-        storage.insert(make_pair(slot, I));
-        data[row][col] = true;
-        empty_slots--;
-    }
+    storage.insert(make_pair(slot, I));
+    data[row][col] = true;
+    empty_slots--;
 }
 
 template <class T>

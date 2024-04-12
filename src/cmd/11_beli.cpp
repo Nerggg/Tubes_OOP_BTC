@@ -111,41 +111,41 @@ petak:
             }
         }
         else {
-            bool occupied = false;
-            for (int i = 0; i < int(slots.size()); i++) {
-                if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
-                    sc << "Slot " << slots.at(i) << " telah diambil" << endl;
-                    occupied = true;
-                    while (!slots.empty()) {
-                        slots.pop_back();
+            try {
+                bool occupied = false;
+                for (int i = 0; i < int(slots.size()); i++) {
+                    if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
+                        sc << "Slot " << slots.at(i) << " telah diambil" << endl;
+                        occupied = true;
+                        while (!slots.empty()) {
+                            slots.pop_back();
+                        }
+                        break;
                     }
-                    break;
+                }
+                if (occupied == false) {
+                    valid = true;
                 }
             }
-            if (occupied == false) {
-                valid = true;
+            catch (invalidSlotException e) {
+                sc << e.what() << endl;
+                while (!slots.empty()) {
+                    slots.pop_back();
+                }
+                goto petak;
+            }
+            catch (invalid_argument &e) {
+                sc << "Slot yang Anda masukkan tidak valid" << endl;
+                while (!slots.empty()) {
+                    slots.pop_back();
+                }
+                goto petak;
             }
         }
     }
 
-    try {
-        for (int i = 0; i < int(slots.size()); i++) {
-            this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
-        }
-    }
-    catch (invalidSlotException e) {
-        sc << e.what() << endl;
-        while (!slots.empty()) {
-            slots.pop_back();
-        }
-        goto petak;
-    }
-    catch (invalid_argument &e) {
-        sc << "Slot yang Anda masukkan tidak valid" << endl;
-        while (!slots.empty()) {
-            slots.pop_back();
-        }
-        goto petak;
+    for (int i = 0; i < int(slots.size()); i++) {
+        this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
     }
 
     if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {
@@ -257,41 +257,41 @@ petak:
             }
         }
         else {
-            bool occupied = false;
-            for (int i = 0; i < int(slots.size()); i++) {
-                if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
-                    sc << "Slot " << slots.at(i) << " telah diambil" << endl;
-                    occupied = true;
-                    while (!slots.empty()) {
-                        slots.pop_back();
+            try {
+                bool occupied = false;
+                for (int i = 0; i < int(slots.size()); i++) {
+                    if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
+                        sc << "Slot " << slots.at(i) << " telah diambil" << endl;
+                        occupied = true;
+                        while (!slots.empty()) {
+                            slots.pop_back();
+                        }
+                        break;
                     }
-                    break;
+                }
+                if (occupied == false) {
+                    valid = true;
                 }
             }
-            if (occupied == false) {
-                valid = true;
+            catch (invalidSlotException e) {
+                sc << e.what() << endl;
+                while (!slots.empty()) {
+                    slots.pop_back();
+                }
+                goto petak;
+            }
+            catch (invalid_argument &e) {
+                sc << "Slot yang Anda masukkan tidak valid" << endl;
+                while (!slots.empty()) {
+                    slots.pop_back();
+                }
+                goto petak;
             }
         }
     }
 
-    try {
-        for (int i = 0; i < int(slots.size()); i++) {
-            this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
-        }
-    }
-    catch (invalidSlotException e) {
-        sc << e.what() << endl;
-        while (!slots.empty()) {
-            slots.pop_back();
-        }
-        goto petak;
-    }
-    catch (invalid_argument &e) {
-        sc << "Slot yang Anda masukkan tidak valid" << endl;
-        while (!slots.empty()) {
-            slots.pop_back();
-        }
-        goto petak;
+    for (int i = 0; i < int(slots.size()); i++) {
+        this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
     }
 
     if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {
@@ -403,41 +403,41 @@ petak:
             }
         }
         else {
-            bool occupied = false;
-            for (int i = 0; i < int(slots.size()); i++) {
-                if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
-                    sc << "Slot " << slots.at(i) << " telah diambil" << endl;
-                    occupied = true;
-                    while (!slots.empty()) {
-                        slots.pop_back();
+            try {
+                bool occupied = false;
+                for (int i = 0; i < int(slots.size()); i++) {
+                    if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
+                        sc << "Slot " << slots.at(i) << " telah diambil" << endl;
+                        occupied = true;
+                        while (!slots.empty()) {
+                            slots.pop_back();
+                        }
+                        break;
                     }
-                    break;
+                }
+                if (occupied == false) {
+                    valid = true;
                 }
             }
-            if (occupied == false) {
-                valid = true;
+            catch (invalidSlotException e) {
+                sc << e.what() << endl;
+                while (!slots.empty()) {
+                    slots.pop_back();
+                }
+                goto petak;
+            }
+            catch (invalid_argument &e) {
+                sc << "Slot yang Anda masukkan tidak valid" << endl;
+                while (!slots.empty()) {
+                    slots.pop_back();
+                }
+                goto petak;
             }
         }
     }
 
-    try {
-        for (int i = 0; i < int(slots.size()); i++) {
-            this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
-        }
-    }
-    catch (invalidSlotException e) {
-        sc << e.what() << endl;
-        while (!slots.empty()) {
-            slots.pop_back();
-        }
-        goto petak;
-    }
-    catch (invalid_argument &e) {
-        sc << "Slot yang Anda masukkan tidak valid" << endl;
-        while (!slots.empty()) {
-            slots.pop_back();
-        }
-        goto petak;
+    for (int i = 0; i < int(slots.size()); i++) {
+        this->inventory.InsertItemAt(Item::getItemData()[itemList.at(buy-1)], slots.at(i));
     }
 
     if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {

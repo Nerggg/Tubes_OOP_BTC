@@ -18,6 +18,9 @@ void Walikota::jual() {
     string slotTemp, slotInput;
     getline(cin, slotInput);
 
+petak:
+    int profit = 0;
+    try {
     bool valid = false;
     while (!valid) {
         sc << "Silahkan pilih petak yang ingin Anda jual!" << endl;
@@ -29,9 +32,10 @@ void Walikota::jual() {
             slotTemp.erase(slotTemp.find_last_not_of(' ') + 1);
             slots.push_back(slotTemp);
         }
-        bool empty;
+        bool empty = false;
+
         for (int i = 0; i < int(slots.size()); i++) {
-            if (this->inventory.getItem(slots.at(i)) == NULL) {
+            if (this->inventory.getSlotStatus(slots.at(i)) == NULL) {
                 sc << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
                 while (!slots.empty()) {
@@ -45,12 +49,29 @@ void Walikota::jual() {
         }
     }
 
-    int profit = 0;
-    for (int i = 0; i < int(slots.size()); i++) {
-        Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
-        this->money += this->inventory.getItem(slots.at(i))->getPrice();
-        profit += this->inventory.getItem(slots.at(i))->getPrice();
-        this->inventory.DeleteItemAt(slots.at(i));
+    Item* itemTemp;
+
+        for (int i = 0; i < int(slots.size()); i++) {
+            itemTemp = this->inventory.getItem(slots.at(i));
+            this->inventory.DeleteItemAt(slots.at(i));
+            Store::addStoreData(itemTemp->getName());
+            this->money += itemTemp->getPrice();
+            profit += itemTemp->getPrice();
+        }
+    }
+    catch (invalidSlotException e) {
+        sc << e.what() << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
+    }
+    catch (invalid_argument &e) {
+        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
     }
 
     sc << "Barang Anda berhasil dijual! Uang Anda bertambah " << profit << " gulden!" << endl;
@@ -68,6 +89,9 @@ void Petani::jual() {
     string slotTemp, slotInput;
     getline(cin, slotInput);
 
+petak:
+    int profit = 0;
+    try {
     bool valid = false;
     while (!valid) {
         sc << "Silahkan pilih petak yang ingin Anda jual!" << endl;
@@ -79,9 +103,10 @@ void Petani::jual() {
             slotTemp.erase(slotTemp.find_last_not_of(' ') + 1);
             slots.push_back(slotTemp);
         }
-        bool empty;
+        bool empty = false;
+
         for (int i = 0; i < int(slots.size()); i++) {
-            if (this->inventory.getItem(slots.at(i)) == NULL) {
+            if (this->inventory.getSlotStatus(slots.at(i)) == NULL) {
                 sc << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
                 while (!slots.empty()) {
@@ -104,12 +129,29 @@ void Petani::jual() {
         }
     }
 
-    int profit = 0;
-    for (int i = 0; i < int(slots.size()); i++) {
-        Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
-        this->money += this->inventory.getItem(slots.at(i))->getPrice();
-        profit += this->inventory.getItem(slots.at(i))->getPrice();
-        this->inventory.DeleteItemAt(slots.at(i));
+    Item* itemTemp;
+
+        for (int i = 0; i < int(slots.size()); i++) {
+            itemTemp = this->inventory.getItem(slots.at(i));
+            this->inventory.DeleteItemAt(slots.at(i));
+            Store::addStoreData(itemTemp->getName());
+            this->money += itemTemp->getPrice();
+            profit += itemTemp->getPrice();
+        }
+    }
+    catch (invalidSlotException e) {
+        sc << e.what() << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
+    }
+    catch (invalid_argument &e) {
+        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
     }
 
     sc << "Barang Anda berhasil dijual! Uang Anda bertambah " << profit << " gulden!" << endl;
@@ -127,6 +169,9 @@ void Peternak::jual() {
     string slotTemp, slotInput;
     getline(cin, slotInput);
 
+petak:
+    int profit = 0;
+    try {
     bool valid = false;
     while (!valid) {
         sc << "Silahkan pilih petak yang ingin Anda jual!" << endl;
@@ -138,9 +183,10 @@ void Peternak::jual() {
             slotTemp.erase(slotTemp.find_last_not_of(' ') + 1);
             slots.push_back(slotTemp);
         }
-        bool empty;
+        bool empty = false;
+
         for (int i = 0; i < int(slots.size()); i++) {
-            if (this->inventory.getItem(slots.at(i)) == NULL) {
+            if (this->inventory.getSlotStatus(slots.at(i)) == NULL) {
                 sc << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
                 while (!slots.empty()) {
@@ -163,12 +209,29 @@ void Peternak::jual() {
         }
     }
 
-    int profit = 0;
-    for (int i = 0; i < int(slots.size()); i++) {
-        Store::addStoreData(this->inventory.getItem(slots.at(i))->getName());
-        this->money += this->inventory.getItem(slots.at(i))->getPrice();
-        profit += this->inventory.getItem(slots.at(i))->getPrice();
-        this->inventory.DeleteItemAt(slots.at(i));
+    Item* itemTemp;
+
+        for (int i = 0; i < int(slots.size()); i++) {
+            itemTemp = this->inventory.getItem(slots.at(i));
+            this->inventory.DeleteItemAt(slots.at(i));
+            Store::addStoreData(itemTemp->getName());
+            this->money += itemTemp->getPrice();
+            profit += itemTemp->getPrice();
+        }
+    }
+    catch (invalidSlotException e) {
+        sc << e.what() << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
+    }
+    catch (invalid_argument &e) {
+        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        while (!slots.empty()) {
+            slots.pop_back();
+        }
+        goto petak;
     }
 
     sc << "Barang Anda berhasil dijual! Uang Anda bertambah " << profit << " gulden!" << endl;
