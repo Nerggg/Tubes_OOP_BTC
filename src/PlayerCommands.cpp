@@ -140,6 +140,10 @@ void Player::Turn() {
 
         // Print current money and weight
         if (command != NEXT) {
+            // Get player progress percentage
+            float weightProgress = (round((this->weight) * 10000 / (float) getWeightWinAmount())) / (float) 100;
+            float moneyProgress = (round((this->money) * 10000 / (float) getGuldenWinAmount())) / (float) 100;
+            
             sc << BOLD BRIGHT_CYAN<< "Berat badan: " << YELLOW << this->weight << " kg (Progress: " << weightProgress << "%)" << BOLD BRIGHT_CYAN << " | " << "Gulden: " << YELLOW << this->money << " (Progress: " << moneyProgress << "%)" << RESET << endl;
         }
     }
