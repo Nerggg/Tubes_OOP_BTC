@@ -64,6 +64,9 @@ void Walikota::tambahPemain() {
         this->addPlayer(new Peternak(name, 0, 0));
     }
 
+    // Deduct money
+    this->withdrawMoney(50);
+
     // Print output prompt
     sc << RESET << endl;
     sc << BOLD MAGENTA << "Pemain baru berhasil ditambahkan!" << endl;
