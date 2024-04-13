@@ -9,7 +9,7 @@ void Player::makan()
     // Initialize slowprinter
     SlowPrinter &sc = *(SlowPrinter::getSlowPrinter());
     int totalFood = 0;
-    sc << "Pilih makanan dari penyimpanan" << endl;
+    sc << BOLD CYAN << "Pilih makanan dari penyimpanan" << RESET << endl;
     cetakPenyimpanan();
     for (const auto &pair : inventory.getAllItems())
     {
@@ -39,7 +39,7 @@ void Player::makan()
                 item = inventory.getItem(choice);
                 if (item->isBuilding())
                 {
-                    sc << BOLD RED << "\nApa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
+                    sc << BOLD RED << "\nApa yang kamu lakukan?!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
                     sc << "Silahkan masukkan slot yang berisi makanan." << RESET << endl;
                 }
                 else
@@ -47,16 +47,16 @@ void Player::makan()
                     Product *produk = (Product *)item;
                     if (!produk->isEdibleAnimal() && !produk->isEdiblePlant())
                     {
-                        sc << BOLD RED << "\nApa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
+                        sc << BOLD RED << "\nApa yang kamu lakukan?!! Kamu mencoba untuk memakan itu?!!" << RESET << endl;
                         sc << "Silahkan masukkan slot yang berisi makanan." << RESET << endl;
                     }
                     else
                     {
-                        sc << "INI adalah tambahan " << produk->getAddedWeight() << endl;
+                        sc << BOLD GREEN << "INI adalah tambahan " << BOLD YELLOW << produk->getAddedWeight() << RESET << endl;
                         this->weight = this->weight + produk->getAddedWeight();
                         inventory.DeleteItemAt(choice);
                         sc << BOLD GREEN << "\nDengan lahapnya, kamu memakan hidangan itu" << endl;
-                        sc << BOLD GREEN << "Alhasil, berat badan kamu naik menjadi " << this->weight << endl;
+                        sc << BOLD GREEN << "Alhasil, berat badan kamu naik menjadi " << BOLD YELLOW << this->weight << RESET << endl;
                         break;
                     }
                 }

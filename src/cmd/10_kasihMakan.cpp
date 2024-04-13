@@ -8,7 +8,7 @@ void Peternak::kasihMakan()
 {
     // Initialize slowprinter
     SlowPrinter &sc = *(SlowPrinter::getSlowPrinter());
-    sc << "Pilih petak kandang yang akan diberi makan" << endl;
+    sc << BOLD CYAN << "Pilih petak kandang yang akan diberi makan" << RESET << endl;
     cetakPeternakan();
     string choice;
     Animal *animal = nullptr;
@@ -19,11 +19,11 @@ void Peternak::kasihMakan()
         while (true)
         {
 
-            sc << "Petak kandang: ";
+            sc << BOLD GREEN << "Petak kandang: ";
             cin >> choice;
             animal = barn.getItem(choice);
             Animal *hewan = barn.getItem(choice);
-            sc << "Kamu memilih " << hewan->getName() << " untuk diberi makan." << endl;
+            sc << BOLD CYAN << "Kamu memilih " << BOLD YELLOW << hewan->getName() << BOLD CYAN << " untuk diberi makan." << RESET << endl;
             break;
         }
     }
@@ -34,11 +34,11 @@ void Peternak::kasihMakan()
     }
     try
     {
-        sc << "Pilih pangan yang akan diberikan:" << endl;
+        sc << BOLD CYAN << "Pilih pangan yang akan diberikan:" << RESET << endl;
         cetakPenyimpanan();
         while (true)
         {
-            sc << "\nSlot: ";
+            sc << BOLD GREEN << "\nSlot: " << RESET;
             cin >> choice;
             item = inventory.getItem(choice);
             produk = (Product *)item;
@@ -57,7 +57,7 @@ void Peternak::kasihMakan()
                 animal->feed(produk);
                 inventory.DeleteItemAt(choice);
                 sc << "\n"
-                   << animal->getName() << " sudah diberi makan dan beratnya menjadi " << animal->getWeight() << endl;
+                   BOLD GREEN << animal->getName() << BOLD CYAN << " sudah diberi makan dan beratnya menjadi " << BOLD YELLOW << animal->getWeight() << RESET << endl;
                 break;
             }
         }
