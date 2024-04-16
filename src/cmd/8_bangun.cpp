@@ -16,7 +16,6 @@ void Walikota::bangun()
     Building *building = nullptr;
     bool safe = true;
     int price = 0;
-    string formattedName;
     try
     {
         sc << BOLD CYAN << "Resep bangunan yang ada adalah sebagai berikut." << RESET << endl;
@@ -27,13 +26,11 @@ void Walikota::bangun()
             {
                 Item *temp = pair.second->clone();
                 Building *building = (Building *)temp;
-                sc << BOLD YELLOW << i << ". " << pair.second->getName() << " (";
+                sc << BOLD YELLOW << i << ".\t" << pair.second->getName() << " (" << pair.second->getPrice() << " gulden";
                 map<string, int> recipe = building->getRecipe();
                 for (const auto &recipePair : recipe)
                 {
-                    formattedName = recipePair.first;
-                    std::replace(formattedName.begin(), formattedName.end(), '_', ' ');
-                    sc << BOLD YELLOW << recipePair.first << " " << recipePair.second << ", ";
+                    sc << BOLD YELLOW << ", " << recipePair.first << " " << recipePair.second;
                 }
                 sc << BOLD YELLOW << ")" << endl;
                 i++;
@@ -62,7 +59,15 @@ void Walikota::bangun()
             }
             if (!safe)
             {
-                sc << BOLD RED << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan";
+                price = building->getPrice();
+                if (this->money < price)
+                {
+                    sc << BOLD RED << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << price - this->money << " gulden";
+                }
+                else
+                {
+                    sc << BOLD RED << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan";
+                }
                 sc.setMult(0);
                 sc.setDelay(sc.getDelay() - 15);
                 map<string, int> recipe = building->getRecipe();
@@ -71,9 +76,7 @@ void Walikota::bangun()
                     int availableItem = inventory.countItem(recipePair.first);
                     if (availableItem < recipePair.second)
                     {
-                        formattedName = recipePair.first;
-                        std::replace(formattedName.begin(), formattedName.end(), '_', ' ');
-                        sc << ", " << recipePair.second - availableItem << " " << formattedName;
+                        sc << ", " << recipePair.second - availableItem << " " << recipePair.first;
                     }
                 }
                 sc << BOLD RED << "!" << endl;
@@ -82,8 +85,20 @@ void Walikota::bangun()
             }
             else
             {
+                price = building->getPrice();
+                withdrawMoney(price);
                 map<string, int>
                     recipe = building->getRecipe();
+                for (const auto &pair : itemData)
+                {
+                    if (pair.second->isBuilding() && pair.second->getName() == building->getName())
+                    {
+                        Item *temp = pair.second->clone();
+                        Building *newBuilding = (Building *)temp;
+                        inventory.insertItem(newBuilding);
+                        break;
+                    }
+                }
                 for (const auto &recipePair : recipe)
                 {
                     int total = recipePair.second;
@@ -100,17 +115,7 @@ void Walikota::bangun()
                         }
                     }
                 }
-                for (const auto &pair : itemData)
-                {
-                    if (pair.second->isBuilding() && pair.second->getName() == building->getName())
-                    {
-                        Item *temp = pair.second->clone();
-                        Building *newBuilding = (Building *)temp;
-                        inventory.insertItem(newBuilding);
-                        break;
-                    }
-                }
-                formattedName = building->getName();
+                string formattedName = building->getName();
                 std::replace(formattedName.begin(), formattedName.end(), '_', ' ');
                 sc << BOLD YELLOW << formattedName << BOLD GREEN << " berhasil dibangun dan telah menjadi milik walikota!" << RESET << endl;
                 break;
