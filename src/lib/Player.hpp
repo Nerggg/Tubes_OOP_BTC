@@ -18,6 +18,7 @@
 class Player
 {
     friend class FileManager;
+    friend class Game;
 
     protected:
         // Static variables

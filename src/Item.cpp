@@ -99,6 +99,13 @@ int Item::getPrice() {
     return this->price;
 }
 
+bool Item::operator==(Item* x) {
+    return (this->id == x->id) 
+    && (this->code == x->code)
+    && (this->name == x->name)
+    && (this->type == x->type)
+    && (this->price == x->price);
+}
 
 // ========================================================
 // ====================== Product =========================

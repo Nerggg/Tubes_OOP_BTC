@@ -17,7 +17,7 @@ Game::Game() {
 
 void Game::Start() {
     while (!Player::playerHasWon()) {
-        for (const auto& pair : Player::getPlayerData()) {
+        for (const auto& pair : Player::PlayerData) {
             // Get next player
             Player* player = pair.second;
 
@@ -33,7 +33,7 @@ void Game::Start() {
             } while (Player::getPlayerIsSaving());
 
             // Increment all plant ages
-            for (const auto& pair : Player::getPlayerData()) {
+            for (const auto& pair : Player::PlayerData) {
                 Player* player = pair.second;
                 player->incrementAllPlants();
             }
