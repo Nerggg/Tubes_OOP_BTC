@@ -18,7 +18,7 @@ void Walikota::bangun()
     int price = 0;
     try
     {
-        sc << "Resep bangunan yang ada adalah sebagai berikut." << RESET << endl;
+        sc << BOLD CYAN << "Resep bangunan yang ada adalah sebagai berikut." << RESET << endl;
         int i = 1;
         for (const auto &pair : itemData)
         {
@@ -38,12 +38,12 @@ void Walikota::bangun()
         }
         while (true)
         {
-            sc << "\nBangunan yang ingin dibangun: " << RESET;
+            sc << BOLD GREEN << "\nBangunan yang ingin dibangun: " << RESET;
             cin >> choice;
             auto temp = itemData.find(choice);
             if (temp == itemData.end())
             {
-                sc << BOLD RED << "Kamu tidak punya resep bangunan tersebut!" << endl;
+                sc << BOLD RED << "Kamu tidak punya resep bangunan tersebut!" << RESET << endl;
                 continue;
             }
             building = (Building *)temp->second;
@@ -68,6 +68,8 @@ void Walikota::bangun()
                 {
                     sc << BOLD RED << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan";
                 }
+                sc.setMult(0);
+                sc.setDelay(sc.getDelay() - 15);
                 map<string, int> recipe = building->getRecipe();
                 for (const auto &recipePair : recipe)
                 {
@@ -78,6 +80,8 @@ void Walikota::bangun()
                     }
                 }
                 sc << BOLD RED << "!" << endl;
+                sc.resetMult();
+                sc.resetDelay();
             }
             else
             {
@@ -113,7 +117,7 @@ void Walikota::bangun()
                 }
                 string formattedName = building->getName();
                 std::replace(formattedName.begin(), formattedName.end(), '_', ' ');
-                sc << BOLD GREEN << formattedName << " berhasil dibangun dan telah menjadi milik walikota!" << endl;
+                sc << BOLD YELLOW << formattedName << BOLD GREEN << " berhasil dibangun dan telah menjadi milik walikota!" << RESET << endl;
                 break;
             }
         }

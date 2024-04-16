@@ -11,7 +11,7 @@ void Walikota::jual() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << "Berikut merupakan penyimpanan Anda" << endl;
+    sc << BOLD CYAN << "Berikut merupakan penyimpanan Anda" << RESET << endl;
     this->cetakPenyimpanan();
 
     vector<string> slots;
@@ -23,8 +23,8 @@ petak:
     try {
     bool valid = false;
     while (!valid) {
-        sc << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-        sc << "Petak: ";
+        sc << BOLD GREEN << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+        sc << "Petak: " << RESET;
         getline(cin, slotInput);
         stringstream ss(slotInput);
         while (std::getline(ss, slotTemp, ',')) {
@@ -36,7 +36,7 @@ petak:
 
         for (int i = 0; i < int(slots.size()); i++) {
             if (this->inventory.getSlotStatus(slots.at(i)) == NULL) {
-                sc << "Slot " << slots.at(i) << " kosong" << endl;
+                sc << BOLD RED << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
                 while (!slots.empty()) {
                     slots.pop_back();
@@ -67,14 +67,14 @@ petak:
         goto petak;
     }
     catch (invalid_argument &e) {
-        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        sc << BOLD RED << "Slot yang Anda masukkan tidak valid" << endl;
         while (!slots.empty()) {
             slots.pop_back();
         }
         goto petak;
     }
 
-    sc << "Barang Anda berhasil dijual! Uang Anda bertambah " << profit << " gulden!" << endl;
+    sc << BOLD MAGENTA << "Barang Anda berhasil dijual! Uang Anda bertambah " << BOLD YELLOW << profit << BOLD MAGENTA << " gulden!" << RESET << endl;
 }
 
 void Petani::jual() {
@@ -82,7 +82,7 @@ void Petani::jual() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << "Berikut merupakan penyimpanan Anda" << endl;
+    sc << BOLD CYAN << "Berikut merupakan penyimpanan Anda" << RESET << endl;
     this->cetakPenyimpanan();
 
     vector<string> slots;
@@ -94,8 +94,8 @@ petak:
     try {
     bool valid = false;
     while (!valid) {
-        sc << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-        sc << "Petak: ";
+        sc << BOLD GREEN << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+        sc << "Petak: " << RESET;
         getline(cin, slotInput);
         stringstream ss(slotInput);
         while (std::getline(ss, slotTemp, ',')) {
@@ -107,16 +107,7 @@ petak:
 
         for (int i = 0; i < int(slots.size()); i++) {
             if (this->inventory.getSlotStatus(slots.at(i)) == NULL) {
-                sc << "Slot " << slots.at(i) << " kosong" << endl;
-                empty = true;
-                while (!slots.empty()) {
-                    slots.pop_back();
-                }
-                break;
-            }
-            else if (this->inventory.getItem(slots.at(i))->isBuilding()) {
-                sc << "Slot " << slots.at(i) << " adalah bangunan" << endl;
-                sc << "Petani tidak bisa menjual bangunan" << endl;
+                sc << BOLD RED << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
                 while (!slots.empty()) {
                     slots.pop_back();
@@ -147,14 +138,14 @@ petak:
         goto petak;
     }
     catch (invalid_argument &e) {
-        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        sc << BOLD RED << "Slot yang Anda masukkan tidak valid" << endl;
         while (!slots.empty()) {
             slots.pop_back();
         }
         goto petak;
     }
 
-    sc << "Barang Anda berhasil dijual! Uang Anda bertambah " << profit << " gulden!" << endl;
+    sc << BOLD MAGENTA << "Barang Anda berhasil dijual! Uang Anda bertambah " << BOLD YELLOW << profit << BOLD MAGENTA << " gulden!" << RESET << endl;
 }
 
 void Peternak::jual() {
@@ -162,7 +153,7 @@ void Peternak::jual() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << "Berikut merupakan penyimpanan Anda" << endl;
+    sc << BOLD CYAN << "Berikut merupakan penyimpanan Anda" << RESET << endl;
     this->cetakPenyimpanan();
 
     vector<string> slots;
@@ -174,8 +165,8 @@ petak:
     try {
     bool valid = false;
     while (!valid) {
-        sc << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-        sc << "Petak: ";
+        sc << BOLD GREEN << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+        sc << "Petak: " << RESET;
         getline(cin, slotInput);
         stringstream ss(slotInput);
         while (std::getline(ss, slotTemp, ',')) {
@@ -187,16 +178,7 @@ petak:
 
         for (int i = 0; i < int(slots.size()); i++) {
             if (this->inventory.getSlotStatus(slots.at(i)) == NULL) {
-                sc << "Slot " << slots.at(i) << " kosong" << endl;
-                empty = true;
-                while (!slots.empty()) {
-                    slots.pop_back();
-                }
-                break;
-            }
-            else if (this->inventory.getItem(slots.at(i))->isBuilding()) {
-                sc << "Slot " << slots.at(i) << " adalah bangunan" << endl;
-                sc << "Peternak tidak bisa menjual bangunan" << endl;
+                sc << BOLD RED << "Slot " << slots.at(i) << " kosong" << endl;
                 empty = true;
                 while (!slots.empty()) {
                     slots.pop_back();
@@ -227,12 +209,12 @@ petak:
         goto petak;
     }
     catch (invalid_argument &e) {
-        sc << "Slot yang Anda masukkan tidak valid" << endl;
+        sc << BOLD RED << "Slot yang Anda masukkan tidak valid" << endl;
         while (!slots.empty()) {
             slots.pop_back();
         }
         goto petak;
     }
 
-    sc << "Barang Anda berhasil dijual! Uang Anda bertambah " << profit << " gulden!" << endl;
+    sc << BOLD MAGENTA << "Barang Anda berhasil dijual! Uang Anda bertambah " << BOLD YELLOW << profit << BOLD MAGENTA << " gulden!" << RESET << endl;
 }

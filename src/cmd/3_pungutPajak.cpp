@@ -34,14 +34,18 @@ void Walikota::pungutPajak() {
 
     sort(pajakPlayer.begin(), pajakPlayer.end(), comparator);
 
-    sc << "Cring cring cring...\nPajak sudah dipungut!\n" << endl;
-    sc << "Berikut adalah detil dari pemungutan pajak:" << endl;
+    sc << BOLD GREEN << "Cring cring cring...\nPajak sudah dipungut!\n" << endl;
+    sc << BOLD MAGENTA << "Berikut adalah detil dari pemungutan pajak:" << RESET << endl;
     
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 15);
     for (int i = 0; i < int(pajakPlayer.size()); i++) {
-        sc << i+1 << ". " << pajakPlayer.at(i).first << " - " << Player::getPlayerData()[pajakPlayer.at(i).first]->getPlayerType() << ": " << pajakPlayer.at(i).second << " gulden" << endl;
+        sc << BOLD CYAN << i+1 << ". " << BOLD YELLOW << pajakPlayer.at(i).first << BOLD WHITE << " - " << BOLD MAGENTA << Player::getPlayerData()[pajakPlayer.at(i).first]->getPlayerType() << ": " << BOLD YELLOW << pajakPlayer.at(i).second << " gulden" << RESET << endl;
     }
+    sc.resetMult();
+    sc.resetDelay();
 
-    sc << "Negara mendapatkan pemasukan sebesar " << profit << " gulden." << endl;
-    sc << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
+    sc << BOLD CYAN << "Negara mendapatkan pemasukan sebesar " << BOLD YELLOW << profit << BOLD CYAN << " gulden." << RESET << endl;
+    sc << BOLD GREEN << "Gunakan dengan baik dan jangan dikorupsi ya!" << RESET << endl;
 }
 

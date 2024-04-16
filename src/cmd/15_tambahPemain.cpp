@@ -11,7 +11,7 @@ void Walikota::tambahPemain() {
     // Throw error if money is not enough
     if (this->money < 50) {
         sc << BOLD RED << "Uang anda tidak cukup!" << endl;
-        sc << "Penambahan pemain membutuhkan 50 gulden." << RESET << endl << endl;
+        sc << "Penambahan pemain membutuhkan" << BOLD YELLOW << "50" << BOLD RED << " gulden." << RESET << endl << endl;
 
         sc << BOLD CYAN << "Perintah dibatalkan." << endl;
         return;

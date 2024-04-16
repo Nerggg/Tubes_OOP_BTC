@@ -13,19 +13,21 @@ void Walikota::beli() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << "Selamat datang di toko!!" << endl;
-    sc << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+    sc << BOLD MAGENTA << "Selamat datang di toko!!" << endl; sc.setMult(0);
+    sc << BOLD GREEN << "Berikut merupakan benda yang dapat Anda Beli" << endl;
     vector<string> itemList;
     map<string, int>::iterator itStore;
     map<string, int> storeTemp = Store::getStoreData();
     Item *item;
     int num = 1;
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 15);
     for (itStore = storeTemp.begin(); itStore != storeTemp.end(); itStore++) {
         if (itStore->second == 0 || Item::getItemData()[itStore->first]->isBuilding()) {
             continue;
         }
         item = Item::getItemData()[itStore->first];
-        sc << num << ". " << itStore->first << " - " << item->getPrice() << " (" << itStore->second << ")" << endl;
+        sc << BOLD CYAN << num << ". " << BOLD YELLOW << itStore->first << " - " << BOLD GREEN << item->getPrice() << BOLD CYAN << " (" << itStore->second << ")" << endl;
         itemList.push_back(itStore->first);
         num++;
     }
@@ -33,22 +35,24 @@ void Walikota::beli() {
     map<string, Item*>::iterator itItem;
     map<string, Item*> itemTemp = Item::getItemData();
     for (itItem = itemTemp.begin(); itItem != itemTemp.end(); itItem++) {
-        sc << num << ". " << itItem->first << " - " << itItem->second->getPrice() << endl;
+        sc << BOLD CYAN << num << ". " << BOLD YELLOW << itItem->first << " - " << BOLD GREEN << itItem->second->getPrice() << endl;
         itemList.push_back(itItem->first);
         num++;
     }
+    sc.resetMult();
+    sc.resetDelay();
 
-    sc << endl << "Uang Anda: " << this->money << endl;
-    sc << "Slot penyimpanan tersedia: " << this->inventory.getEmptySlotsCount() << endl << endl;
+    sc << endl << BOLD MAGENTA << "Uang Anda: " << BOLD YELLOW << this->money << endl;
+    sc << BOLD MAGENTA << "Slot penyimpanan tersedia: " << BOLD YELLOW << this->inventory.getEmptySlotsCount() << endl << endl;
 
     int buy;
     int q;
     bool valid = false;
 
     while (!valid) {
-        sc << "Barang yang ingin dibeli: ";
+        sc << BOLD GREEN << "Barang yang ingin dibeli: " << RESET;
         cin >> buy;
-        sc << "Kuantitas: ";
+        sc << BOLD GREEN << "Kuantitas: " << RESET;
         cin >> q;
 
         try {
@@ -68,7 +72,7 @@ void Walikota::beli() {
         }
         catch (vectorOutOfRangeException e) {
             sc << e.what() << endl;
-            sc << "Masukkan barang yang ingin dibeli diantara 1 sampai " << itemList.size() << endl;
+            sc << BOLD RED << "Masukkan barang yang ingin dibeli diantara" << BOLD YELLOW << "1" << BOLD RED << " sampai " << BOLD YELLOW << itemList.size() << RESET << endl;
         }
         catch (moneyNotEnoughException e) {
             sc << e.what() << endl;
@@ -82,9 +86,9 @@ void Walikota::beli() {
     }
 
     this->money -= Item::getItemData()[itemList.at(buy-1)]->getPrice();
-    sc << "Selamat Anda berhasil membeli " << q << " " << itemList.at(buy-1) << ". Uang Anda tersisa " << this->money << endl << endl;
+    sc << BOLD MAGENTA << "Selamat Anda berhasil membeli " << BOLD YELLOW << q << " " << BOLD YELLOW << itemList.at(buy-1) << "." << BOLD GREEN << " Uang Anda tersisa " << BOLD YELLOW << this->money << endl << endl;
 
-    sc <<  "Pilih slot untuk menyimpan barang yang Anda beli!" << endl << endl;
+    sc << BOLD YELLOW << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl << endl;
 
     this->cetakPenyimpanan();
 
@@ -95,7 +99,7 @@ void Walikota::beli() {
 petak:
     valid = false;
     while (!valid) {
-        sc << "Petak slot: ";
+        sc << BOLD GREEN << "Petak slot: " << RESET;
         getline(cin, slotInput);
         stringstream ss(slotInput);
         while (std::getline(ss, slotTemp, ',')) {
@@ -105,7 +109,7 @@ petak:
         }
 
         if (int(slots.size()) != q) {
-            sc << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << endl;
+            sc << BOLD RED << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << RESET << endl;
             while (!slots.empty()) {
                 slots.pop_back();
             }
@@ -115,7 +119,7 @@ petak:
                 bool occupied = false;
                 for (int i = 0; i < int(slots.size()); i++) {
                     if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
-                        sc << "Slot " << slots.at(i) << " telah diambil" << endl;
+                        sc << BOLD RED << "Slot " << BOLD YELLOW << slots.at(i) << BOLD RED << " telah diambil" << RESET << endl;
                         occupied = true;
                         while (!slots.empty()) {
                             slots.pop_back();
@@ -135,7 +139,7 @@ petak:
                 goto petak;
             }
             catch (invalid_argument &e) {
-                sc << "Slot yang Anda masukkan tidak valid" << endl;
+                sc << BOLD RED << "Slot yang Anda masukkan tidak valid!" << RESET << endl;
                 while (!slots.empty()) {
                     slots.pop_back();
                 }
@@ -151,7 +155,7 @@ petak:
     if (Store::getStoreData().count(itemList.at(buy-1)) > 0) {
         Store::reduceStoreData(itemList.at(buy-1), q);
     }
-    sc << Item::getItemData()[itemList.at(buy-1)]->getName() << " berhasil disimpan dalam penyimpanan!" << endl;
+    sc << BOLD YELLOW << Item::getItemData()[itemList.at(buy-1)]->getName() << BOLD GREEN << " berhasil disimpan dalam penyimpanan!" << RESET << endl;
 }
 
 void Petani::beli() {
@@ -159,13 +163,15 @@ void Petani::beli() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << "Selamat datang di toko!!" << endl;
-    sc << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+    sc << BOLD MAGENTA << "Selamat datang di toko!!" << endl; sc.setMult(0);
+    sc << BOLD GREEN << "Berikut merupakan benda yang dapat Anda Beli" << endl;
     vector<string> itemList;
     map<string, int>::iterator itStore;
     map<string, int> storeTemp = Store::getStoreData();
     Item *item;
     int num = 1;
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 15);
     for (itStore = storeTemp.begin(); itStore != storeTemp.end(); itStore++) {
         if (itStore->second == 0) {
             continue;
@@ -183,18 +189,20 @@ void Petani::beli() {
         itemList.push_back(itItem->first);
         num++;
     }
+    sc.resetMult();
+    sc.resetDelay();
 
-    sc << endl << "Uang Anda: " << this->money << endl;
-    sc << "Slot penyimpanan tersedia: " << this->inventory.getEmptySlotsCount() << endl << endl;
+    sc << endl << BOLD MAGENTA << "Uang Anda: " << BOLD YELLOW << this->money << endl;
+    sc << BOLD MAGENTA << "Slot penyimpanan tersedia: " << BOLD YELLOW << this->inventory.getEmptySlotsCount() << endl << endl;
 
     int buy;
     int q;
     bool valid = false;
 
     while (!valid) {
-        sc << "Barang yang ingin dibeli: ";
+        sc << BOLD GREEN << "Barang yang ingin dibeli: " << RESET;
         cin >> buy;
-        sc << "Kuantitas: ";
+        sc << BOLD GREEN << "Kuantitas: " << RESET;
         cin >> q;
 
         try {
@@ -214,7 +222,7 @@ void Petani::beli() {
         }
         catch (vectorOutOfRangeException e) {
             sc << e.what() << endl;
-            sc << "Masukkan barang yang ingin dibeli diantara 1 sampai " << itemList.size() << endl;
+            sc << BOLD RED << "Masukkan barang yang ingin dibeli diantara" << BOLD YELLOW << "1" << BOLD RED << " sampai " << BOLD YELLOW << itemList.size() << RESET << endl;
         }
         catch (moneyNotEnoughException e) {
             sc << e.what() << endl;
@@ -228,9 +236,10 @@ void Petani::beli() {
     }
 
     this->money -= Item::getItemData()[itemList.at(buy-1)]->getPrice();
-    sc << "Selamat Anda berhasil membeli " << q << " " << itemList.at(buy-1) << ". Uang Anda tersisa " << this->money << endl << endl;
+    sc << BOLD MAGENTA << "Selamat Anda berhasil membeli " << BOLD YELLOW << q << " " << BOLD YELLOW << itemList.at(buy-1) << "." << BOLD GREEN << " Uang Anda tersisa " << BOLD YELLOW << this->money << endl << endl;
 
-    sc <<  "Pilih slot untuk menyimpan barang yang Anda beli!" << endl << endl;
+    sc << BOLD YELLOW << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl << endl;
+
 
     this->cetakPenyimpanan();
 
@@ -241,7 +250,7 @@ void Petani::beli() {
 petak:
     valid = false;
     while (!valid) {
-        sc << "Petak slot: ";
+        sc << BOLD GREEN << "Petak slot: " << RESET;
         getline(cin, slotInput);
         stringstream ss(slotInput);
         while (std::getline(ss, slotTemp, ',')) {
@@ -251,7 +260,7 @@ petak:
         }
 
         if (int(slots.size()) != q) {
-            sc << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << endl;
+            sc << BOLD RED << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << RESET << endl;
             while (!slots.empty()) {
                 slots.pop_back();
             }
@@ -261,7 +270,7 @@ petak:
                 bool occupied = false;
                 for (int i = 0; i < int(slots.size()); i++) {
                     if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
-                        sc << "Slot " << slots.at(i) << " telah diambil" << endl;
+                        sc << BOLD RED << "Slot " << BOLD YELLOW << slots.at(i) << BOLD RED << " telah diambil" << RESET << endl;
                         occupied = true;
                         while (!slots.empty()) {
                             slots.pop_back();
@@ -281,7 +290,7 @@ petak:
                 goto petak;
             }
             catch (invalid_argument &e) {
-                sc << "Slot yang Anda masukkan tidak valid" << endl;
+                sc << BOLD RED << "Slot yang Anda masukkan tidak valid!" << RESET << endl;
                 while (!slots.empty()) {
                     slots.pop_back();
                 }
@@ -305,13 +314,15 @@ void Peternak::beli() {
     SlowPrinter& sc = *(SlowPrinter::getSlowPrinter());
 
     // Run command
-    sc << "Selamat datang di toko!!" << endl;
-    sc << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+    sc << BOLD MAGENTA << "Selamat datang di toko!!" << endl; sc.setMult(0);
+    sc << BOLD GREEN << "Berikut merupakan benda yang dapat Anda Beli" << endl;
     vector<string> itemList;
     map<string, int>::iterator itStore;
     map<string, int> storeTemp = Store::getStoreData();
     Item *item;
     int num = 1;
+    sc.setMult(0);
+    sc.setDelay(sc.getDelay() - 15);
     for (itStore = storeTemp.begin(); itStore != storeTemp.end(); itStore++) {
         if (itStore->second == 0) {
             continue;
@@ -329,18 +340,20 @@ void Peternak::beli() {
         itemList.push_back(itItem->first);
         num++;
     }
+    sc.resetMult();
+    sc.resetDelay();
 
-    sc << endl << "Uang Anda: " << this->money << endl;
-    sc << "Slot penyimpanan tersedia: " << this->inventory.getEmptySlotsCount() << endl << endl;
+    sc << endl << BOLD MAGENTA << "Uang Anda: " << BOLD YELLOW << this->money << endl;
+    sc << BOLD MAGENTA << "Slot penyimpanan tersedia: " << BOLD YELLOW << this->inventory.getEmptySlotsCount() << endl << endl;
 
     int buy;
     int q;
     bool valid = false;
 
     while (!valid) {
-        sc << "Barang yang ingin dibeli: ";
+        sc << BOLD GREEN << "Barang yang ingin dibeli: " << RESET;
         cin >> buy;
-        sc << "Kuantitas: ";
+        sc << BOLD GREEN << "Kuantitas: " << RESET;
         cin >> q;
 
         try {
@@ -360,7 +373,7 @@ void Peternak::beli() {
         }
         catch (vectorOutOfRangeException e) {
             sc << e.what() << endl;
-            sc << "Masukkan barang yang ingin dibeli diantara 1 sampai " << itemList.size() << endl;
+            sc << BOLD RED << "Masukkan barang yang ingin dibeli diantara" << BOLD YELLOW << "1" << BOLD RED << " sampai " << BOLD YELLOW << itemList.size() << RESET << endl;
         }
         catch (moneyNotEnoughException e) {
             sc << e.what() << endl;
@@ -374,9 +387,10 @@ void Peternak::beli() {
     }
 
     this->money -= Item::getItemData()[itemList.at(buy-1)]->getPrice();
-    sc << "Selamat Anda berhasil membeli " << q << " " << itemList.at(buy-1) << ". Uang Anda tersisa " << this->money << endl << endl;
+    sc << BOLD MAGENTA << "Selamat Anda berhasil membeli " << BOLD YELLOW << q << " " << BOLD YELLOW << itemList.at(buy-1) << "." << BOLD GREEN << " Uang Anda tersisa " << BOLD YELLOW << this->money << endl << endl;
 
-    sc <<  "Pilih slot untuk menyimpan barang yang Anda beli!" << endl << endl;
+    sc << BOLD YELLOW << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl << endl;
+
 
     this->cetakPenyimpanan();
 
@@ -387,7 +401,7 @@ void Peternak::beli() {
 petak:
     valid = false;
     while (!valid) {
-        sc << "Petak slot: ";
+        sc << BOLD GREEN << "Petak slot: " << RESET;
         getline(cin, slotInput);
         stringstream ss(slotInput);
         while (std::getline(ss, slotTemp, ',')) {
@@ -397,7 +411,7 @@ petak:
         }
 
         if (int(slots.size()) != q) {
-            sc << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << endl;
+            sc << BOLD RED << "Tolong masukkan jumlah slot yang sesuai dengan jumlah barang yang kamu beli" << RESET << endl;
             while (!slots.empty()) {
                 slots.pop_back();
             }
@@ -407,7 +421,7 @@ petak:
                 bool occupied = false;
                 for (int i = 0; i < int(slots.size()); i++) {
                     if (this->inventory.getSlotStatus(slots.at(i)) != NULL) {
-                        sc << "Slot " << slots.at(i) << " telah diambil" << endl;
+                        sc << BOLD RED << "Slot " << BOLD YELLOW << slots.at(i) << BOLD RED << " telah diambil" << RESET << endl;
                         occupied = true;
                         while (!slots.empty()) {
                             slots.pop_back();
@@ -427,7 +441,7 @@ petak:
                 goto petak;
             }
             catch (invalid_argument &e) {
-                sc << "Slot yang Anda masukkan tidak valid" << endl;
+                sc << BOLD RED << "Slot yang Anda masukkan tidak valid!" << RESET << endl;
                 while (!slots.empty()) {
                     slots.pop_back();
                 }
