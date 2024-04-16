@@ -59,9 +59,9 @@ void Walikota::tambahPemain() {
 
     // Create player
     if (type == TYPE_PETANI) {
-        this->addPlayer(new Petani(name, 0, 0));
+        this->addPlayer(new Petani(name, 0, 50));
     } else {
-        this->addPlayer(new Peternak(name, 0, 0));
+        this->addPlayer(new Peternak(name, 0, 50));
     }
 
     // Deduct money
