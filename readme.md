@@ -101,7 +101,7 @@ Compiler C++ seperti g++
 
 1. Clone repository ini
    ```
-   git clonehttps://github.com/Nerggg/Tubes_OOP_BTC
+   git clone https://github.com/Nerggg/Tubes_OOP_BTC
    ```
 2. Lakukan navigasi ke direktori `Tubes_OOP_BTC`
    ```
