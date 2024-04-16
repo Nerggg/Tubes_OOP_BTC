@@ -105,6 +105,17 @@ int Animal::getWeight()
     return this->weight;
 }
 
+bool Animal::operator==(Animal *a)
+{
+    return (this->id == a->id) &&
+           (this->code == a->code) &&
+           (this->name == a->name) &&
+           (this->type == a->type) &&
+           (this->harvestWeight == a->harvestWeight) &&
+           (this->weight == a->weight) &&
+           (this->price == a->price);
+}
+
 // ========================================================
 // ====================== Animal ==========================
 // ===================== Setters ==========================

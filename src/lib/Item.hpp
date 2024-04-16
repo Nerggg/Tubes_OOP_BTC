@@ -54,6 +54,7 @@ class Item {
         string getCode();
         string getType();
         int getPrice();
+        bool operator==(Item* I);
 
         // Type checkers
         virtual bool isAnimal() = 0;

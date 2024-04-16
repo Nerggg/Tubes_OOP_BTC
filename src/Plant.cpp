@@ -88,6 +88,16 @@ int Plant::getAge() {
     return this->age;
 }
 
+bool Plant::operator==(Plant* p) {
+    return (this->id == p->id)
+    && (this->code == p->code)
+    && (this->name == p->name)
+    && (this->type == p->type)
+    && (this->harvestAge == p->harvestAge)
+    && (this->age == p->age)
+    && (this->price == p->price);
+}
+
 // ========================================================
 // ======================= Plant ==========================
 // ======================= Setters ========================
