@@ -38,6 +38,7 @@ class Plant : public Item {
         // Getters
         int getHarvestAge();
         int getAge();
+        bool operator==(Plant*);
 
         // Setters
         void operator++(int);    // Add plant age

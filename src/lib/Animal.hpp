@@ -44,6 +44,7 @@ class Animal : public Item {
         // Getters
         int getHarvestWeight();
         int getWeight();
+        bool operator==(Animal*);
 
         // Setters
         Animal& operator+=(int);    // Add animal weight
